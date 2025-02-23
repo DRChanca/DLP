@@ -1,0 +1,54 @@
+struct S1 { }
+
+struct S2 {
+    a:int;
+    b:float;
+    c:char;
+    d:S1;
+}
+
+struct S3 {
+    a:[10]int;
+    b:[10]float;
+    c:[10]char;
+    d:[10]S1;
+}
+
+struct S4 {
+    a:[10][10]int;
+    b:[10][10]float;
+    c:[10][10]char;
+    d:[10][10]S1;
+}
+// -----------------------------------------
+// Declaracion de globales
+
+var a:int;
+var b:float;
+var c:char;
+var d:S1;
+
+var e:[10]int;
+var f:[10]float;
+var g:[10]char;
+var h:[10]S1;
+
+var i:[10][10]int;
+var j:[10][10]float;
+var k:[10][10]char;
+var l:[10][10]S1;
+
+var m:[10][10][10]int;
+var n:[10][10][10]float;
+var o:[10][10][10]char;
+var p:[10][10][10]S1;
+
+f1() {}
+f3():int { }
+f4():float { }
+f5():char { }
+
+f2(a:int, b:float, c:char) {}
+f6(a:int, b:float, c:char):int { }
+f7(a:int, b:float, c:char):float { }
+f8(a:int, b:float, c:char):char { }
