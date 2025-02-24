@@ -31,7 +31,7 @@ argumento
 	; 
 
 declaracion
-	:  IDENT ':' ('[' INT_LITERAL ']')* (tipo|IDENT) ';'
+	:  IDENT ':' ('[' (INT_LITERAL|IDENT) ']')* (tipo|IDENT) ';'
 	; 
 sentencia
 	: 'print' (expr (',' expr)*)?  ';'
@@ -42,7 +42,7 @@ sentencia
 	|  asignacion';'
 	| 'return' expr? ';'
 	|  'if' '(' expr ')' '{' sentencia* '}' ('else' '{' sentencia* '}')? 
-	|  'while' '(' expr ')' '{' sentencia '}'
+	|  'while' '(' expr ')' '{' sentencia* '}'
 	; 
 funcion
 	: IDENT '(' (expr (',' expr)*)* ')' 
@@ -51,14 +51,14 @@ expr
 	: INT_LITERAL
 	| REAL_LITERAL
 	| CHAR_LITERAL
-	| IDENT ('[' INT_LITERAL ']')* 
+	| IDENT ('[' (INT_LITERAL|IDENT) ']')* 
 	| '(' expr ')'
 	| '<'tipo'>' '('expr')'
 	| '!' expr
 	| expr ( '*' | '/' ) expr                    
     | expr ( '+' | '-' ) expr                    
-    | expr ( '<' | '>' | '<=' | '>=' ) expr
-    | expr '==' expr 
+    | expr ( '<' | '>' | '<=' | '>='| ) expr
+    | expr ('=='| '!=') expr 
     | expr '&&' expr                             
     | expr '||' expr      
     | expr '.' expr       

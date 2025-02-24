@@ -1,78 +1,74 @@
-// return -----------------------
+
+// Tipos simples ---------
+var a:int;
+var b:char;
+
+// Arrays ---------
+var c:[5] float;
+var h:[3][2] float;  // Pueden ser más de 2 dimensiones
+
+// Structs -------------
+struct Direccion {
+	portal:int;
+	codigoPostal:int;
+}
+
+var d1:Direccion;
+var d2:Direccion;
 
 struct Persona {
-    edad:int;
+	edad:int;
+	direccion:Direccion;
 }
+
+// Combinación de Arrays y Structs -------------
+var f:[6] Persona;
+
+struct Empresa {
+	cif:[9] char;
+	empleados:[10] Persona;
+}
+
+var microsoft: Empresa;
+
+//// ------------------------------
+//// DEFINICIONES de funciones
+
+dobleSuma(a:int, b:int): int {
+	var local:int;
+
+	local = (a + b) * 2;
+	return local * 2;
+}
+
+escribeEdad(num:int) {
+	printsp microsoft.empleados[num].edad;
+}
+
+var z:int;	// Se puede definir entre funciones
 
 main() {
+  var local: int;
+  var pepe: Persona;
+  var v:[10] int;
 
+  pepe.edad = 20;
+  read pepe.direccion.codigoPostal;
+
+  local = 0;
+  while (local < 10) {
+    v[local] = dobleSuma(<int>(2.0 + h[0][3]), local);
+    local = local + 1;
+  }
+
+  if (a >= 2 && local < 5) {
+    escribeEdad(a + local);
     return;
+  } else {
+    b = 'R';
+  }
 
-    if (1) {
-        return;
-    } else {
-        return;
-    }
-
-    if (1) {
-        if (2) {
-            return;
-        } else {
-            return;
-        }
-    } else {
-        if (2) {
-            return;
-        } else {
-            return;
-        }
-    }
-
-    while (1) {
-        while (2) {
-            return;
-        }
-    }
+  if (z != 2) {
+    escribeEdad(v[local]);
+  }
 }
-
-f2():int {
-    var a:int;
-    var c:char;
-    var v:[10]int;
-    var raul:Persona;
-
-    return 1;
-    return a;
-    return <int>(c);
-    return v[2];
-    return raul.edad;
-    return a >= v[2];
-}
-
-f3():char {
-    var c:char;
-    var v:[10]char;
-    var raul:Persona;
-
-    return 'a';
-    return '\n';
-    return c;
-    return <char>(97);
-    return v[2];
-    return <char>(raul.edad);
-}
-
-f4():float {
-    var f:float;
-    var c:char;
-    var v:[10]float;
-    var raul:Persona;
-
-    return 1.5;
-    return f;
-    return <float>(c);
-    return v[2];
-    return <float>(raul.edad);
-}
-
-
