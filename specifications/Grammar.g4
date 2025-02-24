@@ -40,8 +40,9 @@ sentencia
 	| 'println' (expr (',' expr)*)? ';'
 	|  funcion ';'
 	|  asignacion';'
+	| 'return' expr? ';'
 	|  'if' '(' expr ')' '{' sentencia* '}' ('else' '{' sentencia* '}')? 
-	|  'while' '(' expr ')' '{' sentencia* '}'
+	|  'while' '(' expr ')' '{' sentencia '}'
 	; 
 funcion
 	: IDENT '(' (expr (',' expr)*)* ')' 
