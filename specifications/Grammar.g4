@@ -43,10 +43,12 @@ sentencia
 expr
 	: INT_LITERAL
 	| REAL_LITERAL
+	| CHAR_LITERAL
 	| IDENT ('[' INT_LITERAL ']')* 
 	| expr operador expr
 	| expr '.' IDENT
 	| '<'tipo'>' '('expr')'
+	| IDENT '(' (expr (',' expr)*)* ')'
 	; 	
 asignacion
 	: IDENT ('[' INT_LITERAL ']')* '='  expr

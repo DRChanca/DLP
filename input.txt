@@ -1,71 +1,29 @@
+// call -----------------------
+
 struct Persona {
     edad:int;
 }
 
-main() {
+callNoParams():int { }
+
+callWithParams(a:int, f:float, c:char):int { }
+
+testCall() {
+
     var a:int;
     var f:float;
     var c:char;
     var v:[10]int;
     var raul:Persona;
 
+    a = callNoParams();
 
+    a = callWithParams(1, 1.5, 'a');
+    a = callWithParams(1, 1.5, '\n');
+    a = callWithParams(a, f, c);
+    a = callWithParams(v[2], <float>(v[2]), <char>(v[2]));
+    a = callWithParams(raul.edad, <float>(raul.edad), <char>(raul.edad));
+    a = callWithParams(raul.edad && 2, f + 2.0, c);
 
-    // read -----------------------
-    read a;
-    read f;
-    read c;
-    read v[2];
-    read raul.edad;
-
-    // print -----------------------
-    print a;
-    print f;
-    print c;
-    print v[2];
-    print raul.edad;
-    print a + 2 && v[2];
-
-    printsp a;
-    printsp f;
-    printsp c;
-    printsp v[2];
-    printsp raul.edad;
-    printsp a + 2 && v[2];
-
-    println a;
-    println f;
-    println c;
-    println v[2];
-    println raul.edad;
-    println a + 2 && v[2];
-
-    print a, f, c, v[2], raul.edad, a + 2 && v[2];
-    println a, f, c, v[2], raul.edad, a + 2 && v[2];
-    printsp a, f, c, v[2], raul.edad, a + 2 && v[2];
-
-    print;
-    printsp;
-    println;
-
-    // assign -----------------------
-    a = 1;
-    a = a;
-    a = v[2];
-    a = raul.edad;
-    a = <int>(f);
-    a = a >= v[2];
-
-    v[2] = 1;
-    v[2] = a;
-    v[2] = raul.edad;
-    v[2] = <int>(f);
-    v[2] = a >= v[2];
-
-    raul.edad = 1;
-    raul.edad = a;
-    raul.edad = v[2];
-    raul.edad = <int>(f);
-    raul.edad = a >= v[2];
-
+    print callWithParams(callNoParams(), <float>(callNoParams()) + 1.5, <char>(callNoParams()));
 }
