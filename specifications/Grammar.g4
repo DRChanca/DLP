@@ -38,8 +38,11 @@ sentencia
 	| 'read' (expr (',' expr)*)? ';'
 	| 'printsp' (expr (',' expr)*)? ';'
 	| 'println' (expr (',' expr)*)? ';'
-	| IDENT '(' (expr (',' expr)*)* ')' ';'
-	|  asignacion ';'
+	|  funcion ';'
+	|  asignacion';'
+	; 
+funcion
+	: IDENT '(' (expr (',' expr)*)* ')' 
 	; 
 expr
 	: INT_LITERAL
@@ -47,7 +50,6 @@ expr
 	| CHAR_LITERAL
 	| IDENT ('[' INT_LITERAL ']')* 
 	| '(' expr ')'
-	| expr '.' IDENT
 	| '<'tipo'>' '('expr')'
 	| '!' expr
 	| expr ( '*' | '/' ) expr                    
@@ -56,7 +58,8 @@ expr
     | expr '==' expr 
     | expr '&&' expr                             
     | expr '||' expr      
-    | expr '.' expr                       
+    | expr '.' expr       
+    | funcion           
 	; 	
 asignacion
 	: expr '=' expr
