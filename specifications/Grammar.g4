@@ -3,10 +3,13 @@ grammar Grammar;
 import Tokenizer;
 
 program
-	: declaracionstructs* declaracionglobales* declaracionfuncion* EOF
+	: declaraciones EOF
 	;
 
 
+declaraciones 
+	: (declaracionstructs|declaracionglobales|declaracionfuncion)+
+	; 
 declaracionstructs
 	: 'struct' IDENT '{' (declaracion )* '}'
 	; 
@@ -16,16 +19,44 @@ declaracionglobales
 	; 
 	
 declaracionfuncion
-	: IDENT '(' (argumento (',' argumento)*)* ')' (':' tipo)? '{' '}'
-	;  
-
+	: IDENT '(' (argumento (',' argumento)*)* ')' (':' tipo)? '{' (variablesLocales)* (sentencia)*'}'
+	; 
+	
+variablesLocales
+	: 'var' IDENT ':' ('[' INT_LITERAL ']')* (tipo|IDENT) ';'
+	; 
+	
 argumento
-	: IDVAR ':' (tipo|IDENT)
+	: IDENT ':' (tipo|IDENT)
 	; 
 
 declaracion
-	:  IDVAR ':' ('[' INT_LITERAL ']')* (tipo|IDENT) ';'
+	:  IDENT ':' ('[' INT_LITERAL ']')* (tipo|IDENT) ';'
 	; 
+sentencia
+	: 'print' (expr (',' expr)*)?  ';'
+	| 'read' (expr (',' expr)*)? ';'
+	| 'printsp' (expr (',' expr)*)? ';'
+	| 'println' (expr (',' expr)*)? ';'
+	|  asignacion ';'
+	; 
+expr
+	: INT_LITERAL
+	| REAL_LITERAL
+	| IDENT ('[' INT_LITERAL ']')* 
+	| expr operador expr
+	| expr '.' IDENT
+	| '<'tipo'>' '('expr')'
+	; 	
+asignacion
+	: IDENT ('[' INT_LITERAL ']')* '='  expr
+	| expr '.' IDENT '='  expr 
+	; 
+operador
+	:  ('+'|'-'|'*'|'/')
+	| ('&&' | '||' | '!' |'<' |'>'| '<='| '>=' |'!=' ) 
+	;   
+	
 tipo
 	: 'int'
 	| 'float'
