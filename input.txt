@@ -71,5 +71,5 @@ main() {
   if (z != 2) {
     escribeEdad(v[local]);
   }
-  //Esto es un coment
+  //Esto es un coment, ahora lo deberia subir david
 }
