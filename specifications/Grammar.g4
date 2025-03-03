@@ -23,15 +23,15 @@ declaracionfuncion
 	; 
 	
 variablesLocales
-	: 'var' IDENT ':' ('[' INT_LITERAL ']')* (tipo|IDENT) ';'
+	: 'var' IDENT ':' tipo ';'
 	; 
 	
 argumento
-	: IDENT ':' (tipo|IDENT)
+	: IDENT ':' tipo
 	; 
 
 declaracion
-	:  IDENT ':' ('[' (INT_LITERAL|IDENT) ']')* (tipo|IDENT) ';'
+	:  IDENT ':' tipo ';'
 	; 
 sentencia
 	: 'print' (expr (',' expr)*)?  ';'
@@ -50,8 +50,9 @@ funcion
 expr
 	: INT_LITERAL
 	| REAL_LITERAL
+	| IDENT
 	| CHAR_LITERAL
-	| IDENT ('[' (INT_LITERAL|IDENT) ']')* 
+	| expr '[' expr ']' 
 	| '(' expr ')'
 	| '<'tipo'>' '('expr')'
 	| '!' expr
@@ -61,7 +62,7 @@ expr
     | expr ('=='| '!=') expr 
     | expr '&&' expr                             
     | expr '||' expr      
-    | expr '.' expr       
+    | expr '.' IDENT       
     | funcion           
 	; 	
 asignacion
@@ -72,4 +73,6 @@ tipo
 	: 'int'
 	| 'float'
 	| 'char'
+	| '['INT_LITERAL']' tipo
+	| IDENT
 	; 
