@@ -1,0 +1,239 @@
+' Generated with VGen 2.0.0
+
+@startuml
+
+class Position {
+    +int getLine()
+    +int getColumn()
+    +boolean lessThan(Position other)
+    +boolean greaterThan(Position other)
+}
+
+interface AST {
+    +updatePositions(Object... children)
+    +updatePositions(Position start, Position end)
+    +Object accept(Visitor visitor, Object param)
+}
+
+AST *-[#404040,thickness=1]- Position : start >
+AST *-[#404040,thickness=1]- Position : end >
+
+
+interface Declaraciones {
+}
+AST <|-[#808080]- Declaraciones
+abstract AbstractDeclaraciones
+Declaraciones <|-[#808080]- AbstractDeclaraciones
+AbstractAST <|-[#808080]- AbstractDeclaraciones
+
+interface Tipo {
+}
+AST <|-[#808080]- Tipo
+abstract AbstractTipo
+Tipo <|-[#808080]- AbstractTipo
+AbstractAST <|-[#808080]- AbstractTipo
+
+interface Sentencia {
+}
+AST <|-[#808080]- Sentencia
+abstract AbstractSentencia
+Sentencia <|-[#808080]- AbstractSentencia
+AbstractAST <|-[#808080]- AbstractSentencia
+
+interface Expression {
+}
+AST <|-[#808080]- Expression
+abstract AbstractExpression
+Expression <|-[#808080]- AbstractExpression
+AbstractAST <|-[#808080]- AbstractExpression
+
+interface AST {
+}
+abstract AbstractAST
+AST <|-[#808080]- AbstractAST
+
+class Program {
+}
+AbstractAST <|-[#808080]- Program
+Program o-[#404040,thickness=2]- "✱" Declaraciones : declaracioneses >
+
+class Declaracionstructs {
+	+String nombre
+}
+AbstractDeclaraciones <|-[#808080]- Declaracionstructs
+Declaracionstructs o-[#404040,thickness=2]-  Declaracion : declaracion >
+
+class Declaracionglobales {
+}
+AbstractDeclaraciones <|-[#808080]- Declaracionglobales
+Declaracionglobales o-[#404040,thickness=2]-  Declaracion : declaracion >
+
+class Declaracionfuncion {
+	+String nombre
+}
+AbstractDeclaraciones <|-[#808080]- Declaracionfuncion
+Declaracionfuncion o-[#404040,thickness=2]- "✱" Argumento : argumento >
+Declaracionfuncion o-[#404040,thickness=2]- "0..1" Tipo : tipo >
+Declaracionfuncion o-[#404040,thickness=2]- "✱" VariablesLocales : variablesLocales >
+Declaracionfuncion o-[#404040,thickness=2]- "✱" Sentencia : sentencias >
+
+class VariablesLocales {
+	+String IDENT
+}
+AbstractAST <|-[#808080]- VariablesLocales
+VariablesLocales o-[#404040,thickness=2]-  Tipo : tipo >
+
+class Argumento {
+	+String IDENT
+}
+AbstractAST <|-[#808080]- Argumento
+Argumento o-[#404040,thickness=2]-  Tipo : tipo >
+
+class Declaracion {
+	+String IDENT
+}
+AbstractAST <|-[#808080]- Declaracion
+Declaracion o-[#404040,thickness=2]-  Tipo : tipo >
+
+class PrintSentencia {
+}
+AbstractSentencia <|-[#808080]- PrintSentencia
+PrintSentencia o-[#404040,thickness=2]- "✱" Expression : expressions >
+
+class ReadSentencia {
+}
+AbstractSentencia <|-[#808080]- ReadSentencia
+ReadSentencia o-[#404040,thickness=2]- "✱" Expression : expressions >
+
+class PrintspSentencia {
+}
+AbstractSentencia <|-[#808080]- PrintspSentencia
+PrintspSentencia o-[#404040,thickness=2]- "✱" Expression : expressions >
+
+class PrintlnSentencia {
+}
+AbstractSentencia <|-[#808080]- PrintlnSentencia
+PrintlnSentencia o-[#404040,thickness=2]- "✱" Expression : expressions >
+
+class FuncionSentencia {
+	+String nombre
+}
+AbstractSentencia <|-[#808080]- FuncionSentencia
+FuncionSentencia o-[#404040,thickness=2]- "✱" Expression : argumento >
+
+class AsignacionSentencia {
+}
+AbstractSentencia <|-[#808080]- AsignacionSentencia
+AsignacionSentencia o-[#404040,thickness=2]-  Expression : left >
+AsignacionSentencia o-[#404040,thickness=2]-  Expression : expression >
+
+class ReturnSentencia {
+}
+AbstractSentencia <|-[#808080]- ReturnSentencia
+ReturnSentencia o-[#404040,thickness=2]- "0..1" Expression : expression >
+
+class IfSentencia {
+}
+AbstractSentencia <|-[#808080]- IfSentencia
+IfSentencia o-[#404040,thickness=2]-  Expression : condicion >
+IfSentencia o-[#404040,thickness=2]- "✱" Sentencia : entonces >
+IfSentencia o-[#404040,thickness=2]- "✱" Sentencia : otro >
+
+class WhileSentencia {
+}
+AbstractSentencia <|-[#808080]- WhileSentencia
+WhileSentencia o-[#404040,thickness=2]-  Expression : condicion >
+WhileSentencia o-[#404040,thickness=2]- "✱" Sentencia : entonces >
+
+class IntExpresion {
+	+int intValue
+}
+AbstractExpression <|-[#808080]- IntExpresion
+
+class RealExpresion {
+	+double doubleValue
+}
+AbstractExpression <|-[#808080]- RealExpresion
+
+class IdentificadorExpresion {
+	+String name
+}
+AbstractExpression <|-[#808080]- IdentificadorExpresion
+
+class CharExpresion {
+	+char charValue
+}
+AbstractExpression <|-[#808080]- CharExpresion
+
+class AccessoArrayExpresion {
+}
+AbstractExpression <|-[#808080]- AccessoArrayExpresion
+AccessoArrayExpresion o-[#404040,thickness=2]-  Expression : acceso >
+AccessoArrayExpresion o-[#404040,thickness=2]-  Expression : indice >
+
+class ParentesisExpresion {
+}
+AbstractExpression <|-[#808080]- ParentesisExpresion
+ParentesisExpresion o-[#404040,thickness=2]-  Expression : expression >
+
+class CastExpresion {
+}
+AbstractExpression <|-[#808080]- CastExpresion
+CastExpresion o-[#404040,thickness=2]-  Tipo : tipo >
+CastExpresion o-[#404040,thickness=2]-  Expression : expression >
+
+class NegacionExpresion {
+}
+AbstractExpression <|-[#808080]- NegacionExpresion
+NegacionExpresion o-[#404040,thickness=2]-  Expression : expression >
+
+class ArithmeticExpresion {
+	+String operator
+}
+AbstractExpression <|-[#808080]- ArithmeticExpresion
+ArithmeticExpresion o-[#404040,thickness=2]-  Expression : left >
+ArithmeticExpresion o-[#404040,thickness=2]-  Expression : right >
+
+class LogicExpression {
+	+String operator
+}
+AbstractExpression <|-[#808080]- LogicExpression
+LogicExpression o-[#404040,thickness=2]-  Expression : left >
+LogicExpression o-[#404040,thickness=2]-  Expression : right >
+
+class AcederCap {
+	+String right
+}
+AbstractExpression <|-[#808080]- AcederCap
+AcederCap o-[#404040,thickness=2]-  Expression : left >
+
+class FuncionExpresion {
+	+String nombre
+}
+AbstractExpression <|-[#808080]- FuncionExpresion
+FuncionExpresion o-[#404040,thickness=2]- "✱" Expression : argumentos >
+
+class IntTipo {
+}
+AbstractTipo <|-[#808080]- IntTipo
+
+class FloatTipo {
+}
+AbstractTipo <|-[#808080]- FloatTipo
+
+class CharTipo {
+}
+AbstractTipo <|-[#808080]- CharTipo
+
+class ArrayTipo {
+	+int tamArray
+}
+AbstractTipo <|-[#808080]- ArrayTipo
+ArrayTipo o-[#404040,thickness=2]-  Tipo : tipo >
+
+class StringTipo {
+	+String valor
+}
+AbstractTipo <|-[#808080]- StringTipo
+
+@enduml

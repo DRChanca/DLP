@@ -1,5 +1,52 @@
 CATEGORIES
-
+declaraciones;
+tipo; 
+sentencia; 
+expression; 
 NODES
 
-program -> ;
+program -> declaraciones*;
+
+declaracionstructs:declaraciones -> nombre:string declaracion; 
+
+declaracionglobales:declaraciones -> declaracion; 
+
+declaracionfuncion:declaraciones -> nombre:string argumento:argumento* tipo? variablesLocales:variablesLocales* sentencia*; 
+
+variablesLocales -> IDENT:string tipo; 
+
+argumento -> IDENT:string tipo; 
+
+declaracion -> IDENT:string tipo; 
+
+
+printSentencia:sentencia ->   expression*;
+readSentencia:sentencia ->   expression*; 
+printspSentencia:sentencia ->   expression*; 
+printlnSentencia: sentencia ->  expression*; 
+funcionSentencia:sentencia -> nombre:string argumento:expression*; 
+asignacionSentencia:sentencia -> left:expression   expression; 
+returnSentencia:sentencia -> expression? ; 
+ifSentencia:sentencia -> condicion:expression entonces:sentencia* otro:sentencia*; 
+whileSentencia:sentencia -> condicion:expression entonces:sentencia*; 
+
+intExpresion:expression -> int; 
+realExpresion:expression -> double; 
+identificadorExpresion: expression -> string; 
+charExpresion:expression -> char; 
+accessoArrayExpresion:expression -> acceso:expression indice:expression; 
+parentesisExpresion:expression -> expression; 
+castExpresion:expression -> tipo expression; 
+negacionExpresion:expression -> expression; 
+arithmeticExpresion:expression -> left:expression operator:string right:expression; 
+logicExpression:expression -> left:expression operator:string right:expression; 
+acederCap:expression -> left:expression right:string; 
+funcionExpresion:expression -> nombre:string argumentos:expression*;  
+
+
+
+intTipo:tipo ->  ; 
+floatTipo:tipo ->  ;
+charTipo:tipo ->  ; 
+arrayTipo:tipo -> tamArray:int tipo;
+StringTipo:tipo-> valor:string;   

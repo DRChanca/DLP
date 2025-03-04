@@ -1,0 +1,225 @@
+' Generated with VGen 2.0.0
+
+@startuml
+
+class Position {
+    +int getLine()
+    +int getColumn()
+    +boolean lessThan(Position other)
+    +boolean greaterThan(Position other)
+}
+
+interface AST {
+    +updatePositions(Object... children)
+    +updatePositions(Position start, Position end)
+    +Object accept(Visitor visitor, Object param)
+}
+
+AST *-[#404040,thickness=1]- Position : start >
+AST *-[#404040,thickness=1]- Position : end >
+
+
+interface Declaraciones {
+}
+AST <|-[#808080]- Declaraciones
+
+interface Tipo {
+}
+AST <|-[#808080]- Tipo
+
+interface Sentencia {
+}
+AST <|-[#808080]- Sentencia
+
+interface Expression {
+}
+AST <|-[#808080]- Expression
+
+interface AST {
+}
+
+class Program {
+}
+AST <|-[#808080]- Program
+Program o-[#404040,thickness=2]- "✱" Declaraciones : declaracioneses >
+
+class Declaracionstructs {
+	+String nombre
+}
+Declaraciones <|-[#808080]- Declaracionstructs
+Declaracionstructs o-[#404040,thickness=2]-  Declaracion : declaracion >
+
+class Declaracionglobales {
+}
+Declaraciones <|-[#808080]- Declaracionglobales
+Declaracionglobales o-[#404040,thickness=2]-  Declaracion : declaracion >
+
+class Declaracionfuncion {
+	+String nombre
+}
+Declaraciones <|-[#808080]- Declaracionfuncion
+Declaracionfuncion o-[#404040,thickness=2]- "✱" Argumento : argumento >
+Declaracionfuncion o-[#404040,thickness=2]- "0..1" Tipo : tipo >
+Declaracionfuncion o-[#404040,thickness=2]- "✱" VariablesLocales : variablesLocales >
+Declaracionfuncion o-[#404040,thickness=2]- "✱" Sentencia : sentencias >
+
+class VariablesLocales {
+	+String IDENT
+}
+AST <|-[#808080]- VariablesLocales
+VariablesLocales o-[#404040,thickness=2]-  Tipo : tipo >
+
+class Argumento {
+	+String IDENT
+}
+AST <|-[#808080]- Argumento
+Argumento o-[#404040,thickness=2]-  Tipo : tipo >
+
+class Declaracion {
+	+String IDENT
+}
+AST <|-[#808080]- Declaracion
+Declaracion o-[#404040,thickness=2]-  Tipo : tipo >
+
+class PrintSentencia {
+}
+Sentencia <|-[#808080]- PrintSentencia
+PrintSentencia o-[#404040,thickness=2]- "✱" Expression : expressions >
+
+class ReadSentencia {
+}
+Sentencia <|-[#808080]- ReadSentencia
+ReadSentencia o-[#404040,thickness=2]- "✱" Expression : expressions >
+
+class PrintspSentencia {
+}
+Sentencia <|-[#808080]- PrintspSentencia
+PrintspSentencia o-[#404040,thickness=2]- "✱" Expression : expressions >
+
+class PrintlnSentencia {
+}
+Sentencia <|-[#808080]- PrintlnSentencia
+PrintlnSentencia o-[#404040,thickness=2]- "✱" Expression : expressions >
+
+class FuncionSentencia {
+	+String nombre
+}
+Sentencia <|-[#808080]- FuncionSentencia
+FuncionSentencia o-[#404040,thickness=2]- "✱" Expression : argumento >
+
+class AsignacionSentencia {
+}
+Sentencia <|-[#808080]- AsignacionSentencia
+AsignacionSentencia o-[#404040,thickness=2]-  Expression : left >
+AsignacionSentencia o-[#404040,thickness=2]-  Expression : expression >
+
+class ReturnSentencia {
+}
+Sentencia <|-[#808080]- ReturnSentencia
+ReturnSentencia o-[#404040,thickness=2]- "0..1" Expression : expression >
+
+class IfSentencia {
+}
+Sentencia <|-[#808080]- IfSentencia
+IfSentencia o-[#404040,thickness=2]-  Expression : condicion >
+IfSentencia o-[#404040,thickness=2]- "✱" Sentencia : entonces >
+IfSentencia o-[#404040,thickness=2]- "✱" Sentencia : otro >
+
+class WhileSentencia {
+}
+Sentencia <|-[#808080]- WhileSentencia
+WhileSentencia o-[#404040,thickness=2]-  Expression : condicion >
+WhileSentencia o-[#404040,thickness=2]- "✱" Sentencia : entonces >
+
+class IntExpresion {
+	+int intValue
+}
+Expression <|-[#808080]- IntExpresion
+
+class RealExpresion {
+	+double doubleValue
+}
+Expression <|-[#808080]- RealExpresion
+
+class IdentificadorExpresion {
+	+String name
+}
+Expression <|-[#808080]- IdentificadorExpresion
+
+class CharExpresion {
+	+char charValue
+}
+Expression <|-[#808080]- CharExpresion
+
+class AccessoArrayExpresion {
+}
+Expression <|-[#808080]- AccessoArrayExpresion
+AccessoArrayExpresion o-[#404040,thickness=2]-  Expression : acceso >
+AccessoArrayExpresion o-[#404040,thickness=2]-  Expression : indice >
+
+class ParentesisExpresion {
+}
+Expression <|-[#808080]- ParentesisExpresion
+ParentesisExpresion o-[#404040,thickness=2]-  Expression : expression >
+
+class CastExpresion {
+}
+Expression <|-[#808080]- CastExpresion
+CastExpresion o-[#404040,thickness=2]-  Tipo : tipo >
+CastExpresion o-[#404040,thickness=2]-  Expression : expression >
+
+class NegacionExpresion {
+}
+Expression <|-[#808080]- NegacionExpresion
+NegacionExpresion o-[#404040,thickness=2]-  Expression : expression >
+
+class ArithmeticExpresion {
+	+String operator
+}
+Expression <|-[#808080]- ArithmeticExpresion
+ArithmeticExpresion o-[#404040,thickness=2]-  Expression : left >
+ArithmeticExpresion o-[#404040,thickness=2]-  Expression : right >
+
+class LogicExpression {
+	+String operator
+}
+Expression <|-[#808080]- LogicExpression
+LogicExpression o-[#404040,thickness=2]-  Expression : left >
+LogicExpression o-[#404040,thickness=2]-  Expression : right >
+
+class AcederCap {
+	+String right
+}
+Expression <|-[#808080]- AcederCap
+AcederCap o-[#404040,thickness=2]-  Expression : left >
+
+class FuncionExpresion {
+	+String nombre
+}
+Expression <|-[#808080]- FuncionExpresion
+FuncionExpresion o-[#404040,thickness=2]- "✱" Expression : argumentos >
+
+class IntTipo {
+}
+Tipo <|-[#808080]- IntTipo
+
+class FloatTipo {
+}
+Tipo <|-[#808080]- FloatTipo
+
+class CharTipo {
+}
+Tipo <|-[#808080]- CharTipo
+
+class ArrayTipo {
+	+int tamArray
+}
+Tipo <|-[#808080]- ArrayTipo
+ArrayTipo o-[#404040,thickness=2]-  Tipo : tipo >
+
+class StringTipo {
+	+String valor
+}
+Tipo <|-[#808080]- StringTipo
+
+@enduml

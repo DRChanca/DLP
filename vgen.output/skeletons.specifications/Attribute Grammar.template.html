@@ -1,0 +1,322 @@
+<!-- Generated with VGen 2.0.0 -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Attribute Grammar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+
+<style type="text/css">
+    body {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 14px;
+        color: #595959;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: 5px 10px 5px 10px;
+        border: 1px solid #595959;
+        vertical-align: top;
+    }
+
+    .table-header {
+        color: #FFFFFF;
+        background-color: #2980B9;
+    }
+
+    .symbol-name {
+        font-weight: bold;
+    }
+
+    .parents {
+        color: #A6A6A6;
+    }
+
+    .att-name {
+        color: #F28A3E;
+        font-size: 12px;
+    }
+
+    .att-type {
+        color: #595959;
+        padding-right: 3px;
+    }
+
+</style>
+
+
+
+</head>
+
+<body>
+
+    <h2>Attribute Grammar</h2>
+
+    <h3>Attributes</h3>
+
+    <table border="1" cellspacing="0">
+        <tr class="table-header">
+            <td>Symbol</td>
+            <td>Attribute Name</td>
+            <td>Java Type</td>
+            <td>Inherited/Synthesized</td>
+            <td>Description</td>
+        </tr>
+
+        <tr>
+            <td>&nbsp;</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+        <td>&nbsp;</td>
+        <td></td>
+        <td></td>
+        <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            </table>
+
+    <h3>Rules</h3>
+    <table>
+        <tr class="table-header">
+            <td>Node</td>
+            <td>Predicates</td>
+            <td>Semantic Functions</td>
+        </tr>
+
+
+
+
+        <tr>
+            <td><span class="symbol-name">program</span> &rarr; <span class="att-type">declaraciones*</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">declaracionstructs</span><span class="parents">:declaraciones</span> &rarr; <span class="att-name">nombre</span>:<span class="att-type">string</span> <span class="att-type">declaracion</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">declaracionglobales</span><span class="parents">:declaraciones</span> &rarr; <span class="att-type">declaracion</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">declaracionfuncion</span><span class="parents">:declaraciones</span> &rarr; <span class="att-name">nombre</span>:<span class="att-type">string</span> <span class="att-name">argumento</span>:<span class="att-type">argumento*</span> <span class="att-type">tipo?</span> <span class="att-name">variablesLocales</span>:<span class="att-type">variablesLocales*</span> <span class="att-type">sentencia*</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">variablesLocales</span> &rarr; <span class="att-name">IDENT</span>:<span class="att-type">string</span> <span class="att-type">tipo</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">argumento</span> &rarr; <span class="att-name">IDENT</span>:<span class="att-type">string</span> <span class="att-type">tipo</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">declaracion</span> &rarr; <span class="att-name">IDENT</span>:<span class="att-type">string</span> <span class="att-type">tipo</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">printSentencia</span><span class="parents">:sentencia</span> &rarr; <span class="att-type">expression*</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">readSentencia</span><span class="parents">:sentencia</span> &rarr; <span class="att-type">expression*</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">printspSentencia</span><span class="parents">:sentencia</span> &rarr; <span class="att-type">expression*</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">printlnSentencia</span><span class="parents">:sentencia</span> &rarr; <span class="att-type">expression*</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">funcionSentencia</span><span class="parents">:sentencia</span> &rarr; <span class="att-name">nombre</span>:<span class="att-type">string</span> <span class="att-name">argumento</span>:<span class="att-type">expression*</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">asignacionSentencia</span><span class="parents">:sentencia</span> &rarr; <span class="att-name">left</span>:<span class="att-type">expression</span> <span class="att-type">expression</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">returnSentencia</span><span class="parents">:sentencia</span> &rarr; <span class="att-type">expression?</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">ifSentencia</span><span class="parents">:sentencia</span> &rarr; <span class="att-name">condicion</span>:<span class="att-type">expression</span> <span class="att-name">entonces</span>:<span class="att-type">sentencia*</span> <span class="att-name">otro</span>:<span class="att-type">sentencia*</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">whileSentencia</span><span class="parents">:sentencia</span> &rarr; <span class="att-name">condicion</span>:<span class="att-type">expression</span> <span class="att-name">entonces</span>:<span class="att-type">sentencia*</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">intExpresion</span><span class="parents">:expression</span> &rarr; <span class="att-name">intValue</span>:<span class="att-type">int</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">realExpresion</span><span class="parents">:expression</span> &rarr; <span class="att-name">doubleValue</span>:<span class="att-type">double</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">identificadorExpresion</span><span class="parents">:expression</span> &rarr; <span class="att-name">name</span>:<span class="att-type">string</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">charExpresion</span><span class="parents">:expression</span> &rarr; <span class="att-name">charValue</span>:<span class="att-type">char</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">accessoArrayExpresion</span><span class="parents">:expression</span> &rarr; <span class="att-name">acceso</span>:<span class="att-type">expression</span> <span class="att-name">indice</span>:<span class="att-type">expression</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">parentesisExpresion</span><span class="parents">:expression</span> &rarr; <span class="att-type">expression</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">castExpresion</span><span class="parents">:expression</span> &rarr; <span class="att-type">tipo</span> <span class="att-type">expression</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">negacionExpresion</span><span class="parents">:expression</span> &rarr; <span class="att-type">expression</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">arithmeticExpresion</span><span class="parents">:expression</span> &rarr; <span class="att-name">left</span>:<span class="att-type">expression</span> <span class="att-name">operator</span>:<span class="att-type">string</span> <span class="att-name">right</span>:<span class="att-type">expression</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">logicExpression</span><span class="parents">:expression</span> &rarr; <span class="att-name">left</span>:<span class="att-type">expression</span> <span class="att-name">operator</span>:<span class="att-type">string</span> <span class="att-name">right</span>:<span class="att-type">expression</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">acederCap</span><span class="parents">:expression</span> &rarr; <span class="att-name">left</span>:<span class="att-type">expression</span> <span class="att-name">right</span>:<span class="att-type">string</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">funcionExpresion</span><span class="parents">:expression</span> &rarr; <span class="att-name">nombre</span>:<span class="att-type">string</span> <span class="att-name">argumentos</span>:<span class="att-type">expression*</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">intTipo</span><span class="parents">:tipo</span> &rarr; &epsilon;</td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">floatTipo</span><span class="parents">:tipo</span> &rarr; &epsilon;</td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">charTipo</span><span class="parents">:tipo</span> &rarr; &epsilon;</td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">arrayTipo</span><span class="parents">:tipo</span> &rarr; <span class="att-name">tamArray</span>:<span class="att-type">int</span> <span class="att-type">tipo</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><span class="symbol-name">StringTipo</span><span class="parents">:tipo</span> &rarr; <span class="att-name">valor</span>:<span class="att-type">string</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+
+
+    </table>
+
+    <br>
+    Operators samples (cut &amp; paste if needed):<br> &rArr; &hArr; &ne; &empty; &isin; &notin; &cup; &cap; &sub; &nsub; &sum; &exist; &forall;
+
+
+
+</body>
+
+</html>
+
