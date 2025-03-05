@@ -379,7 +379,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		return null;
 	}
 
-	// class StringTipo(String valor)
+	// class StringTipo(String name)
 	@Override
 	public Object visit(StringTipo stringTipo, Object param) {
 

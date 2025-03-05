@@ -12,7 +12,7 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	StringTipo: tipo -> valor:string
+	StringTipo: tipo -> name:string
 	tipo -> 
 */
 public class StringTipo extends AbstractTipo  {
@@ -20,47 +20,47 @@ public class StringTipo extends AbstractTipo  {
     // ----------------------------------
     // Instance Variables
 
-	// StringTipo: tipo -> valor:string
-	private String valor;
+	// StringTipo: tipo -> string
+	private String name;
 
     // ----------------------------------
     // Constructors
 
-	public StringTipo(String valor) {
+	public StringTipo(String name) {
 		super();
 
-		if (valor == null)
-			throw new IllegalArgumentException("Parameter 'valor' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
-		this.valor = valor;
+		if (name == null)
+			throw new IllegalArgumentException("Parameter 'name' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
+		this.name = name;
 
-		updatePositions(valor);
+		updatePositions(name);
 	}
 
-	public StringTipo(Object valor) {
+	public StringTipo(Object name) {
 		super();
 
-        if (valor == null)
-            throw new IllegalArgumentException("Parameter 'valor' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
-		this.valor = (valor instanceof Token) ? ((Token) valor).getText() : (String) valor;
+        if (name == null)
+            throw new IllegalArgumentException("Parameter 'name' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
+		this.name = (name instanceof Token) ? ((Token) name).getText() : (String) name;
 
-		updatePositions(valor);
+		updatePositions(name);
 	}
 
 
     // ----------------------------------
-    // StringTipo: tipo -> valor:string
+    // StringTipo: tipo -> string
 
-	// Child 'valor:string' 
+	// Child 'string' 
 
-	public void setValor(String valor) {
-		if (valor == null)
-			throw new IllegalArgumentException("Parameter 'valor' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
-		this.valor = valor;
+	public void setName(String name) {
+		if (name == null)
+			throw new IllegalArgumentException("Parameter 'name' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
+		this.name = name;
 
 	}
 
-    public String getValor() {
-        return valor;
+    public String getName() {
+        return name;
     }
 
 
@@ -74,7 +74,7 @@ public class StringTipo extends AbstractTipo  {
 
     @Override
     public String toString() {
-        return "StringTipo{" + " valor=" + this.getValor() + "}";
+        return "StringTipo{" + " name=" + this.getName() + "}";
     }
 
 

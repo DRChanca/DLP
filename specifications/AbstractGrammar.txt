@@ -49,4 +49,4 @@ intTipo:tipo ->  string;
 floatTipo:tipo ->  string;
 charTipo:tipo ->  string; 
 arrayTipo:tipo -> tamArray:int tipo;
-StringTipo:tipo-> valor:string;   
+StringTipo:tipo-> string;   

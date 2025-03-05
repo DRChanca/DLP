@@ -29,7 +29,7 @@ tipo returns[Tipo ast]
     | name=IDENT                          { $ast = new FloatTipo($name); }                       
     | name=IDENT                          { $ast = new CharTipo($name); }                        
     | INT_LITERAL tipo                    { $ast = new ArrayTipo($INT_LITERAL, $tipo.ast); }     
-    | valor=IDENT                         { $ast = new StringTipo($valor); }                     
+    | name=IDENT                          { $ast = new StringTipo($name); }                      
 	;
 
 argumento returns[Argumento ast]

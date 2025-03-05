@@ -235,7 +235,7 @@ AbstractTipo <|-[#808080]- ArrayTipo
 ArrayTipo o-[#404040,thickness=2]-  Tipo : tipo >
 
 class StringTipo {
-	+String valor
+	+String name
 }
 AbstractTipo <|-[#808080]- StringTipo
 

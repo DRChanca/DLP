@@ -1384,7 +1384,6 @@ public class GrammarParser extends Parser {
 		public Token var;
 		public Token INT_LITERAL;
 		public TipoContext tipo;
-		public Token IDENT;
 		public TerminalNode INT_LITERAL() { return getToken(GrammarParser.INT_LITERAL, 0); }
 		public TipoContext tipo() {
 			return getRuleContext(TipoContext.class,0);
@@ -1445,8 +1444,8 @@ public class GrammarParser extends Parser {
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(306);
-				((TipoContext)_localctx).IDENT = match(IDENT);
-				 ((TipoContext)_localctx).ast =  new StringTipo((((TipoContext)_localctx).IDENT!=null?((TipoContext)_localctx).IDENT.getText():null)); 
+				((TipoContext)_localctx).var = match(IDENT);
+				 ((TipoContext)_localctx).ast =  new StringTipo(((TipoContext)_localctx).var); 
 				}
 				break;
 			default:

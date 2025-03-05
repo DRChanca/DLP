@@ -97,5 +97,5 @@ tipo returns[Tipo ast]
 	| var='float'     { $ast = new FloatTipo($var); } 
 	| var='char'   { $ast = new CharTipo($var); }    
 	| '['INT_LITERAL']' tipo   { $ast = new ArrayTipo($INT_LITERAL, $tipo.ast); }    
-	| IDENT     { $ast = new StringTipo($IDENT.text); }   
+	| var=IDENT     { $ast = new StringTipo($var); }   
 	; 
