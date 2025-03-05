@@ -24,7 +24,7 @@ declaraciones returns[List<Declaraciones> list = new ArrayList<Declaraciones>()]
 	; 
 	
 declaracionstructs returns[Declaraciones ast]
-	: 'struct' IDENT '{' (declaracion )* '}'   { $ast = new Declaracionstructs($IDENT.text, $declaracion.ast); }
+	: 'struct' IDENT '{' listdeclaraciones  '}'   { $ast = new Declaracionstructs($IDENT.text, $listdeclaraciones.list); }
 	;
 declaracionglobales returns[Declaraciones ast]
 	: 'var' declaracion   { $ast = new Declaracionglobales($declaracion.ast); } 
@@ -51,7 +51,9 @@ argumentos returns[List<Argumento> list = new ArrayList<Argumento>()]
 declaracion  returns[Declaracion ast]
 	:  IDENT ':' tipo ';'   { $ast = new Declaracion($IDENT.text, $tipo.ast); }    
 	; 
-
+listdeclaraciones returns[List<Declaracion> list = new ArrayList<Declaracion>()]
+	: (declaracion{$list.add($declaracion.ast);})*
+	;
 sentencia returns[Sentencia ast]
 	: 'print' expresiones?   ';'   { $ast = new PrintSentencia($expresiones.ctx == null ? new ArrayList<Expression>() : $expresiones.list); }
 	| 'read' expresiones?  ';'  { $ast = new ReadSentencia($expresiones.ctx == null ? new ArrayList<Expression>() : $expresiones.list); }
@@ -91,9 +93,9 @@ expr returns[Expression ast]
 	; 	
 	
 tipo returns[Tipo ast]
-	: 'int'  { $ast = new IntTipo(); }    
-	| 'float'     { $ast = new FloatTipo(); } 
-	| 'char'   { $ast = new CharTipo(); }    
+	: var='int'  { $ast = new IntTipo($var); }    
+	| var='float'     { $ast = new FloatTipo($var); } 
+	| var='char'   { $ast = new CharTipo($var); }    
 	| '['INT_LITERAL']' tipo   { $ast = new ArrayTipo($INT_LITERAL, $tipo.ast); }    
 	| IDENT     { $ast = new StringTipo($IDENT.text); }   
 	; 

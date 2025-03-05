@@ -15,7 +15,7 @@ program returns[Program ast]
 	;
 
 declaraciones returns[Declaraciones ast]
-    : nombre=IDENT declaracion            { $ast = new Declaracionstructs($nombre, $declaracion.ast); }
+    : nombre=IDENT declaracions+=declaracion* { $ast = new Declaracionstructs($nombre, $declaracions); }
     | declaracion                         { $ast = new Declaracionglobales($declaracion.ast); }  
     | nombre=IDENT argumento+=argumento* tipo? variablesLocales+=variablesLocales* sentencias+=sentencia* { $ast = new Declaracionfuncion($nombre, $argumento, ($tipo.ctx == null) ? null : $tipo.ast, $variablesLocales, $sentencias); }
 	;
@@ -25,9 +25,9 @@ declaracion returns[Declaracion ast]
 	;
 
 tipo returns[Tipo ast]
-    :                                     { $ast = new IntTipo(); }                              
-    |                                     { $ast = new FloatTipo(); }                            
-    |                                     { $ast = new CharTipo(); }                             
+    : name=IDENT                          { $ast = new IntTipo($name); }                         
+    | name=IDENT                          { $ast = new FloatTipo($name); }                       
+    | name=IDENT                          { $ast = new CharTipo($name); }                        
     | INT_LITERAL tipo                    { $ast = new ArrayTipo($INT_LITERAL, $tipo.ast); }     
     | valor=IDENT                         { $ast = new StringTipo($valor); }                     
 	;

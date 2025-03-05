@@ -35,7 +35,7 @@ public class DefaultVisitor implements Visitor {
 	@Override
 	public Object visit(Declaracionstructs declaracionstructs, Object param) {
 
-		declaracionstructs.getDeclaracion().accept(this, param);
+		declaracionstructs.getDeclaracions().forEach(declaracion -> declaracion.accept(this, param));
 		return null;
 	}
 

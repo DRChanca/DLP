@@ -3,6 +3,9 @@
 package ast.declaraciones;
 
 import ast.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.stream.Stream;
 import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
@@ -13,7 +16,7 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	declaracionstructs: declaraciones -> nombre:string declaracion:declaracion
+	declaracionstructs: declaraciones -> nombre:string declaracions:declaracion*
 	declaraciones -> 
 */
 public class Declaracionstructs extends AbstractDeclaraciones  {
@@ -21,44 +24,41 @@ public class Declaracionstructs extends AbstractDeclaraciones  {
     // ----------------------------------
     // Instance Variables
 
-	// declaracionstructs: declaraciones -> nombre:string declaracion
+	// declaracionstructs: declaraciones -> nombre:string declaracion*
 	private String nombre;
-	private Declaracion declaracion;
+	private List<Declaracion> declaracions;
 
     // ----------------------------------
     // Constructors
 
-	public Declaracionstructs(String nombre, Declaracion declaracion) {
+	public Declaracionstructs(String nombre, List<Declaracion> declaracions) {
 		super();
 
 		if (nombre == null)
 			throw new IllegalArgumentException("Parameter 'nombre' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
 		this.nombre = nombre;
 
-		if (declaracion == null)
-			throw new IllegalArgumentException("Parameter 'declaracion' can't be null. Pass a non-null value or use 'declaracion?' in the abstract grammar");
-		this.declaracion = declaracion;
+		if (declaracions == null)
+			declaracions = new ArrayList<>();
+		this.declaracions = declaracions;
 
-		updatePositions(nombre, declaracion);
+		updatePositions(nombre, declaracions);
 	}
 
-	public Declaracionstructs(Object nombre, Object declaracion) {
+	public Declaracionstructs(Object nombre, Object declaracions) {
 		super();
 
         if (nombre == null)
             throw new IllegalArgumentException("Parameter 'nombre' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
 		this.nombre = (nombre instanceof Token) ? ((Token) nombre).getText() : (String) nombre;
 
-        if (declaracion == null)
-            throw new IllegalArgumentException("Parameter 'declaracion' can't be null. Pass a non-null value or use 'declaracion?' in the abstract grammar");
-		this.declaracion = (Declaracion) declaracion;
-
-		updatePositions(nombre, declaracion);
+        this.declaracions = castList(declaracions, unwrapIfContext.andThen(Declaracion.class::cast));
+		updatePositions(nombre, declaracions);
 	}
 
 
     // ----------------------------------
-    // declaracionstructs: declaraciones -> nombre:string declaracion
+    // declaracionstructs: declaraciones -> nombre:string declaracion*
 
 	// Child 'nombre:string' 
 
@@ -74,17 +74,21 @@ public class Declaracionstructs extends AbstractDeclaraciones  {
     }
 
 
-	// Child 'declaracion' 
+	// Child 'declaracion*' 
 
-	public void setDeclaracion(Declaracion declaracion) {
-		if (declaracion == null)
-			throw new IllegalArgumentException("Parameter 'declaracion' can't be null. Pass a non-null value or use 'declaracion?' in the abstract grammar");
-		this.declaracion = declaracion;
+	public void setDeclaracions(List<Declaracion> declaracions) {
+		if (declaracions == null)
+			declaracions = new ArrayList<>();
+		this.declaracions = declaracions;
 
 	}
 
-    public Declaracion getDeclaracion() {
-        return declaracion;
+    public List<Declaracion> getDeclaracions() {
+        return declaracions;
+    }
+
+    public Stream<Declaracion> declaracions() {
+        return declaracions.stream();
     }
 
 
@@ -98,7 +102,7 @@ public class Declaracionstructs extends AbstractDeclaraciones  {
 
     @Override
     public String toString() {
-        return "Declaracionstructs{" + " nombre=" + this.getNombre() + " declaracion=" + this.getDeclaracion() + "}";
+        return "Declaracionstructs{" + " nombre=" + this.getNombre() + " declaracions=" + this.getDeclaracions() + "}";
     }
 
 

@@ -2,6 +2,7 @@
 
 package ast.tipo;
 
+import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
 // %% User Declarations -------------
@@ -11,11 +12,56 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	floatTipo: tipo -> 
+	floatTipo: tipo -> name:string
 	tipo -> 
 */
 public class FloatTipo extends AbstractTipo  {
 
+    // ----------------------------------
+    // Instance Variables
+
+	// floatTipo: tipo -> string
+	private String name;
+
+    // ----------------------------------
+    // Constructors
+
+	public FloatTipo(String name) {
+		super();
+
+		if (name == null)
+			throw new IllegalArgumentException("Parameter 'name' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
+		this.name = name;
+
+		updatePositions(name);
+	}
+
+	public FloatTipo(Object name) {
+		super();
+
+        if (name == null)
+            throw new IllegalArgumentException("Parameter 'name' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
+		this.name = (name instanceof Token) ? ((Token) name).getText() : (String) name;
+
+		updatePositions(name);
+	}
+
+
+    // ----------------------------------
+    // floatTipo: tipo -> string
+
+	// Child 'string' 
+
+	public void setName(String name) {
+		if (name == null)
+			throw new IllegalArgumentException("Parameter 'name' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
+		this.name = name;
+
+	}
+
+    public String getName() {
+        return name;
+    }
 
 
     // ----------------------------------
@@ -28,7 +74,7 @@ public class FloatTipo extends AbstractTipo  {
 
     @Override
     public String toString() {
-        return "FloatTipo{" + "}";
+        return "FloatTipo{" + " name=" + this.getName() + "}";
     }
 
 

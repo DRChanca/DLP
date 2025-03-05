@@ -61,7 +61,7 @@ class Declaracionstructs {
 	+String nombre
 }
 AbstractDeclaraciones <|-[#808080]- Declaracionstructs
-Declaracionstructs o-[#404040,thickness=2]-  Declaracion : declaracion >
+Declaracionstructs o-[#404040,thickness=2]- "✱" Declaracion : declaracions >
 
 class Declaracionglobales {
 }
@@ -214,14 +214,17 @@ AbstractExpression <|-[#808080]- FuncionExpresion
 FuncionExpresion o-[#404040,thickness=2]- "✱" Expression : argumentos >
 
 class IntTipo {
+	+String name
 }
 AbstractTipo <|-[#808080]- IntTipo
 
 class FloatTipo {
+	+String name
 }
 AbstractTipo <|-[#808080]- FloatTipo
 
 class CharTipo {
+	+String name
 }
 AbstractTipo <|-[#808080]- CharTipo
 

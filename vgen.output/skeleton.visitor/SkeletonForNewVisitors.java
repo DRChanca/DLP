@@ -79,11 +79,11 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		return null;
 	}
 
-	// class Declaracionstructs(String nombre, Declaracion declaracion)
+	// class Declaracionstructs(String nombre, List<Declaracion> declaracions)
 	@Override
 	public Object visit(Declaracionstructs declaracionstructs, Object param) {
 
-		// declaracionstructs.getDeclaracion().accept(this, param);
+		// declaracionstructs.getDeclaracions().forEach(declaracion -> declaracion.accept(this, param));
 		super.visit(declaracionstructs, param);
 
 		return null;
@@ -348,21 +348,21 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		return null;
 	}
 
-	// class IntTipo()
+	// class IntTipo(String name)
 	@Override
 	public Object visit(IntTipo intTipo, Object param) {
 
 		return null;
 	}
 
-	// class FloatTipo()
+	// class FloatTipo(String name)
 	@Override
 	public Object visit(FloatTipo floatTipo, Object param) {
 
 		return null;
 	}
 
-	// class CharTipo()
+	// class CharTipo(String name)
 	@Override
 	public Object visit(CharTipo charTipo, Object param) {
 

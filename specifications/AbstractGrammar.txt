@@ -7,7 +7,7 @@ NODES
 
 program -> declaraciones*;
 
-declaracionstructs:declaraciones -> nombre:string declaracion; 
+declaracionstructs:declaraciones -> nombre:string declaracion*; 
 
 declaracionglobales:declaraciones -> declaracion; 
 
@@ -45,8 +45,8 @@ funcionExpresion:expression -> nombre:string argumentos:expression*;
 
 
 
-intTipo:tipo ->  ; 
-floatTipo:tipo ->  ;
-charTipo:tipo ->  ; 
+intTipo:tipo ->  string; 
+floatTipo:tipo ->  string;
+charTipo:tipo ->  string; 
 arrayTipo:tipo -> tamArray:int tipo;
 StringTipo:tipo-> valor:string;   
