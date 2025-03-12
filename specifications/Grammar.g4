@@ -17,8 +17,8 @@ program  returns[Program ast]
 
 declaraciones returns[List<Declaraciones> list = new ArrayList<Declaraciones>()]  
 	   									
-	: (declaracionstructs  { $list.add( $declaracionstructs.ast); }
-	|declaracionglobales  { $list.add( $declaracionglobales.ast); }  
+	: (declaracionstructs  { $list.add( $declaracionstructs.ast);}
+	|declaracionglobales  { $list.add( $declaracionglobales.ast);}  
 	|declaracionfuncion { $list.add( $declaracionfuncion.ast); }	
 	)+ 
 	; 
