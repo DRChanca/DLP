@@ -163,6 +163,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class FuncionSentencia(String nombre, List<Expression> argumento)
+	// phase Identification { Declaracionfuncion declaracionfuncion }
 	@Override
 	public Object visit(FuncionSentencia funcionSentencia, Object param) {
 
@@ -231,6 +232,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class IdentificadorExpresion(String name)
+	// phase Identification { Definicion definicion }
 	@Override
 	public Object visit(IdentificadorExpresion identificadorExpresion, Object param) {
 
@@ -319,6 +321,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class FuncionExpresion(String nombre, List<Expression> argumentos)
+	// phase Identification { Declaracionfuncion declaracionfuncion }
 	@Override
 	public Object visit(FuncionExpresion funcionExpresion, Object param) {
 

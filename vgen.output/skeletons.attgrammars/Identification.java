@@ -1,72 +1,82 @@
-package semantic;
+// Generated with VGen 2.0.0
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+/*
 
-import javax.naming.Context;
+Este fichero es un esqueleto para facilitar la implementación de una gramática atribuida
+('ATTRIBUTE GRAMMAR' de VGen). Para usarlo hay que realizar dos pasos:
+1. Ubicar este código.
+2. Completar cada método visit.
 
-import ast.*;
-import ast.declaraciones.Declaracionfuncion;
-import ast.declaraciones.Declaracionglobales;
-import ast.declaraciones.Declaracionstructs;
-import ast.expression.AccessoArrayExpresion;
-import ast.expression.AcederCap;
-import ast.expression.ArithmeticExpresion;
-import ast.expression.CastExpresion;
-import ast.expression.CharExpresion;
-import ast.expression.FuncionExpresion;
-import ast.expression.IdentificadorExpresion;
-import ast.expression.IntExpresion;
-import ast.expression.LogicExpression;
-import ast.expression.NegacionExpresion;
-import ast.expression.ParentesisExpresion;
-import ast.expression.RealExpresion;
-import ast.sentencia.AsignacionSentencia;
-import ast.sentencia.FuncionSentencia;
-import ast.sentencia.IfSentencia;
-import ast.sentencia.PrintSentencia;
-import ast.sentencia.PrintlnSentencia;
-import ast.sentencia.PrintspSentencia;
-import ast.sentencia.ReadSentencia;
-import ast.sentencia.ReturnSentencia;
-import ast.sentencia.WhileSentencia;
-import ast.tipo.ArrayTipo;
-import ast.tipo.CharTipo;
-import ast.tipo.FloatTipo;
-import ast.tipo.IntTipo;
-import ast.tipo.StringTipo;
-import main.ErrorManager;
+## Paso 1. Ubicación de este Código
+
+Este esqueleto será SOBREESCRITO la próxima vez que se ejecuta VGen. Por ello, se debe
+copiar su contenido antes de hacer cualquier cambio.
+
+Hay dos opciones:
+
+1) Si ya se tiene hecha una clase para el visitor, basta con copiar a dicha clase los
+   métodos visit de este esqueleto (y los import) ignorando el resto.
+
+2) Si no se tiene hecha aún la clase, este esqueleto vale como tal si se mueve a la
+   carpeta deseada del proyecto y se le pone el package correspondiente a dicha
+   ubicación.
+
+Una vez hecho esto, ya se tendría un visitor que compilaría sin errores y que, al
+ejecutarlo, recorrería todo el árbol (aunque sin hacer nada en cada nodo).
+
+
+## Paso 2 Completar cada Método Visit
+
+El visit generado para cada nodo se limita a recorrer sus hijos. El código de recorrido
+se encuentra en la llamada a 'super.visit'. Los 'accept' comentados encima de cada
+'super.visit' son sólo un recordatorio de lo que hace dicho método (son una copia de su
+implementación, que se hereda de DefaultVisitor).
+
+Por tanto, hay tres opciones a la hora de implementar cada visit:
+
+1. Si en el visit de un nodo SÓLO SE NECESITA RECORRER sus hijos, se puede borrar
+   completamente dicho visit de esta clase. Al no estar el método, se heredará de
+   DefaultVisitor la misma implementación que se acaba de borrar. Es decir, en esta
+   clase sólo será necesario dejar los visit que tengan alguna acción que realizar.
+
+2. Si se necesita hacer alguna tarea adicional ANTES o DESPUÉS de recorrer todos los
+   hijos, se debe añadir su código antes o después de la llamada a 'super.visit' (y se
+   pueden borrar los 'accept' comentados).
+
+3. Y, finalmente, si se necesita hacer alguna tarea INTERCALADA en el recorrido de los
+   hijos (por ejemplo, comprobar su tipo), se debe borrar el 'super.visit' y descomentar
+   los 'accept'. Así se tendría ya implementado el recorrido de los hijos, que es la
+   estructura donde se intecalará el código de las acciones adicionales.
+
+NOTA 1. En los visit en los que haya que inicializar atributos heredados de los hijos
+antes de recorrerlos, se han añadido recordatorios en los puntos en los que es
+aconsejable hacerlo.
+
+NOTA 2. En los visit de los nodos que tengan atributos sintetizados, se han añadido
+recordatorios de que se deben inicializar dichos atributos.
+
+*/
+
+// TODO: write package name
+// package ...;
+
 import visitor.DefaultVisitor;
+import ast.*;
+import ast.declaraciones.*;
+import ast.sentencia.*;
+import ast.expression.*;
+import ast.tipo.*;
 
-// This class will be implemented in identification phase
 
 public class Identification extends DefaultVisitor {
-
-    private ErrorManager errorManager;
-    private ContextMap<String, Declaracionfuncion> funciones = new ContextMap<String, Declaracionfuncion>();
-    private ContextMap<String, Declaracionstructs> estructuras = new ContextMap<String, Declaracionstructs>(); 
-    private ContextMap<String, Definicion> variables = new ContextMap<String, Definicion>();  
-
-    public Identification(ErrorManager errorManager) {
-        this.errorManager = errorManager;
-    }
 
     public void process(AST ast) {
         ast.accept(this, null);
     }
 
-	@Override
-	public Object visit(FuncionSentencia funcionSentencia, Object param) {
-		var definition = funciones.getFromAny(funcionSentencia.getNombre());
-		if(definition == null)
-			this.notifyError("Invocando a una funcion sin inicializar "+funcionSentencia.getNombre());
-		else
-			funcionSentencia.setDeclaracionfuncion(definition);
+    // Visit Methods --------------------------------------------------------------
 
-		return null;
-	}
-
+	// class Program(List<Declaraciones> declaracioneses)
 	@Override
 	public Object visit(Program program, Object param) {
 
@@ -81,26 +91,7 @@ public class Identification extends DefaultVisitor {
 	public Object visit(Declaracionstructs declaracionstructs, Object param) {
 
 		// declaracionstructs.getDefinicions().forEach(definicion -> definicion.accept(this, param));
-		var struct = estructuras.getFromAny(declaracionstructs.getNombre());
-		if(struct != null) {
-			notifyError("Se intenta crear una estructura ya definida: "+declaracionstructs.getNombre());
-		}else {
-			estructuras.put(declaracionstructs.getNombre(), declaracionstructs); 
-		}
-		
-		
-		
-		variables.set();
-		var listaDefiniciones = declaracionstructs.getDefinicions(); 
-		for(var def : listaDefiniciones) {
-			var aux = variables.getFromTop(def.getIDENT()); 
-			if(aux != null)
-				notifyError("Variable ya definida en el ambito "+ def.getIDENT());
-			else
-				variables.put(def.getIDENT(), def);
-			
-		}
-		variables.reset();
+		super.visit(declaracionstructs, param);
 
 		return null;
 	}
@@ -110,16 +101,6 @@ public class Identification extends DefaultVisitor {
 	public Object visit(Declaracionglobales declaracionglobales, Object param) {
 
 		// declaracionglobales.getDefinicion().accept(this, param);
-		
-		
-		var aux = declaracionglobales.getDefinicion().getIDENT();
-		var dfGlobal = variables.getFromAny(aux); 
-		
-		if(dfGlobal != null)
-			notifyError("Variable global ya definida "+aux);
-		else
-			variables.put(aux, declaracionglobales.getDefinicion());
-		
 		super.visit(declaracionglobales, param);
 
 		return null;
@@ -128,47 +109,13 @@ public class Identification extends DefaultVisitor {
 	// class Declaracionfuncion(String nombre, List<Definicion> argumento, Optional<Tipo> tipo, List<Definicion> variablesLocales, List<Sentencia> sentencias)
 	@Override
 	public Object visit(Declaracionfuncion declaracionfuncion, Object param) {
-		
-		var definition = funciones.getFromAny(declaracionfuncion.getNombre()); 
 
-		if(definition != null)
-			notifyError("Intentando declarar una funcion ya definida "+ definition.getNombre());
-		else
-			funciones.put(declaracionfuncion.getNombre(),declaracionfuncion); 
-		
-		
-		// lista Argumetnos declaracionfuncion.getArgumento().forEach(definicion -> definicion.accept(this, param));
-		variables.set();
-		var argumentos = declaracionfuncion.getArgumento(); 
-		for( var argu : argumentos) {
-			var nombre = argu.getIDENT(); 
-			var ob = variables.getFromTop(nombre); 
-			if(ob != null) {
-				notifyError("Intentando declarar un argumento ya definido "+ob.getIDENT());
-			}else {
-				variables.put(nombre, argu);
-			}
-		}
-		
-		declaracionfuncion.getTipo().ifPresent(tipo -> tipo.accept(this, param));
-		
-		//LIsta de variables locales
-		var listaLocales = declaracionfuncion.getVariablesLocales();
-		for( var variable : listaLocales) {
-			var nombre = variable.getIDENT(); 
-			var ob = variables.getFromTop(nombre); 
-			if(ob != null) {
-				notifyError("Intentando declara una funcion ya definida "+ob.getIDENT());
-			}else {
-				variables.put(nombre, variable);
-			}
-		}
-		
-		declaracionfuncion.getSentencias().forEach(sentencia -> sentencia.accept(this, param));
-		
-		
-		variables.reset();
-		
+		// declaracionfuncion.getArgumento().forEach(definicion -> definicion.accept(this, param));
+		// declaracionfuncion.getTipo().ifPresent(tipo -> tipo.accept(this, param));
+		// declaracionfuncion.getVariablesLocales().forEach(definicion -> definicion.accept(this, param));
+		// declaracionfuncion.getSentencias().forEach(sentencia -> sentencia.accept(this, param));
+		super.visit(declaracionfuncion, param);
+
 		return null;
 	}
 
@@ -177,7 +124,6 @@ public class Identification extends DefaultVisitor {
 	public Object visit(Definicion definicion, Object param) {
 
 		// definicion.getTipo().accept(this, param);
-
 		super.visit(definicion, param);
 
 		return null;
@@ -223,7 +169,18 @@ public class Identification extends DefaultVisitor {
 		return null;
 	}
 
+	// class FuncionSentencia(String nombre, List<Expression> argumento)
+	// phase Identification { Declaracionfuncion declaracionfuncion }
+	@Override
+	public Object visit(FuncionSentencia funcionSentencia, Object param) {
 
+		// funcionSentencia.getArgumento().forEach(expression -> expression.accept(this, param));
+		super.visit(funcionSentencia, param);
+
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// funcionSentencia.setDeclaracionfuncion(?);
+		return null;
+	}
 
 	// class AsignacionSentencia(Expression left, Expression expression)
 	@Override
@@ -284,16 +241,12 @@ public class Identification extends DefaultVisitor {
 	}
 
 	// class IdentificadorExpresion(String name)
+	// phase Identification { Definicion definicion }
 	@Override
 	public Object visit(IdentificadorExpresion identificadorExpresion, Object param) {
-		var nombre = identificadorExpresion.getName(); 
-		var aux = variables.getFromAny(nombre); 
-		if(aux == null) {
-			notifyError("Intentado acceder a un valor sin especificar "+ nombre);
-		}else {
-			identificadorExpresion.setDefinicion(aux); 
-		}
-		
+
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// identificadorExpresion.setDefinicion(?);
 		return null;
 	}
 
@@ -379,20 +332,15 @@ public class Identification extends DefaultVisitor {
 	}
 
 	// class FuncionExpresion(String nombre, List<Expression> argumentos)
+	// phase Identification { Declaracionfuncion declaracionfuncion }
 	@Override
 	public Object visit(FuncionExpresion funcionExpresion, Object param) {
 
 		// funcionExpresion.getArgumentos().forEach(expression -> expression.accept(this, param));
-		
-		var func = funciones.getFromAny(funcionExpresion.getNombre()); 
-		
-		if(func == null)
-			notifyError("Se intenta llamar a una expresion no definida con nombre "+funcionExpresion.getNombre());
-		else
-			funcionExpresion.setDeclaracionfuncion(func);
-		
 		super.visit(funcionExpresion, param);
 
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// funcionExpresion.setDeclaracionfuncion(?);
 		return null;
 	}
 
@@ -430,24 +378,8 @@ public class Identification extends DefaultVisitor {
 	// class StringTipo(String name)
 	@Override
 	public Object visit(StringTipo stringTipo, Object param) {
-		var aux = stringTipo.getName(); 
-		var objeto = estructuras.getFromAny(aux); 
-		if(objeto == null)
-			notifyError("Declaracion de campo no definido " + aux);
+
 		return null;
 	}
-    
-
-    private void notifyError(String msg) {
-        errorManager.notify("Identification", msg);
-    }
-
-    private void notifyError(String msg, Position position) {
-        errorManager.notify("Identification", msg, position);
-    }
-
-    private void notifyError(String msg, AST node) {
-        notifyError(msg, node.start());
-    }
 
 }

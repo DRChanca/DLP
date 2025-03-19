@@ -47,3 +47,9 @@ floatTipo:tipo ->  string;
 charTipo:tipo ->  string; 
 arrayTipo:tipo -> tamArray:int tipo;
 StringTipo:tipo-> string;   
+
+
+ATTRIBUTE GRAMMAR Identification
+funcionSentencia -> declaracionfuncion;
+funcionExpresion -> declaracionfuncion; 
+identificadorExpresion -> definicion; 
