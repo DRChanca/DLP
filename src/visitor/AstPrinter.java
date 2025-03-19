@@ -126,10 +126,10 @@ public class AstPrinter implements Visitor {
 
 		// Imprimir los hijos (y recorrer si son nodos del AST)
         printNonNodeChild(indent + 1, "nombre", "String", declaracionstructs.getNombre());
-        printListOfNodesChild(indent + 1, "declaracions", "List<Declaracion>", declaracionstructs.getDeclaracions());
+        printListOfNodesChild(indent + 1, "definicions", "List<Definicion>", declaracionstructs.getDefinicions());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, declaracionstructs, "nombre", "declaracions");
+		printUnknownFields(indent + 1, declaracionstructs, "nombre", "definicions");
 		return null;
 	}
 
@@ -139,10 +139,10 @@ public class AstPrinter implements Visitor {
 		int indent = ((Integer)param);
 
 		// Imprimir los hijos (y recorrer si son nodos del AST)
-        printNodeChild(indent + 1, "declaracion", "Declaracion", declaracionglobales.getDeclaracion());
+        printNodeChild(indent + 1, "definicion", "Definicion", declaracionglobales.getDefinicion());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, declaracionglobales, "declaracion");
+		printUnknownFields(indent + 1, declaracionglobales, "definicion");
 		return null;
 	}
 
@@ -153,9 +153,9 @@ public class AstPrinter implements Visitor {
 
 		// Imprimir los hijos (y recorrer si son nodos del AST)
         printNonNodeChild(indent + 1, "nombre", "String", declaracionfuncion.getNombre());
-        printListOfNodesChild(indent + 1, "argumento", "List<Argumento>", declaracionfuncion.getArgumento());
+        printListOfNodesChild(indent + 1, "argumento", "List<Definicion>", declaracionfuncion.getArgumento());
         printNodeChild(indent + 1, "tipo", "Optional<Tipo>", declaracionfuncion.getTipo().orElse(null));
-        printListOfNodesChild(indent + 1, "variablesLocales", "List<VariablesLocales>", declaracionfuncion.getVariablesLocales());
+        printListOfNodesChild(indent + 1, "variablesLocales", "List<Definicion>", declaracionfuncion.getVariablesLocales());
         printListOfNodesChild(indent + 1, "sentencias", "List<Sentencia>", declaracionfuncion.getSentencias());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
@@ -164,44 +164,16 @@ public class AstPrinter implements Visitor {
 	}
 
 	@Override
-	public Object visit(VariablesLocales variablesLocales, Object param) {
+	public Object visit(Definicion definicion, Object param) {
 
 		int indent = ((Integer)param);
 
 		// Imprimir los hijos (y recorrer si son nodos del AST)
-        printNonNodeChild(indent + 1, "IDENT", "String", variablesLocales.getIDENT());
-        printNodeChild(indent + 1, "tipo", "Tipo", variablesLocales.getTipo());
+        printNonNodeChild(indent + 1, "IDENT", "String", definicion.getIDENT());
+        printNodeChild(indent + 1, "tipo", "Tipo", definicion.getTipo());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, variablesLocales, "IDENT", "tipo");
-		return null;
-	}
-
-	@Override
-	public Object visit(Argumento argumento, Object param) {
-
-		int indent = ((Integer)param);
-
-		// Imprimir los hijos (y recorrer si son nodos del AST)
-        printNonNodeChild(indent + 1, "IDENT", "String", argumento.getIDENT());
-        printNodeChild(indent + 1, "tipo", "Tipo", argumento.getTipo());
-
-		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, argumento, "IDENT", "tipo");
-		return null;
-	}
-
-	@Override
-	public Object visit(Declaracion declaracion, Object param) {
-
-		int indent = ((Integer)param);
-
-		// Imprimir los hijos (y recorrer si son nodos del AST)
-        printNonNodeChild(indent + 1, "IDENT", "String", declaracion.getIDENT());
-        printNodeChild(indent + 1, "tipo", "Tipo", declaracion.getTipo());
-
-		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, declaracion, "IDENT", "tipo");
+		printUnknownFields(indent + 1, definicion, "IDENT", "tipo");
 		return null;
 	}
 

@@ -61,39 +61,27 @@ class Declaracionstructs {
 	+String nombre
 }
 AbstractDeclaraciones <|-[#808080]- Declaracionstructs
-Declaracionstructs o-[#404040,thickness=2]- "✱" Declaracion : declaracions >
+Declaracionstructs o-[#404040,thickness=2]- "✱" Definicion : definicions >
 
 class Declaracionglobales {
 }
 AbstractDeclaraciones <|-[#808080]- Declaracionglobales
-Declaracionglobales o-[#404040,thickness=2]-  Declaracion : declaracion >
+Declaracionglobales o-[#404040,thickness=2]-  Definicion : definicion >
 
 class Declaracionfuncion {
 	+String nombre
 }
 AbstractDeclaraciones <|-[#808080]- Declaracionfuncion
-Declaracionfuncion o-[#404040,thickness=2]- "✱" Argumento : argumento >
+Declaracionfuncion o-[#404040,thickness=2]- "✱" Definicion : argumento >
 Declaracionfuncion o-[#404040,thickness=2]- "0..1" Tipo : tipo >
-Declaracionfuncion o-[#404040,thickness=2]- "✱" VariablesLocales : variablesLocales >
+Declaracionfuncion o-[#404040,thickness=2]- "✱" Definicion : variablesLocales >
 Declaracionfuncion o-[#404040,thickness=2]- "✱" Sentencia : sentencias >
 
-class VariablesLocales {
+class Definicion {
 	+String IDENT
 }
-AbstractAST <|-[#808080]- VariablesLocales
-VariablesLocales o-[#404040,thickness=2]-  Tipo : tipo >
-
-class Argumento {
-	+String IDENT
-}
-AbstractAST <|-[#808080]- Argumento
-Argumento o-[#404040,thickness=2]-  Tipo : tipo >
-
-class Declaracion {
-	+String IDENT
-}
-AbstractAST <|-[#808080]- Declaracion
-Declaracion o-[#404040,thickness=2]-  Tipo : tipo >
+AbstractAST <|-[#808080]- Definicion
+Definicion o-[#404040,thickness=2]-  Tipo : tipo >
 
 class PrintSentencia {
 }

@@ -19,7 +19,7 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	declaracionfuncion: declaraciones -> nombre:string argumento:argumento* tipo:tipo? variablesLocales:variablesLocales* sentencias:sentencia*
+	declaracionfuncion: declaraciones -> nombre:string argumento:definicion* tipo:tipo? variablesLocales:definicion* sentencias:sentencia*
 	declaraciones -> 
 */
 public class Declaracionfuncion extends AbstractDeclaraciones  {
@@ -27,17 +27,17 @@ public class Declaracionfuncion extends AbstractDeclaraciones  {
     // ----------------------------------
     // Instance Variables
 
-	// declaracionfuncion: declaraciones -> nombre:string argumento:argumento* tipo? variablesLocales:variablesLocales* sentencia*
+	// declaracionfuncion: declaraciones -> nombre:string argumento:definicion* tipo? variablesLocales:definicion* sentencia*
 	private String nombre;
-	private List<Argumento> argumento;
+	private List<Definicion> argumento;
 	private Optional<Tipo> tipo;
-	private List<VariablesLocales> variablesLocales;
+	private List<Definicion> variablesLocales;
 	private List<Sentencia> sentencias;
 
     // ----------------------------------
     // Constructors
 
-	public Declaracionfuncion(String nombre, List<Argumento> argumento, Optional<Tipo> tipo, List<VariablesLocales> variablesLocales, List<Sentencia> sentencias) {
+	public Declaracionfuncion(String nombre, List<Definicion> argumento, Optional<Tipo> tipo, List<Definicion> variablesLocales, List<Sentencia> sentencias) {
 		super();
 
 		if (nombre == null)
@@ -70,16 +70,16 @@ public class Declaracionfuncion extends AbstractDeclaraciones  {
             throw new IllegalArgumentException("Parameter 'nombre' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
 		this.nombre = (nombre instanceof Token) ? ((Token) nombre).getText() : (String) nombre;
 
-        this.argumento = castList(argumento, unwrapIfContext.andThen(Argumento.class::cast));
+        this.argumento = castList(argumento, unwrapIfContext.andThen(Definicion.class::cast));
         this.tipo = castOptional(tipo, Tipo.class);
-        this.variablesLocales = castList(variablesLocales, unwrapIfContext.andThen(VariablesLocales.class::cast));
+        this.variablesLocales = castList(variablesLocales, unwrapIfContext.andThen(Definicion.class::cast));
         this.sentencias = castList(sentencias, unwrapIfContext.andThen(Sentencia.class::cast));
 		updatePositions(nombre, argumento, tipo, variablesLocales, sentencias);
 	}
 
 
     // ----------------------------------
-    // declaracionfuncion: declaraciones -> nombre:string argumento:argumento* tipo? variablesLocales:variablesLocales* sentencia*
+    // declaracionfuncion: declaraciones -> nombre:string argumento:definicion* tipo? variablesLocales:definicion* sentencia*
 
 	// Child 'nombre:string' 
 
@@ -95,20 +95,20 @@ public class Declaracionfuncion extends AbstractDeclaraciones  {
     }
 
 
-	// Child 'argumento:argumento*' 
+	// Child 'argumento:definicion*' 
 
-	public void setArgumento(List<Argumento> argumento) {
+	public void setArgumento(List<Definicion> argumento) {
 		if (argumento == null)
 			argumento = new ArrayList<>();
 		this.argumento = argumento;
 
 	}
 
-    public List<Argumento> getArgumento() {
+    public List<Definicion> getArgumento() {
         return argumento;
     }
 
-    public Stream<Argumento> argumento() {
+    public Stream<Definicion> argumento() {
         return argumento.stream();
     }
 
@@ -127,20 +127,20 @@ public class Declaracionfuncion extends AbstractDeclaraciones  {
     }
 
 
-	// Child 'variablesLocales:variablesLocales*' 
+	// Child 'variablesLocales:definicion*' 
 
-	public void setVariablesLocales(List<VariablesLocales> variablesLocales) {
+	public void setVariablesLocales(List<Definicion> variablesLocales) {
 		if (variablesLocales == null)
 			variablesLocales = new ArrayList<>();
 		this.variablesLocales = variablesLocales;
 
 	}
 
-    public List<VariablesLocales> getVariablesLocales() {
+    public List<Definicion> getVariablesLocales() {
         return variablesLocales;
     }
 
-    public Stream<VariablesLocales> variablesLocales() {
+    public Stream<Definicion> variablesLocales() {
         return variablesLocales.stream();
     }
 

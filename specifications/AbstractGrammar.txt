@@ -7,17 +7,14 @@ NODES
 
 program -> declaraciones*;
 
-declaracionstructs:declaraciones -> nombre:string declaracion*; 
+declaracionstructs:declaraciones -> nombre:string definicion*; 
 
-declaracionglobales:declaraciones -> declaracion; 
+declaracionglobales:declaraciones -> definicion; 
 
-declaracionfuncion:declaraciones -> nombre:string argumento:argumento* tipo? variablesLocales:variablesLocales* sentencia*; 
+declaracionfuncion:declaraciones -> nombre:string argumento:definicion* tipo? variablesLocales:definicion* sentencia*; 
 
-variablesLocales -> IDENT:string tipo; 
 
-argumento -> IDENT:string tipo; 
-
-declaracion -> IDENT:string tipo; 
+definicion -> IDENT:string tipo;  
 
 
 printSentencia:sentencia ->   expression*;

@@ -12,7 +12,7 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	declaracionglobales: declaraciones -> declaracion:declaracion
+	declaracionglobales: declaraciones -> definicion:definicion
 	declaraciones -> 
 */
 public class Declaracionglobales extends AbstractDeclaraciones  {
@@ -20,47 +20,47 @@ public class Declaracionglobales extends AbstractDeclaraciones  {
     // ----------------------------------
     // Instance Variables
 
-	// declaracionglobales: declaraciones -> declaracion
-	private Declaracion declaracion;
+	// declaracionglobales: declaraciones -> definicion
+	private Definicion definicion;
 
     // ----------------------------------
     // Constructors
 
-	public Declaracionglobales(Declaracion declaracion) {
+	public Declaracionglobales(Definicion definicion) {
 		super();
 
-		if (declaracion == null)
-			throw new IllegalArgumentException("Parameter 'declaracion' can't be null. Pass a non-null value or use 'declaracion?' in the abstract grammar");
-		this.declaracion = declaracion;
+		if (definicion == null)
+			throw new IllegalArgumentException("Parameter 'definicion' can't be null. Pass a non-null value or use 'definicion?' in the abstract grammar");
+		this.definicion = definicion;
 
-		updatePositions(declaracion);
+		updatePositions(definicion);
 	}
 
-	public Declaracionglobales(Object declaracion) {
+	public Declaracionglobales(Object definicion) {
 		super();
 
-        if (declaracion == null)
-            throw new IllegalArgumentException("Parameter 'declaracion' can't be null. Pass a non-null value or use 'declaracion?' in the abstract grammar");
-		this.declaracion = (Declaracion) declaracion;
+        if (definicion == null)
+            throw new IllegalArgumentException("Parameter 'definicion' can't be null. Pass a non-null value or use 'definicion?' in the abstract grammar");
+		this.definicion = (Definicion) definicion;
 
-		updatePositions(declaracion);
+		updatePositions(definicion);
 	}
 
 
     // ----------------------------------
-    // declaracionglobales: declaraciones -> declaracion
+    // declaracionglobales: declaraciones -> definicion
 
-	// Child 'declaracion' 
+	// Child 'definicion' 
 
-	public void setDeclaracion(Declaracion declaracion) {
-		if (declaracion == null)
-			throw new IllegalArgumentException("Parameter 'declaracion' can't be null. Pass a non-null value or use 'declaracion?' in the abstract grammar");
-		this.declaracion = declaracion;
+	public void setDefinicion(Definicion definicion) {
+		if (definicion == null)
+			throw new IllegalArgumentException("Parameter 'definicion' can't be null. Pass a non-null value or use 'definicion?' in the abstract grammar");
+		this.definicion = definicion;
 
 	}
 
-    public Declaracion getDeclaracion() {
-        return declaracion;
+    public Definicion getDefinicion() {
+        return definicion;
     }
 
 
@@ -74,7 +74,7 @@ public class Declaracionglobales extends AbstractDeclaraciones  {
 
     @Override
     public String toString() {
-        return "Declaracionglobales{" + " declaracion=" + this.getDeclaracion() + "}";
+        return "Declaracionglobales{" + " definicion=" + this.getDefinicion() + "}";
     }
 
 

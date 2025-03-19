@@ -16,7 +16,7 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	declaracionstructs: declaraciones -> nombre:string declaracions:declaracion*
+	declaracionstructs: declaraciones -> nombre:string definicions:definicion*
 	declaraciones -> 
 */
 public class Declaracionstructs extends AbstractDeclaraciones  {
@@ -24,41 +24,41 @@ public class Declaracionstructs extends AbstractDeclaraciones  {
     // ----------------------------------
     // Instance Variables
 
-	// declaracionstructs: declaraciones -> nombre:string declaracion*
+	// declaracionstructs: declaraciones -> nombre:string definicion*
 	private String nombre;
-	private List<Declaracion> declaracions;
+	private List<Definicion> definicions;
 
     // ----------------------------------
     // Constructors
 
-	public Declaracionstructs(String nombre, List<Declaracion> declaracions) {
+	public Declaracionstructs(String nombre, List<Definicion> definicions) {
 		super();
 
 		if (nombre == null)
 			throw new IllegalArgumentException("Parameter 'nombre' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
 		this.nombre = nombre;
 
-		if (declaracions == null)
-			declaracions = new ArrayList<>();
-		this.declaracions = declaracions;
+		if (definicions == null)
+			definicions = new ArrayList<>();
+		this.definicions = definicions;
 
-		updatePositions(nombre, declaracions);
+		updatePositions(nombre, definicions);
 	}
 
-	public Declaracionstructs(Object nombre, Object declaracions) {
+	public Declaracionstructs(Object nombre, Object definicions) {
 		super();
 
         if (nombre == null)
             throw new IllegalArgumentException("Parameter 'nombre' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
 		this.nombre = (nombre instanceof Token) ? ((Token) nombre).getText() : (String) nombre;
 
-        this.declaracions = castList(declaracions, unwrapIfContext.andThen(Declaracion.class::cast));
-		updatePositions(nombre, declaracions);
+        this.definicions = castList(definicions, unwrapIfContext.andThen(Definicion.class::cast));
+		updatePositions(nombre, definicions);
 	}
 
 
     // ----------------------------------
-    // declaracionstructs: declaraciones -> nombre:string declaracion*
+    // declaracionstructs: declaraciones -> nombre:string definicion*
 
 	// Child 'nombre:string' 
 
@@ -74,21 +74,21 @@ public class Declaracionstructs extends AbstractDeclaraciones  {
     }
 
 
-	// Child 'declaracion*' 
+	// Child 'definicion*' 
 
-	public void setDeclaracions(List<Declaracion> declaracions) {
-		if (declaracions == null)
-			declaracions = new ArrayList<>();
-		this.declaracions = declaracions;
+	public void setDefinicions(List<Definicion> definicions) {
+		if (definicions == null)
+			definicions = new ArrayList<>();
+		this.definicions = definicions;
 
 	}
 
-    public List<Declaracion> getDeclaracions() {
-        return declaracions;
+    public List<Definicion> getDefinicions() {
+        return definicions;
     }
 
-    public Stream<Declaracion> declaracions() {
-        return declaracions.stream();
+    public Stream<Definicion> definicions() {
+        return definicions.stream();
     }
 
 
@@ -102,7 +102,7 @@ public class Declaracionstructs extends AbstractDeclaraciones  {
 
     @Override
     public String toString() {
-        return "Declaracionstructs{" + " nombre=" + this.getNombre() + " declaracions=" + this.getDeclaracions() + "}";
+        return "Declaracionstructs{" + " nombre=" + this.getNombre() + " definicions=" + this.getDefinicions() + "}";
     }
 
 

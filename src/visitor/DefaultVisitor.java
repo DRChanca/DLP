@@ -35,45 +35,31 @@ public class DefaultVisitor implements Visitor {
 	@Override
 	public Object visit(Declaracionstructs declaracionstructs, Object param) {
 
-		declaracionstructs.getDeclaracions().forEach(declaracion -> declaracion.accept(this, param));
+		declaracionstructs.getDefinicions().forEach(definicion -> definicion.accept(this, param));
 		return null;
 	}
 
 	@Override
 	public Object visit(Declaracionglobales declaracionglobales, Object param) {
 
-		declaracionglobales.getDeclaracion().accept(this, param);
+		declaracionglobales.getDefinicion().accept(this, param);
 		return null;
 	}
 
 	@Override
 	public Object visit(Declaracionfuncion declaracionfuncion, Object param) {
 
-		declaracionfuncion.getArgumento().forEach(argumento -> argumento.accept(this, param));
+		declaracionfuncion.getArgumento().forEach(definicion -> definicion.accept(this, param));
 		declaracionfuncion.getTipo().ifPresent(tipo -> tipo.accept(this, param));
-		declaracionfuncion.getVariablesLocales().forEach(variablesLocales -> variablesLocales.accept(this, param));
+		declaracionfuncion.getVariablesLocales().forEach(definicion -> definicion.accept(this, param));
 		declaracionfuncion.getSentencias().forEach(sentencia -> sentencia.accept(this, param));
 		return null;
 	}
 
 	@Override
-	public Object visit(VariablesLocales variablesLocales, Object param) {
+	public Object visit(Definicion definicion, Object param) {
 
-		variablesLocales.getTipo().accept(this, param);
-		return null;
-	}
-
-	@Override
-	public Object visit(Argumento argumento, Object param) {
-
-		argumento.getTipo().accept(this, param);
-		return null;
-	}
-
-	@Override
-	public Object visit(Declaracion declaracion, Object param) {
-
-		declaracion.getTipo().accept(this, param);
+		definicion.getTipo().accept(this, param);
 		return null;
 	}
 
