@@ -79,65 +79,45 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		return null;
 	}
 
-	// class Declaracionstructs(String nombre, List<Declaracion> declaracions)
+	// class Declaracionstructs(String nombre, List<Definicion> definicions)
 	@Override
 	public Object visit(Declaracionstructs declaracionstructs, Object param) {
 
-		// declaracionstructs.getDeclaracions().forEach(declaracion -> declaracion.accept(this, param));
+		// declaracionstructs.getDefinicions().forEach(definicion -> definicion.accept(this, param));
 		super.visit(declaracionstructs, param);
 
 		return null;
 	}
 
-	// class Declaracionglobales(Declaracion declaracion)
+	// class Declaracionglobales(Definicion definicion)
 	@Override
 	public Object visit(Declaracionglobales declaracionglobales, Object param) {
 
-		// declaracionglobales.getDeclaracion().accept(this, param);
+		// declaracionglobales.getDefinicion().accept(this, param);
 		super.visit(declaracionglobales, param);
 
 		return null;
 	}
 
-	// class Declaracionfuncion(String nombre, List<Argumento> argumento, Optional<Tipo> tipo, List<VariablesLocales> variablesLocales, List<Sentencia> sentencias)
+	// class Declaracionfuncion(String nombre, List<Definicion> argumento, Optional<Tipo> tipo, List<Definicion> variablesLocales, List<Sentencia> sentencias)
 	@Override
 	public Object visit(Declaracionfuncion declaracionfuncion, Object param) {
 
-		// declaracionfuncion.getArgumento().forEach(argumento -> argumento.accept(this, param));
+		// declaracionfuncion.getArgumento().forEach(definicion -> definicion.accept(this, param));
 		// declaracionfuncion.getTipo().ifPresent(tipo -> tipo.accept(this, param));
-		// declaracionfuncion.getVariablesLocales().forEach(variablesLocales -> variablesLocales.accept(this, param));
+		// declaracionfuncion.getVariablesLocales().forEach(definicion -> definicion.accept(this, param));
 		// declaracionfuncion.getSentencias().forEach(sentencia -> sentencia.accept(this, param));
 		super.visit(declaracionfuncion, param);
 
 		return null;
 	}
 
-	// class VariablesLocales(String IDENT, Tipo tipo)
+	// class Definicion(String IDENT, Tipo tipo)
 	@Override
-	public Object visit(VariablesLocales variablesLocales, Object param) {
+	public Object visit(Definicion definicion, Object param) {
 
-		// variablesLocales.getTipo().accept(this, param);
-		super.visit(variablesLocales, param);
-
-		return null;
-	}
-
-	// class Argumento(String IDENT, Tipo tipo)
-	@Override
-	public Object visit(Argumento argumento, Object param) {
-
-		// argumento.getTipo().accept(this, param);
-		super.visit(argumento, param);
-
-		return null;
-	}
-
-	// class Declaracion(String IDENT, Tipo tipo)
-	@Override
-	public Object visit(Declaracion declaracion, Object param) {
-
-		// declaracion.getTipo().accept(this, param);
-		super.visit(declaracion, param);
+		// definicion.getTipo().accept(this, param);
+		super.visit(definicion, param);
 
 		return null;
 	}
@@ -183,6 +163,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class FuncionSentencia(String nombre, List<Expression> argumento)
+	// phase Identification { Declaracionfuncion declaracionfuncion }
 	@Override
 	public Object visit(FuncionSentencia funcionSentencia, Object param) {
 
@@ -251,6 +232,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class IdentificadorExpresion(String name)
+	// phase Identification { Definicion definicion }
 	@Override
 	public Object visit(IdentificadorExpresion identificadorExpresion, Object param) {
 
@@ -339,6 +321,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class FuncionExpresion(String nombre, List<Expression> argumentos)
+	// phase Identification { Declaracionfuncion declaracionfuncion }
 	@Override
 	public Object visit(FuncionExpresion funcionExpresion, Object param) {
 

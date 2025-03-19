@@ -15,13 +15,13 @@ program returns[Program ast]
 	;
 
 declaraciones returns[Declaraciones ast]
-    : nombre=IDENT declaracions+=declaracion* { $ast = new Declaracionstructs($nombre, $declaracions); }
-    | declaracion                         { $ast = new Declaracionglobales($declaracion.ast); }  
-    | nombre=IDENT argumento+=argumento* tipo? variablesLocales+=variablesLocales* sentencias+=sentencia* { $ast = new Declaracionfuncion($nombre, $argumento, ($tipo.ctx == null) ? null : $tipo.ast, $variablesLocales, $sentencias); }
+    : nombre=IDENT definicions+=definicion* { $ast = new Declaracionstructs($nombre, $definicions); }
+    | definicion                          { $ast = new Declaracionglobales($definicion.ast); }   
+    | nombre=IDENT argumento+=definicion* tipo? variablesLocales+=definicion* sentencias+=sentencia* { $ast = new Declaracionfuncion($nombre, $argumento, ($tipo.ctx == null) ? null : $tipo.ast, $variablesLocales, $sentencias); }
 	;
 
-declaracion returns[Declaracion ast]
-    : IDENT=IDENT tipo                    { $ast = new Declaracion($IDENT, $tipo.ast); }         
+definicion returns[Definicion ast]
+    : IDENT=IDENT tipo                    { $ast = new Definicion($IDENT, $tipo.ast); }          
 	;
 
 tipo returns[Tipo ast]
@@ -30,14 +30,6 @@ tipo returns[Tipo ast]
     | name=IDENT                          { $ast = new CharTipo($name); }                        
     | INT_LITERAL tipo                    { $ast = new ArrayTipo($INT_LITERAL, $tipo.ast); }     
     | name=IDENT                          { $ast = new StringTipo($name); }                      
-	;
-
-argumento returns[Argumento ast]
-    : IDENT=IDENT tipo                    { $ast = new Argumento($IDENT, $tipo.ast); }           
-	;
-
-variablesLocales returns[VariablesLocales ast]
-    : IDENT=IDENT tipo                    { $ast = new VariablesLocales($IDENT, $tipo.ast); }    
 	;
 
 sentencia returns[Sentencia ast]

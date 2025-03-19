@@ -3,6 +3,7 @@
 package ast.sentencia;
 
 import ast.expression.*;
+import ast.declaraciones.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -18,6 +19,9 @@ import visitor.Visitor;
 /*
 	funcionSentencia: sentencia -> nombre:string argumento:expression*
 	sentencia -> 
+	
+	PHASE Identification
+	funcionSentencia -> declaracionfuncion:declaracionfuncion
 */
 public class FuncionSentencia extends AbstractSentencia  {
 
@@ -27,6 +31,9 @@ public class FuncionSentencia extends AbstractSentencia  {
 	// funcionSentencia: sentencia -> nombre:string argumento:expression*
 	private String nombre;
 	private List<Expression> argumento;
+
+    // PHASE Identification
+	private Declaracionfuncion declaracionfuncion;
 
     // ----------------------------------
     // Constructors
@@ -89,6 +96,24 @@ public class FuncionSentencia extends AbstractSentencia  {
 
     public Stream<Expression> argumento() {
         return argumento.stream();
+    }
+
+
+
+    // --------------------------------
+    // PHASE Identification
+
+	// Attribute 'declaracionfuncion' 
+
+	public void setDeclaracionfuncion(Declaracionfuncion declaracionfuncion) {
+		if (declaracionfuncion == null)
+			throw new IllegalArgumentException("Parameter 'declaracionfuncion' can't be null. Pass a non-null value or use 'declaracionfuncion?' in the abstract grammar");
+		this.declaracionfuncion = declaracionfuncion;
+
+	}
+
+    public Declaracionfuncion getDeclaracionfuncion() {
+        return declaracionfuncion;
     }
 
 

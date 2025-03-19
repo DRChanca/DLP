@@ -61,39 +61,27 @@ class Declaracionstructs {
 	+String nombre
 }
 AbstractDeclaraciones <|-[#808080]- Declaracionstructs
-Declaracionstructs o-[#404040,thickness=2]- "✱" Declaracion : declaracions >
+Declaracionstructs o-[#404040,thickness=2]- "✱" Definicion : definicions >
 
 class Declaracionglobales {
 }
 AbstractDeclaraciones <|-[#808080]- Declaracionglobales
-Declaracionglobales o-[#404040,thickness=2]-  Declaracion : declaracion >
+Declaracionglobales o-[#404040,thickness=2]-  Definicion : definicion >
 
 class Declaracionfuncion {
 	+String nombre
 }
 AbstractDeclaraciones <|-[#808080]- Declaracionfuncion
-Declaracionfuncion o-[#404040,thickness=2]- "✱" Argumento : argumento >
+Declaracionfuncion o-[#404040,thickness=2]- "✱" Definicion : argumento >
 Declaracionfuncion o-[#404040,thickness=2]- "0..1" Tipo : tipo >
-Declaracionfuncion o-[#404040,thickness=2]- "✱" VariablesLocales : variablesLocales >
+Declaracionfuncion o-[#404040,thickness=2]- "✱" Definicion : variablesLocales >
 Declaracionfuncion o-[#404040,thickness=2]- "✱" Sentencia : sentencias >
 
-class VariablesLocales {
+class Definicion {
 	+String IDENT
 }
-AbstractAST <|-[#808080]- VariablesLocales
-VariablesLocales o-[#404040,thickness=2]-  Tipo : tipo >
-
-class Argumento {
-	+String IDENT
-}
-AbstractAST <|-[#808080]- Argumento
-Argumento o-[#404040,thickness=2]-  Tipo : tipo >
-
-class Declaracion {
-	+String IDENT
-}
-AbstractAST <|-[#808080]- Declaracion
-Declaracion o-[#404040,thickness=2]-  Tipo : tipo >
+AbstractAST <|-[#808080]- Definicion
+Definicion o-[#404040,thickness=2]-  Tipo : tipo >
 
 class PrintSentencia {
 }
@@ -120,6 +108,7 @@ class FuncionSentencia {
 }
 AbstractSentencia <|-[#808080]- FuncionSentencia
 FuncionSentencia o-[#404040,thickness=2]- "✱" Expression : argumento >
+FuncionSentencia -[#ff6600,thickness=3]-  Declaracionfuncion #text:ff6600 : declaracionfuncion >
 
 class AsignacionSentencia {
 }
@@ -159,6 +148,7 @@ class IdentificadorExpresion {
 	+String name
 }
 AbstractExpression <|-[#808080]- IdentificadorExpresion
+IdentificadorExpresion -[#ff6600,thickness=3]-  Definicion #text:ff6600 : definicion >
 
 class CharExpresion {
 	+char charValue
@@ -212,6 +202,7 @@ class FuncionExpresion {
 }
 AbstractExpression <|-[#808080]- FuncionExpresion
 FuncionExpresion o-[#404040,thickness=2]- "✱" Expression : argumentos >
+FuncionExpresion -[#ff6600,thickness=3]-  Declaracionfuncion #text:ff6600 : declaracionfuncion >
 
 class IntTipo {
 	+String name

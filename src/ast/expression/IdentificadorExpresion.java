@@ -2,6 +2,7 @@
 
 package ast.expression;
 
+import ast.*;
 import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
@@ -14,6 +15,9 @@ import visitor.Visitor;
 /*
 	identificadorExpresion: expression -> name:string
 	expression -> 
+	
+	PHASE Identification
+	identificadorExpresion -> definicion:definicion
 */
 public class IdentificadorExpresion extends AbstractExpression  {
 
@@ -22,6 +26,9 @@ public class IdentificadorExpresion extends AbstractExpression  {
 
 	// identificadorExpresion: expression -> string
 	private String name;
+
+    // PHASE Identification
+	private Definicion definicion;
 
     // ----------------------------------
     // Constructors
@@ -61,6 +68,24 @@ public class IdentificadorExpresion extends AbstractExpression  {
 
     public String getName() {
         return name;
+    }
+
+
+
+    // --------------------------------
+    // PHASE Identification
+
+	// Attribute 'definicion' 
+
+	public void setDefinicion(Definicion definicion) {
+		if (definicion == null)
+			throw new IllegalArgumentException("Parameter 'definicion' can't be null. Pass a non-null value or use 'definicion?' in the abstract grammar");
+		this.definicion = definicion;
+
+	}
+
+    public Definicion getDefinicion() {
+        return definicion;
     }
 
 

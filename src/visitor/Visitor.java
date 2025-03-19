@@ -24,11 +24,7 @@ public interface Visitor {
 
 	public Object visit(Declaracionfuncion declaracionfuncion, Object param);
 
-	public Object visit(VariablesLocales variablesLocales, Object param);
-
-	public Object visit(Argumento argumento, Object param);
-
-	public Object visit(Declaracion declaracion, Object param);
+	public Object visit(Definicion definicion, Object param);
 
 	public Object visit(PrintSentencia printSentencia, Object param);
 

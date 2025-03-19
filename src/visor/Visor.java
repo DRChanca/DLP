@@ -3,10 +3,7 @@ package visor;
 import java.nio.file.AccessDeniedException;
 
 import ast.AST;
-import ast.Argumento;
-import ast.Declaracion;
 import ast.Program;
-import ast.VariablesLocales;
 import ast.declaraciones.Declaracionfuncion;
 import ast.declaraciones.Declaracionglobales;
 import ast.declaraciones.Declaracionstructs;
@@ -70,15 +67,6 @@ public class Visor extends DefaultVisitor {
 		return null;
 	}
 
-	// class Declaracionglobales(Declaracion declaracion)
-	@Override
-	public Object visit(Declaracionglobales declaracionglobales, Object param) {
-		System.out.print("var"); 
-		declaracionglobales.getDeclaracion().accept(this, param);
-		//super.visit(declaracionglobales, param);
-
-		return null;
-	}
 
 	// class Declaracionfuncion(String nombre, List<Argumento> argumento, Optional<Tipo> tipo, List<VariablesLocales> variablesLocales, List<Sentencia> sentencias)
 	@Override
@@ -102,37 +90,8 @@ public class Visor extends DefaultVisitor {
 		return null;
 	}
 
-	// class VariablesLocales(String IDENT, Tipo tipo)
-	@Override
-	public Object visit(VariablesLocales variablesLocales, Object param) {
-		System.out.print("var "+ variablesLocales.getIDENT()+":");
-		variablesLocales.getTipo().accept(this, param);
-		System.out.println();
-		//super.visit(variablesLocales, param);
 
-		return null;
-	}
 
-	// class Argumento(String IDENT, Tipo tipo)
-	@Override
-	public Object visit(Argumento argumento, Object param) {
-		System.out.print( argumento.getIDENT()+":");
-		
-		argumento.getTipo().accept(this, param);
-		//super.visit(argumento, param);
-
-		return null;
-	}
-
-	// class Declaracion(String IDENT, Tipo tipo)
-	@Override
-	public Object visit(Declaracion declaracion, Object param) {
-		System.out.print(" "+declaracion.getIDENT()+": ");
-		declaracion.getTipo().accept(this, param);
-		//super.visit(declaracion, param);
-
-		return null;
-	}
 
 	// class PrintSentencia(List<Expression> expressions)
 	@Override

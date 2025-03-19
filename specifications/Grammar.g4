@@ -27,7 +27,7 @@ declaracionstructs returns[Declaraciones ast]
 	: 'struct' IDENT '{' listdeclaraciones  '}'   { $ast = new Declaracionstructs($IDENT.text, $listdeclaraciones.list); }
 	;
 declaracionglobales returns[Declaraciones ast]
-	: 'var' declaracion   { $ast = new Declaracionglobales($declaracion.ast); } 
+	: 'var' definicion ';'   { $ast = new Declaracionglobales($definicion.ast); } 
 	; 
 	
 declaracionfuncion returns [Declaraciones ast]
@@ -35,24 +35,19 @@ declaracionfuncion returns [Declaraciones ast]
 { $ast = new Declaracionfuncion($IDENT.text, $argumentos.list, ($tipo.ctx == null) ? null : $tipo.ast, $listaVariablesLocales.list, $sentencias.list); }
 	 
 	; 
-
-variablesLocales returns[VariablesLocales ast]
-	: 'var' IDENT ':' tipo ';'     { $ast = new VariablesLocales($IDENT.text, $tipo.ast); }    
+definicion returns[Definicion ast]
+	:  IDENT ':' tipo    { $ast = new Definicion($IDENT.text, $tipo.ast); }    
 	; 
-listaVariablesLocales returns[List<VariablesLocales> list = new ArrayList<VariablesLocales>()]
-	: (variablesLocales{$list.add($variablesLocales.ast);})* 
+	
+listaVariablesLocales returns[List<Definicion> list = new ArrayList<Definicion>()]
+	: ( 'var' definicion ';'{$list.add($definicion.ast);})* 
 	; 
-argumento  returns[Argumento ast]
-	: IDENT ':' tipo  { $ast = new Argumento($IDENT.text, $tipo.ast); }    
+argumentos returns[List<Definicion> list = new ArrayList<Definicion>()] 
+	:  (definicion {$list.add($definicion.ast);}(',' definicion {$list.add($definicion.ast);})*)*
 	; 
-argumentos returns[List<Argumento> list = new ArrayList<Argumento>()] 
-	:  (argumento {$list.add($argumento.ast);}(',' argumento {$list.add($argumento.ast);})*)*
-	; 
-declaracion  returns[Declaracion ast]
-	:  IDENT ':' tipo ';'   { $ast = new Declaracion($IDENT.text, $tipo.ast); }    
-	; 
-listdeclaraciones returns[List<Declaracion> list = new ArrayList<Declaracion>()]
-	: (declaracion{$list.add($declaracion.ast);})*
+	
+listdeclaraciones returns[List<Definicion> list = new ArrayList<Definicion>()]
+	: (definicion ';' {$list.add($definicion.ast);})*
 	;
 sentencia returns[Sentencia ast]
 	: 'print' expresiones?   ';'   { $ast = new PrintSentencia($expresiones.ctx == null ? new ArrayList<Expression>() : $expresiones.list); }

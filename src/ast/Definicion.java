@@ -13,21 +13,21 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	declaracion -> IDENT:string tipo:tipo
+	definicion -> IDENT:string tipo:tipo
 */
-public class Declaracion extends AbstractAST  {
+public class Definicion extends AbstractAST  {
 
     // ----------------------------------
     // Instance Variables
 
-	// declaracion -> IDENT:string tipo
+	// definicion -> IDENT:string tipo
 	private String IDENT;
 	private Tipo tipo;
 
     // ----------------------------------
     // Constructors
 
-	public Declaracion(String IDENT, Tipo tipo) {
+	public Definicion(String IDENT, Tipo tipo) {
 		super();
 
 		if (IDENT == null)
@@ -41,7 +41,7 @@ public class Declaracion extends AbstractAST  {
 		updatePositions(IDENT, tipo);
 	}
 
-	public Declaracion(Object IDENT, Object tipo) {
+	public Definicion(Object IDENT, Object tipo) {
 		super();
 
         if (IDENT == null)
@@ -57,7 +57,7 @@ public class Declaracion extends AbstractAST  {
 
 
     // ----------------------------------
-    // declaracion -> IDENT:string tipo
+    // definicion -> IDENT:string tipo
 
 	// Child 'IDENT:string' 
 
@@ -97,7 +97,7 @@ public class Declaracion extends AbstractAST  {
 
     @Override
     public String toString() {
-        return "Declaracion{" + " IDENT=" + this.getIDENT() + " tipo=" + this.getTipo() + "}";
+        return "Definicion{" + " IDENT=" + this.getIDENT() + " tipo=" + this.getTipo() + "}";
     }
 
 

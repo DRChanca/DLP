@@ -47,21 +47,9 @@ public class ExceptionThrowerVisitor implements Visitor {
 	}
 
 	@Override
-	public Object visit(VariablesLocales variablesLocales, Object param) {
+	public Object visit(Definicion definicion, Object param) {
 
-        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(VariablesLocales)' has been invoked but it has not been implemented.");
-	}
-
-	@Override
-	public Object visit(Argumento argumento, Object param) {
-
-        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(Argumento)' has been invoked but it has not been implemented.");
-	}
-
-	@Override
-	public Object visit(Declaracion declaracion, Object param) {
-
-        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(Declaracion)' has been invoked but it has not been implemented.");
+        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(Definicion)' has been invoked but it has not been implemented.");
 	}
 
 	@Override
