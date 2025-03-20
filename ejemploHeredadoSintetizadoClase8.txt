@@ -1,0 +1,30 @@
+si tengo 
+
+P -> N 
+
+N -> a b (siendo a sintetizado y b heredado); 
+
+visit(P) {
+
+N.b = valorquesea;  // El nodo N espera que sea heredado
+
+n.accept(N) 
+
+print(N.a)//Como es sintetizado ya esta iniciliazado 
+
+}
+
+visit(N){
+
+print(n.b) // se inicializado antes en el nodo padre
+
+n.a = valorquesea //es un atributo sintetizado por lo que lo inicializa el propia nodo. 
+
+
+en vgen puedo poner esto: 
+
+statement -> [inherited] att; //De esta manera me lo pone de manera automatica y me lo recuerda. 
+
+
+}
+
