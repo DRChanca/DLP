@@ -167,6 +167,12 @@ public class ExceptionThrowerVisitor implements Visitor {
 	}
 
 	@Override
+	public Object visit(BoolExpression boolExpression, Object param) {
+
+        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(BoolExpression)' has been invoked but it has not been implemented.");
+	}
+
+	@Override
 	public Object visit(AcederCap acederCap, Object param) {
 
         throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(AcederCap)' has been invoked but it has not been implemented.");

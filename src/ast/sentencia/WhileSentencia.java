@@ -3,6 +3,7 @@
 package ast.sentencia;
 
 import ast.expression.*;
+import ast.declaraciones.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -17,6 +18,9 @@ import visitor.Visitor;
 /*
 	whileSentencia: sentencia -> condicion:expression entonces:sentencia*
 	sentencia -> 
+	
+	PHASE Identification
+	sentencia -> declafuncion:declaracionfuncion
 */
 public class WhileSentencia extends AbstractSentencia  {
 

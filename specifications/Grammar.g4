@@ -81,9 +81,10 @@ expr returns[Expression ast]
 	| left=expr operator=( '*' | '/' ) right=expr   { $ast = new ArithmeticExpresion($left.ast, $operator.text, $right.ast); }                 
     | left=expr operator=( '+' | '-' ) right=expr   { $ast = new ArithmeticExpresion($left.ast, $operator.text, $right.ast); }                 
     | left=expr operator=( '<' | '>' | '<=' | '>=' ) right=expr { $ast = new LogicExpression($left.ast, $operator.text, $right.ast); }
-    | left=expr operator=('=='| '!=') right=expr { $ast = new LogicExpression($left.ast, $operator.text, $right.ast); }
-    | left=expr operator='&&' right=expr   { $ast = new LogicExpression($left.ast, $operator.text, $right.ast); }                        
-    | left=expr operator='||' right=expr  { $ast = new LogicExpression($left.ast, $operator.text, $right.ast); }    
+    | left=expr operator='==' right=expr { $ast = new BoolExpression($left.ast, $operator.text, $right.ast); }
+    | left=expr operator='!=' right=expr {$ast = new BoolExpression($left.ast, $operator.text, $right.ast);}
+    | left=expr operator='&&' right=expr   { $ast = new BoolExpression($left.ast, $operator.text, $right.ast); }                        
+    | left=expr operator='||' right=expr  { $ast = new BoolExpression($left.ast, $operator.text, $right.ast); }    
     | IDENT '(' expresiones? ')'   { $ast = new FuncionExpresion($IDENT.text, $expresiones.ctx == null ? null : $expresiones.list); }         
 	; 	
 	

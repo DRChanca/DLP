@@ -13,6 +13,7 @@ import ast.declaraciones.Declaracionstructs;
 import ast.expression.AccessoArrayExpresion;
 import ast.expression.AcederCap;
 import ast.expression.ArithmeticExpresion;
+import ast.expression.BoolExpression;
 import ast.expression.CastExpresion;
 import ast.expression.CharExpresion;
 import ast.expression.FuncionExpresion;
@@ -129,6 +130,15 @@ public class Identification extends DefaultVisitor {
 	@Override
 	public Object visit(Declaracionfuncion declaracionfuncion, Object param) {
 		
+		
+		for (var sentencia : declaracionfuncion.getSentencias()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// sentencia.setDeclafuncion(?);
+			sentencia.setDeclafuncion(declaracionfuncion);
+
+		}
+		
+		
 		var definition = funciones.getFromAny(declaracionfuncion.getNombre()); 
 
 		if(definition != null)
@@ -169,6 +179,17 @@ public class Identification extends DefaultVisitor {
 		
 		variables.reset();
 		
+		return null;
+	}
+	
+	// class BoolExpression(Expression left, String operator, Expression right)
+	@Override
+	public Object visit(BoolExpression boolExpression, Object param) {
+
+		// boolExpression.getLeft().accept(this, param);
+		// boolExpression.getRight().accept(this, param);
+		super.visit(boolExpression, param);
+
 		return null;
 	}
 
@@ -241,7 +262,9 @@ public class Identification extends DefaultVisitor {
 	public Object visit(ReturnSentencia returnSentencia, Object param) {
 
 		// returnSentencia.getExpression().ifPresent(expression -> expression.accept(this, param));
+		
 		super.visit(returnSentencia, param);
+		
 
 		return null;
 	}

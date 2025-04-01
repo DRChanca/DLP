@@ -201,6 +201,14 @@ public class DefaultVisitor implements Visitor {
 	}
 
 	@Override
+	public Object visit(BoolExpression boolExpression, Object param) {
+
+		boolExpression.getLeft().accept(this, param);
+		boolExpression.getRight().accept(this, param);
+		return null;
+	}
+
+	@Override
 	public Object visit(AcederCap acederCap, Object param) {
 
 		acederCap.getLeft().accept(this, param);

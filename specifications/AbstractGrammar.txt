@@ -37,6 +37,7 @@ castExpresion:expression -> tipo expression;
 negacionExpresion:expression -> expression; 
 arithmeticExpresion:expression -> left:expression operator:string right:expression; 
 logicExpression:expression -> left:expression operator:string right:expression; 
+boolExpression:expression -> left:expression operator:string right:expression; 
 acederCap:expression -> left:expression right:string; 
 funcionExpresion:expression -> nombre:string argumentos:expression*;  
 
@@ -53,3 +54,4 @@ ATTRIBUTE GRAMMAR Identification
 funcionSentencia -> declaracionfuncion;
 funcionExpresion -> declaracionfuncion; 
 identificadorExpresion -> definicion; 
+sentencia ->  [inherited] declafuncion:declaracionfuncion; 

@@ -3,6 +3,7 @@
 package ast.sentencia;
 
 import ast.*;
+import ast.declaraciones.*;
 
 // %% User Declarations -------------
 
@@ -12,10 +13,22 @@ import ast.*;
 
 /*
 	sentencia -> 
+	
+	PHASE Identification
+	sentencia -> declafuncion:declaracionfuncion
 */
 public interface Sentencia extends AST {
 
 
+
+
+    // --------------------------------
+    // PHASE Identification
+
+	// Attribute 'declafuncion:declaracionfuncion' 
+
+	public void setDeclafuncion(Declaracionfuncion declafuncion);
+	public Declaracionfuncion getDeclafuncion();
 
 
     // %% User Members -------------------------

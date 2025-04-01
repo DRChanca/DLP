@@ -110,6 +110,11 @@ public class Identification extends DefaultVisitor {
 	@Override
 	public Object visit(Declaracionfuncion declaracionfuncion, Object param) {
 
+		for (var sentencia : declaracionfuncion.getSentencias()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// sentencia.setDeclafuncion(?);
+		}
+
 		// declaracionfuncion.getArgumento().forEach(definicion -> definicion.accept(this, param));
 		// declaracionfuncion.getTipo().ifPresent(tipo -> tipo.accept(this, param));
 		// declaracionfuncion.getVariablesLocales().forEach(definicion -> definicion.accept(this, param));
@@ -130,6 +135,7 @@ public class Identification extends DefaultVisitor {
 	}
 
 	// class PrintSentencia(List<Expression> expressions)
+	// phase Identification { Declaracionfuncion declafuncion }
 	@Override
 	public Object visit(PrintSentencia printSentencia, Object param) {
 
@@ -140,6 +146,7 @@ public class Identification extends DefaultVisitor {
 	}
 
 	// class ReadSentencia(List<Expression> expressions)
+	// phase Identification { Declaracionfuncion declafuncion }
 	@Override
 	public Object visit(ReadSentencia readSentencia, Object param) {
 
@@ -150,6 +157,7 @@ public class Identification extends DefaultVisitor {
 	}
 
 	// class PrintspSentencia(List<Expression> expressions)
+	// phase Identification { Declaracionfuncion declafuncion }
 	@Override
 	public Object visit(PrintspSentencia printspSentencia, Object param) {
 
@@ -160,6 +168,7 @@ public class Identification extends DefaultVisitor {
 	}
 
 	// class PrintlnSentencia(List<Expression> expressions)
+	// phase Identification { Declaracionfuncion declafuncion }
 	@Override
 	public Object visit(PrintlnSentencia printlnSentencia, Object param) {
 
@@ -170,7 +179,7 @@ public class Identification extends DefaultVisitor {
 	}
 
 	// class FuncionSentencia(String nombre, List<Expression> argumento)
-	// phase Identification { Declaracionfuncion declaracionfuncion }
+	// phase Identification { Declaracionfuncion declaracionfuncion, Declaracionfuncion declafuncion }
 	@Override
 	public Object visit(FuncionSentencia funcionSentencia, Object param) {
 
@@ -183,6 +192,7 @@ public class Identification extends DefaultVisitor {
 	}
 
 	// class AsignacionSentencia(Expression left, Expression expression)
+	// phase Identification { Declaracionfuncion declafuncion }
 	@Override
 	public Object visit(AsignacionSentencia asignacionSentencia, Object param) {
 
@@ -194,6 +204,7 @@ public class Identification extends DefaultVisitor {
 	}
 
 	// class ReturnSentencia(Optional<Expression> expression)
+	// phase Identification { Declaracionfuncion declafuncion }
 	@Override
 	public Object visit(ReturnSentencia returnSentencia, Object param) {
 
@@ -204,8 +215,19 @@ public class Identification extends DefaultVisitor {
 	}
 
 	// class IfSentencia(Expression condicion, List<Sentencia> entonces, List<Sentencia> otro)
+	// phase Identification { Declaracionfuncion declafuncion }
 	@Override
 	public Object visit(IfSentencia ifSentencia, Object param) {
+
+		for (var sentencia : ifSentencia.getEntonces()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// sentencia.setDeclafuncion(ifSentencia.getDeclafuncion());
+		}
+
+		for (var sentencia : ifSentencia.getOtro()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// sentencia.setDeclafuncion(ifSentencia.getDeclafuncion());
+		}
 
 		// ifSentencia.getCondicion().accept(this, param);
 		// ifSentencia.getEntonces().forEach(sentencia -> sentencia.accept(this, param));
@@ -216,8 +238,14 @@ public class Identification extends DefaultVisitor {
 	}
 
 	// class WhileSentencia(Expression condicion, List<Sentencia> entonces)
+	// phase Identification { Declaracionfuncion declafuncion }
 	@Override
 	public Object visit(WhileSentencia whileSentencia, Object param) {
+
+		for (var sentencia : whileSentencia.getEntonces()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// sentencia.setDeclafuncion(whileSentencia.getDeclafuncion());
+		}
 
 		// whileSentencia.getCondicion().accept(this, param);
 		// whileSentencia.getEntonces().forEach(sentencia -> sentencia.accept(this, param));
@@ -317,6 +345,17 @@ public class Identification extends DefaultVisitor {
 		// logicExpression.getLeft().accept(this, param);
 		// logicExpression.getRight().accept(this, param);
 		super.visit(logicExpression, param);
+
+		return null;
+	}
+
+	// class BoolExpression(Expression left, String operator, Expression right)
+	@Override
+	public Object visit(BoolExpression boolExpression, Object param) {
+
+		// boolExpression.getLeft().accept(this, param);
+		// boolExpression.getRight().accept(this, param);
+		super.visit(boolExpression, param);
 
 		return null;
 	}

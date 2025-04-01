@@ -22,6 +22,7 @@ import visitor.Visitor;
 	
 	PHASE Identification
 	funcionSentencia -> declaracionfuncion:declaracionfuncion
+	sentencia -> declafuncion:declaracionfuncion
 */
 public class FuncionSentencia extends AbstractSentencia  {
 

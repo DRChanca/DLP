@@ -3,6 +3,7 @@
 package ast.sentencia;
 
 import ast.expression.*;
+import ast.declaraciones.*;
 import java.util.Optional;
 import visitor.Visitor;
 
@@ -15,6 +16,9 @@ import visitor.Visitor;
 /*
 	returnSentencia: sentencia -> expression:expression?
 	sentencia -> 
+	
+	PHASE Identification
+	sentencia -> declafuncion:declaracionfuncion
 */
 public class ReturnSentencia extends AbstractSentencia  {
 

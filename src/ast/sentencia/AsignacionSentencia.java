@@ -3,6 +3,7 @@
 package ast.sentencia;
 
 import ast.expression.*;
+import ast.declaraciones.*;
 import visitor.Visitor;
 
 // %% User Declarations -------------
@@ -14,6 +15,9 @@ import visitor.Visitor;
 /*
 	asignacionSentencia: sentencia -> left:expression expression:expression
 	sentencia -> 
+	
+	PHASE Identification
+	sentencia -> declafuncion:declaracionfuncion
 */
 public class AsignacionSentencia extends AbstractSentencia  {
 
