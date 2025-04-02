@@ -226,6 +226,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class IntExpresion(int intValue)
+	// phase TypeChecking { Tipo tipoexpresion, boolean lvalue }
 	@Override
 	public Object visit(IntExpresion intExpresion, Object param) {
 
@@ -233,6 +234,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class RealExpresion(double doubleValue)
+	// phase TypeChecking { Tipo tipoexpresion, boolean lvalue }
 	@Override
 	public Object visit(RealExpresion realExpresion, Object param) {
 
@@ -241,6 +243,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 
 	// class IdentificadorExpresion(String name)
 	// phase Identification { Definicion definicion }
+	// phase TypeChecking { Tipo tipoexpresion, boolean lvalue }
 	@Override
 	public Object visit(IdentificadorExpresion identificadorExpresion, Object param) {
 
@@ -248,6 +251,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class CharExpresion(char charValue)
+	// phase TypeChecking { Tipo tipoexpresion, boolean lvalue }
 	@Override
 	public Object visit(CharExpresion charExpresion, Object param) {
 
@@ -255,6 +259,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class AccessoArrayExpresion(Expression acceso, Expression indice)
+	// phase TypeChecking { Tipo tipoexpresion, boolean lvalue }
 	@Override
 	public Object visit(AccessoArrayExpresion accessoArrayExpresion, Object param) {
 
@@ -266,6 +271,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class ParentesisExpresion(Expression expression)
+	// phase TypeChecking { Tipo tipoexpresion, boolean lvalue }
 	@Override
 	public Object visit(ParentesisExpresion parentesisExpresion, Object param) {
 
@@ -276,6 +282,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class CastExpresion(Tipo tipo, Expression expression)
+	// phase TypeChecking { Tipo tipoexpresion, boolean lvalue }
 	@Override
 	public Object visit(CastExpresion castExpresion, Object param) {
 
@@ -287,6 +294,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class NegacionExpresion(Expression expression)
+	// phase TypeChecking { Tipo tipoexpresion, boolean lvalue }
 	@Override
 	public Object visit(NegacionExpresion negacionExpresion, Object param) {
 
@@ -297,6 +305,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class ArithmeticExpresion(Expression left, String operator, Expression right)
+	// phase TypeChecking { Tipo tipoexpresion, boolean lvalue }
 	@Override
 	public Object visit(ArithmeticExpresion arithmeticExpresion, Object param) {
 
@@ -308,6 +317,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class LogicExpression(Expression left, String operator, Expression right)
+	// phase TypeChecking { Tipo tipoexpresion, boolean lvalue }
 	@Override
 	public Object visit(LogicExpression logicExpression, Object param) {
 
@@ -319,6 +329,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class BoolExpression(Expression left, String operator, Expression right)
+	// phase TypeChecking { Tipo tipoexpresion, boolean lvalue }
 	@Override
 	public Object visit(BoolExpression boolExpression, Object param) {
 
@@ -330,6 +341,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class AcederCap(Expression left, String right)
+	// phase TypeChecking { Tipo tipoexpresion, boolean lvalue }
 	@Override
 	public Object visit(AcederCap acederCap, Object param) {
 
@@ -341,6 +353,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 
 	// class FuncionExpresion(String nombre, List<Expression> argumentos)
 	// phase Identification { Declaracionfuncion declaracionfuncion }
+	// phase TypeChecking { Tipo tipoexpresion, boolean lvalue }
 	@Override
 	public Object visit(FuncionExpresion funcionExpresion, Object param) {
 

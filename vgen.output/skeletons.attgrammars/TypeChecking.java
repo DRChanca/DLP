@@ -1,69 +1,78 @@
-/**
- * MLang. Programming Language Design Tutorial
- * @author Raúl Izquierdo (raul@uniovi.es)
- */
+// Generated with VGen 2.0.0
 
-package semantic;
+/*
 
-import java.lang.reflect.AccessibleObject;
+Este fichero es un esqueleto para facilitar la implementación de una gramática atribuida
+('ATTRIBUTE GRAMMAR' de VGen). Para usarlo hay que realizar dos pasos:
+1. Ubicar este código.
+2. Completar cada método visit.
 
-import ast.*;
-import ast.declaraciones.Declaracionfuncion;
-import ast.declaraciones.Declaracionglobales;
-import ast.declaraciones.Declaracionstructs;
-import ast.expression.AccessoArrayExpresion;
-import ast.expression.AcederCap;
-import ast.expression.ArithmeticExpresion;
-import ast.expression.BoolExpression;
-import ast.expression.CastExpresion;
-import ast.expression.CharExpresion;
-import ast.expression.Expression;
-import ast.expression.FuncionExpresion;
-import ast.expression.IdentificadorExpresion;
-import ast.expression.IntExpresion;
-import ast.expression.LogicExpression;
-import ast.expression.NegacionExpresion;
-import ast.expression.ParentesisExpresion;
-import ast.expression.RealExpresion;
-import ast.sentencia.AsignacionSentencia;
-import ast.sentencia.FuncionSentencia;
-import ast.sentencia.IfSentencia;
-import ast.sentencia.PrintSentencia;
-import ast.sentencia.PrintlnSentencia;
-import ast.sentencia.PrintspSentencia;
-import ast.sentencia.ReadSentencia;
-import ast.sentencia.ReturnSentencia;
-import ast.sentencia.WhileSentencia;
-import ast.tipo.ArrayTipo;
-import ast.tipo.CharTipo;
-import ast.tipo.FloatTipo;
-import ast.tipo.IntTipo;
-import ast.tipo.StringTipo;
-import ast.tipo.Tipo;
-import main.ErrorManager;
+## Paso 1. Ubicación de este Código
+
+Este esqueleto será SOBREESCRITO la próxima vez que se ejecuta VGen. Por ello, se debe
+copiar su contenido antes de hacer cualquier cambio.
+
+Hay dos opciones:
+
+1) Si ya se tiene hecha una clase para el visitor, basta con copiar a dicha clase los
+   métodos visit de este esqueleto (y los import) ignorando el resto.
+
+2) Si no se tiene hecha aún la clase, este esqueleto vale como tal si se mueve a la
+   carpeta deseada del proyecto y se le pone el package correspondiente a dicha
+   ubicación.
+
+Una vez hecho esto, ya se tendría un visitor que compilaría sin errores y que, al
+ejecutarlo, recorrería todo el árbol (aunque sin hacer nada en cada nodo).
+
+
+## Paso 2 Completar cada Método Visit
+
+El visit generado para cada nodo se limita a recorrer sus hijos. El código de recorrido
+se encuentra en la llamada a 'super.visit'. Los 'accept' comentados encima de cada
+'super.visit' son sólo un recordatorio de lo que hace dicho método (son una copia de su
+implementación, que se hereda de DefaultVisitor).
+
+Por tanto, hay tres opciones a la hora de implementar cada visit:
+
+1. Si en el visit de un nodo SÓLO SE NECESITA RECORRER sus hijos, se puede borrar
+   completamente dicho visit de esta clase. Al no estar el método, se heredará de
+   DefaultVisitor la misma implementación que se acaba de borrar. Es decir, en esta
+   clase sólo será necesario dejar los visit que tengan alguna acción que realizar.
+
+2. Si se necesita hacer alguna tarea adicional ANTES o DESPUÉS de recorrer todos los
+   hijos, se debe añadir su código antes o después de la llamada a 'super.visit' (y se
+   pueden borrar los 'accept' comentados).
+
+3. Y, finalmente, si se necesita hacer alguna tarea INTERCALADA en el recorrido de los
+   hijos (por ejemplo, comprobar su tipo), se debe borrar el 'super.visit' y descomentar
+   los 'accept'. Así se tendría ya implementado el recorrido de los hijos, que es la
+   estructura donde se intecalará el código de las acciones adicionales.
+
+NOTA 1. En los visit en los que haya que inicializar atributos heredados de los hijos
+antes de recorrerlos, se han añadido recordatorios en los puntos en los que es
+aconsejable hacerlo.
+
+NOTA 2. En los visit de los nodos que tengan atributos sintetizados, se han añadido
+recordatorios de que se deben inicializar dichos atributos.
+
+*/
+
+// TODO: write package name
+// package ...;
+
 import visitor.DefaultVisitor;
+import ast.*;
+import ast.declaraciones.*;
+import ast.sentencia.*;
+import ast.expression.*;
+import ast.tipo.*;
 
-// This class will be implemented in type checking phase
 
 public class TypeChecking extends DefaultVisitor {
-
-    private ErrorManager errorManager;
-    private ContextMap<String, Tipo> variables = new ContextMap<String, Tipo>();  
-
-    public TypeChecking(ErrorManager errorManager) {
-        this.errorManager = errorManager;
-    }
 
     public void process(AST ast) {
         ast.accept(this, null);
     }
-
-    // # ----------------------------------------------------------
-    /*
-    * Implement visit methods here.
-    */
-
-
 
     // Visit Methods --------------------------------------------------------------
 
@@ -101,19 +110,11 @@ public class TypeChecking extends DefaultVisitor {
 	@Override
 	public Object visit(Declaracionfuncion declaracionfuncion, Object param) {
 
-		 declaracionfuncion.getArgumento().forEach(definicion -> {
-			var aux = tipoSimple(definicion.getTipo()); 
-			if(predicate(aux, "El tipo del parametro debe ser simple", declaracionfuncion))
-				definicion.accept(this, param); 
-		 });
-		 declaracionfuncion.getTipo().ifPresent(tipo -> {
-		 	var aux = tipoSimple(tipo);  
-			if(predicate(aux, "El tipo de retorno debe ser simple o vacio", declaracionfuncion))
-				tipo.accept(this, param); 
-		 });
-		 declaracionfuncion.getVariablesLocales().forEach(definicion -> definicion.accept(this, param));
-		 declaracionfuncion.getSentencias().forEach(sentencia -> sentencia.accept(this, param));
-		//super.visit(declaracionfuncion, param);
+		// declaracionfuncion.getArgumento().forEach(definicion -> definicion.accept(this, param));
+		// declaracionfuncion.getTipo().ifPresent(tipo -> tipo.accept(this, param));
+		// declaracionfuncion.getVariablesLocales().forEach(definicion -> definicion.accept(this, param));
+		// declaracionfuncion.getSentencias().forEach(sentencia -> sentencia.accept(this, param));
+		super.visit(declaracionfuncion, param);
 
 		return null;
 	}
@@ -124,10 +125,7 @@ public class TypeChecking extends DefaultVisitor {
 
 		// definicion.getTipo().accept(this, param);
 		super.visit(definicion, param);
-		if(definicion.getTipo().getClass() == ArrayTipo.class) {
-			ArrayTipo aux = (ArrayTipo) definicion.getTipo(); 
-			variables.put(definicion.getIDENT(), aux.getTipo());
-		}
+
 		return null;
 	}
 
@@ -136,12 +134,8 @@ public class TypeChecking extends DefaultVisitor {
 	@Override
 	public Object visit(PrintSentencia printSentencia, Object param) {
 
-		printSentencia.getExpressions().forEach(expression -> {
-		expression.accept(this, param);
-		var cond = tipoSimple(expression.getTipoexpresion()); 
-		predicate(cond, "print debe tener como argumento tipos basicos", printSentencia); 
-	 }); 
-		//super.visit(printSentencia, param);
+		// printSentencia.getExpressions().forEach(expression -> expression.accept(this, param));
+		super.visit(printSentencia, param);
 
 		return null;
 	}
@@ -162,12 +156,8 @@ public class TypeChecking extends DefaultVisitor {
 	@Override
 	public Object visit(PrintspSentencia printspSentencia, Object param) {
 
-		 printspSentencia.getExpressions().forEach(expression -> {
-			 var cond = expression.getTipoexpresion(); 
-		
-			 expression.accept(this, param);
-		 }); 
-		//super.visit(printspSentencia, param);
+		// printspSentencia.getExpressions().forEach(expression -> expression.accept(this, param));
+		super.visit(printspSentencia, param);
 
 		return null;
 	}
@@ -249,7 +239,6 @@ public class TypeChecking extends DefaultVisitor {
 
 		// TODO: Remember to initialize SYNTHESIZED attributes <-----
 		// intExpresion.setTipoexpresion(?);
-		intExpresion.setTipoexpresion(new IntTipo(intExpresion.getIntValue()+""));
 		// intExpresion.setLvalue(?);
 		return null;
 	}
@@ -261,7 +250,6 @@ public class TypeChecking extends DefaultVisitor {
 
 		// TODO: Remember to initialize SYNTHESIZED attributes <-----
 		// realExpresion.setTipoexpresion(?);
-		realExpresion.setTipoexpresion(new FloatTipo(realExpresion.getDoubleValue()+""));
 		// realExpresion.setLvalue(?);
 		return null;
 	}
@@ -274,11 +262,7 @@ public class TypeChecking extends DefaultVisitor {
 
 		// TODO: Remember to initialize SYNTHESIZED attributes <-----
 		// identificadorExpresion.setTipoexpresion(?);
-
-		
-		identificadorExpresion.setTipoexpresion(identificadorExpresion.getDefinicion().getTipo());
 		// identificadorExpresion.setLvalue(?);
-		identificadorExpresion.setLvalue(true);
 		return null;
 	}
 
@@ -289,7 +273,6 @@ public class TypeChecking extends DefaultVisitor {
 
 		// TODO: Remember to initialize SYNTHESIZED attributes <-----
 		// charExpresion.setTipoexpresion(?);
-		charExpresion.setTipoexpresion(new CharTipo(charExpresion.toString()));
 		// charExpresion.setLvalue(?);
 		return null;
 	}
@@ -301,21 +284,10 @@ public class TypeChecking extends DefaultVisitor {
 
 		// accessoArrayExpresion.getAcceso().accept(this, param);
 		// accessoArrayExpresion.getIndice().accept(this, param);
-		
 		super.visit(accessoArrayExpresion, param);
-		var left = accessoArrayExpresion.getAcceso().getTipoexpresion(); 
-		var right = accessoArrayExpresion.getIndice().getTipoexpresion();
-		var aux = predicate(left.getClass() == ArrayTipo.class, "Acesso a un NO-ARRAY", accessoArrayExpresion); 
-		var aux2 = predicate(right.getClass() == IntTipo.class, "Acesso a array con indice no entero", accessoArrayExpresion); 
-		
-		
+
 		// TODO: Remember to initialize SYNTHESIZED attributes <-----
 		// accessoArrayExpresion.setTipoexpresion(?);
-		if( aux && aux2) {			
-			ArrayTipo tipoArray = (ArrayTipo) left; 
-			accessoArrayExpresion.setTipoexpresion(tipoArray.getTipo());
-			accessoArrayExpresion.setLvalue(true);
-		}
 		// accessoArrayExpresion.setLvalue(?);
 		return null;
 	}
@@ -330,7 +302,6 @@ public class TypeChecking extends DefaultVisitor {
 
 		// TODO: Remember to initialize SYNTHESIZED attributes <-----
 		// parentesisExpresion.setTipoexpresion(?);
-		parentesisExpresion.setTipoexpresion(parentesisExpresion.getExpression().getTipoexpresion());
 		// parentesisExpresion.setLvalue(?);
 		return null;
 	}
@@ -372,24 +343,8 @@ public class TypeChecking extends DefaultVisitor {
 		// arithmeticExpresion.getLeft().accept(this, param);
 		// arithmeticExpresion.getRight().accept(this, param);
 		super.visit(arithmeticExpresion, param);
-		
+
 		// TODO: Remember to initialize SYNTHESIZED attributes <-----
-		var valor = arithmeticExpresion.getLeft().getTipoexpresion() == null || arithmeticExpresion.getRight().getTipoexpresion() == null;
-		if(!valor) {
-			var cond = sameType(arithmeticExpresion.getLeft(), arithmeticExpresion.getRight());
-			var condEntero = arithmeticExpresion.getLeft().getTipoexpresion().getClass() == IntTipo.class || arithmeticExpresion.getRight().getTipoexpresion().getClass() == IntTipo.class; 
-			predicate(cond, "ambos operandos tiene quer ser del mismo tipo", arithmeticExpresion); 
-			predicate(condEntero, "ambos operandos tienen que ser enteros",arithmeticExpresion); 		
-			if(arithmeticExpresion.getOperator().contentEquals("%"))
-				predicate(true,"ambos operandos tienen que ser enteros", arithmeticExpresion);
-			arithmeticExpresion.setTipoexpresion(arithmeticExpresion.getLeft().getTipoexpresion());
-			
-		}else {
-			predicate(!valor, "la funcion no devuelve nada", arithmeticExpresion); 
-		}
-			
-		arithmeticExpresion.setLvalue(false);
-		
 		// arithmeticExpresion.setTipoexpresion(?);
 		// arithmeticExpresion.setLvalue(?);
 		return null;
@@ -478,7 +433,7 @@ public class TypeChecking extends DefaultVisitor {
 	// class ArrayTipo(int tamArray, Tipo tipo)
 	@Override
 	public Object visit(ArrayTipo arrayTipo, Object param) {
-		
+
 		// arrayTipo.getTipo().accept(this, param);
 		super.visit(arrayTipo, param);
 
@@ -488,58 +443,8 @@ public class TypeChecking extends DefaultVisitor {
 	// class StringTipo(String name)
 	@Override
 	public Object visit(StringTipo stringTipo, Object param) {
-		
+
 		return null;
 	}
-
-    //# ----------------------------------------------------------
-    //# Auxiliary methods (optional)
-
-    private void notifyError(String errorMessage, Position position) {
-        errorManager.notify("Type Checking", errorMessage, position);
-    }
-
-    private void notifyError(String msg) {
-        errorManager.notify("Type Checking", msg);
-    }
-
-    /**
-     * predicate. Auxiliary method to implement predicates. Delete if not needed.
-     *
-     * Usage examples:
-     *
-     *    predicate(expr.type != null), "Type cannot be null", expr.start());
-     *
-     *    predicate(expr.type != null), "Type cannot be null", expr);       // expr.start() is assumed
-     *
-     * The start() method (example 1) indicates the position in the file where the node was. If VGen is used, this method
-     * will have been generated in all AST nodes.
-     *
-     * @param condition     Must be met to avoid an error
-     * @param errorMessage  Printed if the condition is not met
-     * @param errorPosition Row and column in the file where the error occurred.
-     * @return true if the condition is met
-     */
-
-    private boolean predicate(boolean condition, String errorMessage, Position position) {
-        if (!condition) {
-            notifyError(errorMessage, position);
-            return false;
-        }
-
-        return true;
-    }
-
-    private boolean sameType(Expression a, Expression b) {
-    	return (a.getTipoexpresion().getClass() == b.getTipoexpresion().getClass()); 
-    }
-    private boolean predicate(boolean condition, String errorMessage, AST node) {
-        return predicate(condition, errorMessage, node.start());
-    }
-    private boolean tipoSimple(Tipo a) {
-    	if(a == null)
-    		return false; 
-    	return a.getClass().equals(IntTipo.class) || a.getClass().equals(FloatTipo.class) || a.getClass().equals(CharTipo.class); 
-    }
 
 }

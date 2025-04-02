@@ -318,7 +318,9 @@ public class AstPrinter implements Visitor {
         printNonNodeChild(indent + 1, "intValue", "int", intExpresion.getIntValue());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, intExpresion, "intValue");
+        printToString(indent + 1, "vgen-attribute-phase-1", "tipoexpresion", "Tipo", intExpresion.getTipoexpresion());
+        printToString(indent + 1, "vgen-attribute-phase-1", "lvalue", "boolean", intExpresion.isLvalue());
+		printUnknownFields(indent + 1, intExpresion, "intValue", "tipoexpresion", "lvalue");
 		return null;
 	}
 
@@ -331,7 +333,9 @@ public class AstPrinter implements Visitor {
         printNonNodeChild(indent + 1, "doubleValue", "double", realExpresion.getDoubleValue());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, realExpresion, "doubleValue");
+        printToString(indent + 1, "vgen-attribute-phase-1", "tipoexpresion", "Tipo", realExpresion.getTipoexpresion());
+        printToString(indent + 1, "vgen-attribute-phase-1", "lvalue", "boolean", realExpresion.isLvalue());
+		printUnknownFields(indent + 1, realExpresion, "doubleValue", "tipoexpresion", "lvalue");
 		return null;
 	}
 
@@ -345,7 +349,9 @@ public class AstPrinter implements Visitor {
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
         printToString(indent + 1, "vgen-attribute-phase-0", "definicion", "Definicion", identificadorExpresion.getDefinicion());
-		printUnknownFields(indent + 1, identificadorExpresion, "name", "definicion");
+        printToString(indent + 1, "vgen-attribute-phase-1", "tipoexpresion", "Tipo", identificadorExpresion.getTipoexpresion());
+        printToString(indent + 1, "vgen-attribute-phase-1", "lvalue", "boolean", identificadorExpresion.isLvalue());
+		printUnknownFields(indent + 1, identificadorExpresion, "name", "tipoexpresion", "lvalue", "definicion");
 		return null;
 	}
 
@@ -358,7 +364,9 @@ public class AstPrinter implements Visitor {
         printNonNodeChild(indent + 1, "charValue", "char", charExpresion.getCharValue());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, charExpresion, "charValue");
+        printToString(indent + 1, "vgen-attribute-phase-1", "tipoexpresion", "Tipo", charExpresion.getTipoexpresion());
+        printToString(indent + 1, "vgen-attribute-phase-1", "lvalue", "boolean", charExpresion.isLvalue());
+		printUnknownFields(indent + 1, charExpresion, "charValue", "tipoexpresion", "lvalue");
 		return null;
 	}
 
@@ -372,7 +380,9 @@ public class AstPrinter implements Visitor {
         printNodeChild(indent + 1, "indice", "Expression", accessoArrayExpresion.getIndice());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, accessoArrayExpresion, "acceso", "indice");
+        printToString(indent + 1, "vgen-attribute-phase-1", "tipoexpresion", "Tipo", accessoArrayExpresion.getTipoexpresion());
+        printToString(indent + 1, "vgen-attribute-phase-1", "lvalue", "boolean", accessoArrayExpresion.isLvalue());
+		printUnknownFields(indent + 1, accessoArrayExpresion, "acceso", "indice", "tipoexpresion", "lvalue");
 		return null;
 	}
 
@@ -385,7 +395,9 @@ public class AstPrinter implements Visitor {
         printNodeChild(indent + 1, "expression", "Expression", parentesisExpresion.getExpression());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, parentesisExpresion, "expression");
+        printToString(indent + 1, "vgen-attribute-phase-1", "tipoexpresion", "Tipo", parentesisExpresion.getTipoexpresion());
+        printToString(indent + 1, "vgen-attribute-phase-1", "lvalue", "boolean", parentesisExpresion.isLvalue());
+		printUnknownFields(indent + 1, parentesisExpresion, "expression", "tipoexpresion", "lvalue");
 		return null;
 	}
 
@@ -399,7 +411,9 @@ public class AstPrinter implements Visitor {
         printNodeChild(indent + 1, "expression", "Expression", castExpresion.getExpression());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, castExpresion, "tipo", "expression");
+        printToString(indent + 1, "vgen-attribute-phase-1", "tipoexpresion", "Tipo", castExpresion.getTipoexpresion());
+        printToString(indent + 1, "vgen-attribute-phase-1", "lvalue", "boolean", castExpresion.isLvalue());
+		printUnknownFields(indent + 1, castExpresion, "tipo", "expression", "tipoexpresion", "lvalue");
 		return null;
 	}
 
@@ -412,7 +426,9 @@ public class AstPrinter implements Visitor {
         printNodeChild(indent + 1, "expression", "Expression", negacionExpresion.getExpression());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, negacionExpresion, "expression");
+        printToString(indent + 1, "vgen-attribute-phase-1", "tipoexpresion", "Tipo", negacionExpresion.getTipoexpresion());
+        printToString(indent + 1, "vgen-attribute-phase-1", "lvalue", "boolean", negacionExpresion.isLvalue());
+		printUnknownFields(indent + 1, negacionExpresion, "expression", "tipoexpresion", "lvalue");
 		return null;
 	}
 
@@ -427,7 +443,9 @@ public class AstPrinter implements Visitor {
         printNodeChild(indent + 1, "right", "Expression", arithmeticExpresion.getRight());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, arithmeticExpresion, "left", "operator", "right");
+        printToString(indent + 1, "vgen-attribute-phase-1", "tipoexpresion", "Tipo", arithmeticExpresion.getTipoexpresion());
+        printToString(indent + 1, "vgen-attribute-phase-1", "lvalue", "boolean", arithmeticExpresion.isLvalue());
+		printUnknownFields(indent + 1, arithmeticExpresion, "left", "operator", "right", "tipoexpresion", "lvalue");
 		return null;
 	}
 
@@ -442,7 +460,9 @@ public class AstPrinter implements Visitor {
         printNodeChild(indent + 1, "right", "Expression", logicExpression.getRight());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, logicExpression, "left", "operator", "right");
+        printToString(indent + 1, "vgen-attribute-phase-1", "tipoexpresion", "Tipo", logicExpression.getTipoexpresion());
+        printToString(indent + 1, "vgen-attribute-phase-1", "lvalue", "boolean", logicExpression.isLvalue());
+		printUnknownFields(indent + 1, logicExpression, "left", "operator", "right", "tipoexpresion", "lvalue");
 		return null;
 	}
 
@@ -457,7 +477,9 @@ public class AstPrinter implements Visitor {
         printNodeChild(indent + 1, "right", "Expression", boolExpression.getRight());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, boolExpression, "left", "operator", "right");
+        printToString(indent + 1, "vgen-attribute-phase-1", "tipoexpresion", "Tipo", boolExpression.getTipoexpresion());
+        printToString(indent + 1, "vgen-attribute-phase-1", "lvalue", "boolean", boolExpression.isLvalue());
+		printUnknownFields(indent + 1, boolExpression, "left", "operator", "right", "tipoexpresion", "lvalue");
 		return null;
 	}
 
@@ -471,7 +493,9 @@ public class AstPrinter implements Visitor {
         printNonNodeChild(indent + 1, "right", "String", acederCap.getRight());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, acederCap, "left", "right");
+        printToString(indent + 1, "vgen-attribute-phase-1", "tipoexpresion", "Tipo", acederCap.getTipoexpresion());
+        printToString(indent + 1, "vgen-attribute-phase-1", "lvalue", "boolean", acederCap.isLvalue());
+		printUnknownFields(indent + 1, acederCap, "left", "right", "tipoexpresion", "lvalue");
 		return null;
 	}
 
@@ -486,7 +510,9 @@ public class AstPrinter implements Visitor {
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
         printToString(indent + 1, "vgen-attribute-phase-0", "declaracionfuncion", "Declaracionfuncion", funcionExpresion.getDeclaracionfuncion());
-		printUnknownFields(indent + 1, funcionExpresion, "nombre", "argumentos", "declaracionfuncion");
+        printToString(indent + 1, "vgen-attribute-phase-1", "tipoexpresion", "Tipo", funcionExpresion.getTipoexpresion());
+        printToString(indent + 1, "vgen-attribute-phase-1", "lvalue", "boolean", funcionExpresion.isLvalue());
+		printUnknownFields(indent + 1, funcionExpresion, "nombre", "argumentos", "tipoexpresion", "lvalue", "declaracionfuncion");
 		return null;
 	}
 

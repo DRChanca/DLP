@@ -42,11 +42,14 @@ AbstractAST <|-[#808080]- AbstractSentencia
 Sentencia -[#ff6600,thickness=3]-  Declaracionfuncion #text:ff6600 : declafuncion >
 
 interface Expression {
+	..<color:#3366cc> TypeChecking </color>..
+	+<color:#3366cc>boolean lvalue</color>
 }
 AST <|-[#808080]- Expression
 abstract AbstractExpression
 Expression <|-[#808080]- AbstractExpression
 AbstractAST <|-[#808080]- AbstractExpression
+Expression -[#3366cc,thickness=3]-  Tipo #text:3366cc : tipoexpresion >
 
 interface AST {
 }

@@ -55,3 +55,7 @@ funcionSentencia -> declaracionfuncion;
 funcionExpresion -> declaracionfuncion; 
 identificadorExpresion -> definicion; 
 sentencia ->  [inherited] declafuncion:declaracionfuncion; 
+
+ATTRIBUTE GRAMMAR TypeChecking 
+expression -> tipoexpresion:tipo; 
+expression -> lvalue:boolean; 

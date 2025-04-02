@@ -78,7 +78,7 @@ expr returns[Expression ast]
 	| '(' expr ')'   { $ast = new ParentesisExpresion($expr.ast); } 
 	| '<'tipo'>' '('expr')' { $ast = new CastExpresion($tipo.ast, $expr.ast); }
 	| '!' expr { $ast = new NegacionExpresion($expr.ast); }
-	| left=expr operator=( '*' | '/' ) right=expr   { $ast = new ArithmeticExpresion($left.ast, $operator.text, $right.ast); }                 
+	| left=expr operator=( '*' | '/' | '%') right=expr   { $ast = new ArithmeticExpresion($left.ast, $operator.text, $right.ast); }                 
     | left=expr operator=( '+' | '-' ) right=expr   { $ast = new ArithmeticExpresion($left.ast, $operator.text, $right.ast); }                 
     | left=expr operator=( '<' | '>' | '<=' | '>=' ) right=expr { $ast = new LogicExpression($left.ast, $operator.text, $right.ast); }
     | left=expr operator='==' right=expr { $ast = new BoolExpression($left.ast, $operator.text, $right.ast); }

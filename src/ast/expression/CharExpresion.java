@@ -2,6 +2,7 @@
 
 package ast.expression;
 
+import ast.tipo.*;
 import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
@@ -14,6 +15,10 @@ import visitor.Visitor;
 /*
 	charExpresion: expression -> charValue:char
 	expression -> 
+	
+	PHASE TypeChecking
+	expression -> tipoexpresion:tipo
+	expression -> lvalue:boolean
 */
 public class CharExpresion extends AbstractExpression  {
 
