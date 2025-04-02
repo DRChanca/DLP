@@ -80,5 +80,7 @@ public interface Visitor {
 
 	public Object visit(StringTipo stringTipo, Object param);
 
+	public Object visit(VoidTipo voidTipo, Object param);
+
 
 }

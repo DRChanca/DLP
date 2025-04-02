@@ -80,6 +80,7 @@ Declaracionfuncion o-[#404040,thickness=2]- "✱" Definicion : argumento >
 Declaracionfuncion o-[#404040,thickness=2]- "0..1" Tipo : tipo >
 Declaracionfuncion o-[#404040,thickness=2]- "✱" Definicion : variablesLocales >
 Declaracionfuncion o-[#404040,thickness=2]- "✱" Sentencia : sentencias >
+Declaracionfuncion -[#3366cc,thickness=3]-  Tipo #text:3366cc : tipofunc >
 
 class Definicion {
 	+String IDENT
@@ -113,6 +114,7 @@ class FuncionSentencia {
 AbstractSentencia <|-[#808080]- FuncionSentencia
 FuncionSentencia o-[#404040,thickness=2]- "✱" Expression : argumento >
 FuncionSentencia -[#ff6600,thickness=3]-  Declaracionfuncion #text:ff6600 : declaracionfuncion >
+FuncionSentencia -[#3366cc,thickness=3]-  Tipo #text:3366cc : tipofunc >
 
 class AsignacionSentencia {
 }
@@ -240,5 +242,10 @@ class StringTipo {
 	+String name
 }
 AbstractTipo <|-[#808080]- StringTipo
+StringTipo -[#ff6600,thickness=3]- "✱" Definicion #text:ff6600 : definicions >
+
+class VoidTipo {
+}
+AbstractTipo <|-[#808080]- VoidTipo
 
 @enduml

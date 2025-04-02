@@ -48,14 +48,19 @@ floatTipo:tipo ->  string;
 charTipo:tipo ->  string; 
 arrayTipo:tipo -> tamArray:int tipo;
 StringTipo:tipo-> string;   
+voidTipo:tipo -> ; 
 
 
 ATTRIBUTE GRAMMAR Identification
 funcionSentencia -> declaracionfuncion;
 funcionExpresion -> declaracionfuncion; 
 identificadorExpresion -> definicion; 
+StringTipo -> definicion*;
 sentencia ->  [inherited] declafuncion:declaracionfuncion; 
 
 ATTRIBUTE GRAMMAR TypeChecking 
 expression -> tipoexpresion:tipo; 
 expression -> lvalue:boolean; 
+declaracionfuncion -> tipofunc:tipo; 
+funcionSentencia -> tipofunc:tipo; 
+

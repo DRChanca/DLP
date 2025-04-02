@@ -415,8 +415,18 @@ public class Identification extends DefaultVisitor {
 	}
 
 	// class StringTipo(String name)
+	// phase Identification { List<Definicion> definicions }
 	@Override
 	public Object visit(StringTipo stringTipo, Object param) {
+
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// stringTipo.setDefinicions(?);
+		return null;
+	}
+
+	// class VoidTipo()
+	@Override
+	public Object visit(VoidTipo voidTipo, Object param) {
 
 		return null;
 	}

@@ -30,6 +30,7 @@ tipo returns[Tipo ast]
     | name=IDENT                          { $ast = new CharTipo($name); }                        
     | INT_LITERAL tipo                    { $ast = new ArrayTipo($INT_LITERAL, $tipo.ast); }     
     | name=IDENT                          { $ast = new StringTipo($name); }                      
+    |                                     { $ast = new VoidTipo(); }                             
 	;
 
 sentencia returns[Sentencia ast]

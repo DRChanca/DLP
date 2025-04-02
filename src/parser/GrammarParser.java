@@ -1208,7 +1208,7 @@ public class GrammarParser extends Parser {
 						((ExprContext)_localctx).operator = match(T__31);
 						setState(253);
 						((ExprContext)_localctx).right = ((ExprContext)_localctx).expr = expr(6);
-						 ((ExprContext)_localctx).ast =  new BoolExpression(((ExprContext)_localctx).left.ast, (((ExprContext)_localctx).operator!=null?((ExprContext)_localctx).operator.getText():null), ((ExprContext)_localctx).right.ast); 
+						 ((ExprContext)_localctx).ast =  new LogicExpression(((ExprContext)_localctx).left.ast, (((ExprContext)_localctx).operator!=null?((ExprContext)_localctx).operator.getText():null), ((ExprContext)_localctx).right.ast); 
 						}
 						break;
 					case 5:
@@ -1222,7 +1222,7 @@ public class GrammarParser extends Parser {
 						((ExprContext)_localctx).operator = match(T__32);
 						setState(258);
 						((ExprContext)_localctx).right = ((ExprContext)_localctx).expr = expr(5);
-						((ExprContext)_localctx).ast =  new BoolExpression(((ExprContext)_localctx).left.ast, (((ExprContext)_localctx).operator!=null?((ExprContext)_localctx).operator.getText():null), ((ExprContext)_localctx).right.ast);
+						((ExprContext)_localctx).ast =  new LogicExpression(((ExprContext)_localctx).left.ast, (((ExprContext)_localctx).operator!=null?((ExprContext)_localctx).operator.getText():null), ((ExprContext)_localctx).right.ast);
 						}
 						break;
 					case 6:

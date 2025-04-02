@@ -253,5 +253,11 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
+	@Override
+	public Object visit(VoidTipo voidTipo, Object param) {
+
+		return null;
+	}
+
 
 }

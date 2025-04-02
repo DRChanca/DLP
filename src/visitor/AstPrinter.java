@@ -159,7 +159,8 @@ public class AstPrinter implements Visitor {
         printListOfNodesChild(indent + 1, "sentencias", "List<Sentencia>", declaracionfuncion.getSentencias());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, declaracionfuncion, "nombre", "argumento", "tipo", "variablesLocales", "sentencias");
+        printToString(indent + 1, "vgen-attribute-phase-1", "tipofunc", "Tipo", declaracionfuncion.getTipofunc());
+		printUnknownFields(indent + 1, declaracionfuncion, "nombre", "argumento", "tipo", "variablesLocales", "sentencias", "tipofunc");
 		return null;
 	}
 
@@ -245,7 +246,8 @@ public class AstPrinter implements Visitor {
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
         printToString(indent + 1, "vgen-attribute-phase-0", "declafuncion", "Declaracionfuncion", funcionSentencia.getDeclafuncion());
         printToString(indent + 1, "vgen-attribute-phase-0", "declaracionfuncion", "Declaracionfuncion", funcionSentencia.getDeclaracionfuncion());
-		printUnknownFields(indent + 1, funcionSentencia, "nombre", "argumento", "declafuncion", "declaracionfuncion");
+        printToString(indent + 1, "vgen-attribute-phase-1", "tipofunc", "Tipo", funcionSentencia.getTipofunc());
+		printUnknownFields(indent + 1, funcionSentencia, "nombre", "argumento", "declafuncion", "declaracionfuncion", "tipofunc");
 		return null;
 	}
 
@@ -578,7 +580,20 @@ public class AstPrinter implements Visitor {
         printNonNodeChild(indent + 1, "name", "String", stringTipo.getName());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, stringTipo, "name");
+        printToString(indent + 1, "vgen-attribute-phase-0", "definicions", "List<Definicion>", stringTipo.getDefinicions());
+		printUnknownFields(indent + 1, stringTipo, "name", "definicions");
+		return null;
+	}
+
+	@Override
+	public Object visit(VoidTipo voidTipo, Object param) {
+
+		int indent = ((Integer)param);
+
+		// Imprimir los hijos (y recorrer si son nodos del AST)
+
+		// Imprimir el 'toString()' de los atributos (pero no recorrer)
+		printUnknownFields(indent + 1, voidTipo, "");
 		return null;
 	}
 

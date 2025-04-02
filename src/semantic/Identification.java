@@ -314,7 +314,7 @@ public class Identification extends DefaultVisitor {
 		if(aux == null) {
 			notifyError("Intentado acceder a un valor sin especificar "+ nombre);
 		}else {
-			identificadorExpresion.setDefinicion(aux); 
+			identificadorExpresion.setDefinicion(aux);
 		}
 		
 		return null;
@@ -457,6 +457,7 @@ public class Identification extends DefaultVisitor {
 		var objeto = estructuras.getFromAny(aux); 
 		if(objeto == null)
 			notifyError("Declaracion de campo no definido " + aux);
+		
 		return null;
 	}
     

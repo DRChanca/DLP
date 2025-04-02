@@ -100,6 +100,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class Declaracionfuncion(String nombre, List<Definicion> argumento, Optional<Tipo> tipo, List<Definicion> variablesLocales, List<Sentencia> sentencias)
+	// phase TypeChecking { Tipo tipofunc }
 	@Override
 	public Object visit(Declaracionfuncion declaracionfuncion, Object param) {
 
@@ -168,6 +169,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 
 	// class FuncionSentencia(String nombre, List<Expression> argumento)
 	// phase Identification { Declaracionfuncion declaracionfuncion, Declaracionfuncion declafuncion }
+	// phase TypeChecking { Tipo tipofunc }
 	@Override
 	public Object visit(FuncionSentencia funcionSentencia, Object param) {
 
@@ -395,8 +397,16 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class StringTipo(String name)
+	// phase Identification { List<Definicion> definicions }
 	@Override
 	public Object visit(StringTipo stringTipo, Object param) {
+
+		return null;
+	}
+
+	// class VoidTipo()
+	@Override
+	public Object visit(VoidTipo voidTipo, Object param) {
 
 		return null;
 	}
