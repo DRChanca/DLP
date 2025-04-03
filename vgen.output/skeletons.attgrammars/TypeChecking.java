@@ -1,10 +1,9 @@
 // Generated with VGen 2.0.0
 
-
 /*
 
-Este fichero es un esqueleto para facilitar la creación de una clase visitor. Para
-usarlo hay que realizar dos pasos:
+Este fichero es un esqueleto para facilitar la implementación de una gramática atribuida
+('ATTRIBUTE GRAMMAR' de VGen). Para usarlo hay que realizar dos pasos:
 1. Ubicar este código.
 2. Completar cada método visit.
 
@@ -19,7 +18,8 @@ Hay dos opciones:
    métodos visit de este esqueleto (y los import) ignorando el resto.
 
 2) Si no se tiene hecha aún la clase, este esqueleto vale como tal si se mueve a la
-   carpeta deseada del proyecto y se le pone el package correspondiente a dicha ubicación.
+   carpeta deseada del proyecto y se le pone el package correspondiente a dicha
+   ubicación.
 
 Una vez hecho esto, ya se tendría un visitor que compilaría sin errores y que, al
 ejecutarlo, recorrería todo el árbol (aunque sin hacer nada en cada nodo).
@@ -39,14 +39,21 @@ Por tanto, hay tres opciones a la hora de implementar cada visit:
    DefaultVisitor la misma implementación que se acaba de borrar. Es decir, en esta
    clase sólo será necesario dejar los visit que tengan alguna acción que realizar.
 
-2. Si se necesita hacer alguna tarea adicional ANTES o DESPUÉS de recorrer todos
-   los hijos, se debe añadir su código antes o después de la llamada a 'super.visit' (y
-   se pueden borrar los 'accept' comentados).
+2. Si se necesita hacer alguna tarea adicional ANTES o DESPUÉS de recorrer todos los
+   hijos, se debe añadir su código antes o después de la llamada a 'super.visit' (y se
+   pueden borrar los 'accept' comentados).
 
 3. Y, finalmente, si se necesita hacer alguna tarea INTERCALADA en el recorrido de los
    hijos (por ejemplo, comprobar su tipo), se debe borrar el 'super.visit' y descomentar
    los 'accept'. Así se tendría ya implementado el recorrido de los hijos, que es la
    estructura donde se intecalará el código de las acciones adicionales.
+
+NOTA 1. En los visit en los que haya que inicializar atributos heredados de los hijos
+antes de recorrerlos, se han añadido recordatorios en los puntos en los que es
+aconsejable hacerlo.
+
+NOTA 2. En los visit de los nodos que tengan atributos sintetizados, se han añadido
+recordatorios de que se deben inicializar dichos atributos.
 
 */
 
@@ -61,7 +68,7 @@ import ast.expression.*;
 import ast.tipo.*;
 
 
-public class SkeletonForNewVisitors extends DefaultVisitor {
+public class TypeChecking extends DefaultVisitor {
 
     public void process(AST ast) {
         ast.accept(this, null);
@@ -110,6 +117,8 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		// declaracionfuncion.getSentencias().forEach(sentencia -> sentencia.accept(this, param));
 		super.visit(declaracionfuncion, param);
 
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// declaracionfuncion.setTipofunc(?);
 		return null;
 	}
 
@@ -176,6 +185,8 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		// funcionSentencia.getArgumento().forEach(expression -> expression.accept(this, param));
 		super.visit(funcionSentencia, param);
 
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// funcionSentencia.setTipofunc(?);
 		return null;
 	}
 
@@ -232,6 +243,9 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	@Override
 	public Object visit(IntExpresion intExpresion, Object param) {
 
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// intExpresion.setTipoexpresion(?);
+		// intExpresion.setLvalue(?);
 		return null;
 	}
 
@@ -240,6 +254,9 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	@Override
 	public Object visit(RealExpresion realExpresion, Object param) {
 
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// realExpresion.setTipoexpresion(?);
+		// realExpresion.setLvalue(?);
 		return null;
 	}
 
@@ -249,6 +266,9 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	@Override
 	public Object visit(IdentificadorExpresion identificadorExpresion, Object param) {
 
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// identificadorExpresion.setTipoexpresion(?);
+		// identificadorExpresion.setLvalue(?);
 		return null;
 	}
 
@@ -257,6 +277,9 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	@Override
 	public Object visit(CharExpresion charExpresion, Object param) {
 
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// charExpresion.setTipoexpresion(?);
+		// charExpresion.setLvalue(?);
 		return null;
 	}
 
@@ -269,6 +292,9 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		// accessoArrayExpresion.getIndice().accept(this, param);
 		super.visit(accessoArrayExpresion, param);
 
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// accessoArrayExpresion.setTipoexpresion(?);
+		// accessoArrayExpresion.setLvalue(?);
 		return null;
 	}
 
@@ -280,6 +306,9 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		// parentesisExpresion.getExpression().accept(this, param);
 		super.visit(parentesisExpresion, param);
 
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// parentesisExpresion.setTipoexpresion(?);
+		// parentesisExpresion.setLvalue(?);
 		return null;
 	}
 
@@ -292,6 +321,9 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		// castExpresion.getExpression().accept(this, param);
 		super.visit(castExpresion, param);
 
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// castExpresion.setTipoexpresion(?);
+		// castExpresion.setLvalue(?);
 		return null;
 	}
 
@@ -303,6 +335,9 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		// negacionExpresion.getExpression().accept(this, param);
 		super.visit(negacionExpresion, param);
 
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// negacionExpresion.setTipoexpresion(?);
+		// negacionExpresion.setLvalue(?);
 		return null;
 	}
 
@@ -315,6 +350,9 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		// arithmeticExpresion.getRight().accept(this, param);
 		super.visit(arithmeticExpresion, param);
 
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// arithmeticExpresion.setTipoexpresion(?);
+		// arithmeticExpresion.setLvalue(?);
 		return null;
 	}
 
@@ -327,6 +365,9 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		// logicExpression.getRight().accept(this, param);
 		super.visit(logicExpression, param);
 
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// logicExpression.setTipoexpresion(?);
+		// logicExpression.setLvalue(?);
 		return null;
 	}
 
@@ -339,6 +380,9 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		// boolExpression.getRight().accept(this, param);
 		super.visit(boolExpression, param);
 
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// boolExpression.setTipoexpresion(?);
+		// boolExpression.setLvalue(?);
 		return null;
 	}
 
@@ -350,6 +394,9 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		// acederCap.getLeft().accept(this, param);
 		super.visit(acederCap, param);
 
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// acederCap.setTipoexpresion(?);
+		// acederCap.setLvalue(?);
 		return null;
 	}
 
@@ -362,6 +409,9 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		// funcionExpresion.getArgumentos().forEach(expression -> expression.accept(this, param));
 		super.visit(funcionExpresion, param);
 
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// funcionExpresion.setTipoexpresion(?);
+		// funcionExpresion.setLvalue(?);
 		return null;
 	}
 

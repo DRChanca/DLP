@@ -39,13 +39,17 @@ AST <|-[#808080]- Sentencia
 abstract AbstractSentencia
 Sentencia <|-[#808080]- AbstractSentencia
 AbstractAST <|-[#808080]- AbstractSentencia
+Sentencia -[#ff6600,thickness=3]-  Declaracionfuncion #text:ff6600 : declafuncion >
 
 interface Expression {
+	..<color:#3366cc> TypeChecking </color>..
+	+<color:#3366cc>boolean lvalue</color>
 }
 AST <|-[#808080]- Expression
 abstract AbstractExpression
 Expression <|-[#808080]- AbstractExpression
 AbstractAST <|-[#808080]- AbstractExpression
+Expression -[#3366cc,thickness=3]-  Tipo #text:3366cc : tipoexpresion >
 
 interface AST {
 }
@@ -76,6 +80,7 @@ Declaracionfuncion o-[#404040,thickness=2]- "✱" Definicion : argumento >
 Declaracionfuncion o-[#404040,thickness=2]- "0..1" Tipo : tipo >
 Declaracionfuncion o-[#404040,thickness=2]- "✱" Definicion : variablesLocales >
 Declaracionfuncion o-[#404040,thickness=2]- "✱" Sentencia : sentencias >
+Declaracionfuncion -[#3366cc,thickness=3]-  Tipo #text:3366cc : tipofunc >
 
 class Definicion {
 	+String IDENT
@@ -109,6 +114,7 @@ class FuncionSentencia {
 AbstractSentencia <|-[#808080]- FuncionSentencia
 FuncionSentencia o-[#404040,thickness=2]- "✱" Expression : argumento >
 FuncionSentencia -[#ff6600,thickness=3]-  Declaracionfuncion #text:ff6600 : declaracionfuncion >
+FuncionSentencia -[#3366cc,thickness=3]-  Tipo #text:3366cc : tipofunc >
 
 class AsignacionSentencia {
 }
@@ -191,6 +197,13 @@ AbstractExpression <|-[#808080]- LogicExpression
 LogicExpression o-[#404040,thickness=2]-  Expression : left >
 LogicExpression o-[#404040,thickness=2]-  Expression : right >
 
+class BoolExpression {
+	+String operator
+}
+AbstractExpression <|-[#808080]- BoolExpression
+BoolExpression o-[#404040,thickness=2]-  Expression : left >
+BoolExpression o-[#404040,thickness=2]-  Expression : right >
+
 class AcederCap {
 	+String right
 }
@@ -229,5 +242,10 @@ class StringTipo {
 	+String name
 }
 AbstractTipo <|-[#808080]- StringTipo
+StringTipo -[#ff6600,thickness=3]- "✱" Definicion #text:ff6600 : definicions >
+
+class VoidTipo {
+}
+AbstractTipo <|-[#808080]- VoidTipo
 
 @enduml

@@ -2,6 +2,10 @@
 
 package ast.tipo;
 
+import ast.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.stream.Stream;
 import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
@@ -14,6 +18,9 @@ import visitor.Visitor;
 /*
 	StringTipo: tipo -> name:string
 	tipo -> 
+	
+	PHASE Identification
+	StringTipo -> definicions:definicion*
 */
 public class StringTipo extends AbstractTipo  {
 
@@ -22,6 +29,9 @@ public class StringTipo extends AbstractTipo  {
 
 	// StringTipo: tipo -> string
 	private String name;
+
+    // PHASE Identification
+	private List<Definicion> definicions;
 
     // ----------------------------------
     // Constructors
@@ -64,6 +74,28 @@ public class StringTipo extends AbstractTipo  {
     }
 
 
+
+    // --------------------------------
+    // PHASE Identification
+
+	// Attribute 'definicion*' 
+
+	public void setDefinicions(List<Definicion> definicions) {
+		if (definicions == null)
+			definicions = new ArrayList<>();
+		this.definicions = definicions;
+
+	}
+
+    public List<Definicion> getDefinicions() {
+        return definicions;
+    }
+
+    public Stream<Definicion> definicions() {
+        return definicions.stream();
+    }
+
+
     // ----------------------------------
     // Helper methods
 
@@ -81,6 +113,12 @@ public class StringTipo extends AbstractTipo  {
     // %% User Members -------------------------
 
         // Methods/attributes in this section will be preserved. Delete if not needed
-
+	@Override
+	public boolean mismoTipo(Tipo a) {
+		if(a == null || a.getClass() != this.getClass())
+			return false;
+		StringTipo otro = (StringTipo) a; 
+		return this.getName().equalsIgnoreCase(otro.getName()); 
+	}
     // %% --------------------------------------
 }

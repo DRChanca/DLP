@@ -2,6 +2,7 @@
 
 package ast.expression;
 
+import ast.tipo.*;
 import ast.*;
 import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
@@ -18,6 +19,10 @@ import visitor.Visitor;
 	
 	PHASE Identification
 	identificadorExpresion -> definicion:definicion
+	
+	PHASE TypeChecking
+	expression -> tipoexpresion:tipo
+	expression -> lvalue:boolean
 */
 public class IdentificadorExpresion extends AbstractExpression  {
 

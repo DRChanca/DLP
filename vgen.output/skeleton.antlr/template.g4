@@ -30,6 +30,7 @@ tipo returns[Tipo ast]
     | name=IDENT                          { $ast = new CharTipo($name); }                        
     | INT_LITERAL tipo                    { $ast = new ArrayTipo($INT_LITERAL, $tipo.ast); }     
     | name=IDENT                          { $ast = new StringTipo($name); }                      
+    |                                     { $ast = new VoidTipo(); }                             
 	;
 
 sentencia returns[Sentencia ast]
@@ -55,6 +56,7 @@ expression returns[Expression ast]
     | expression                          { $ast = new NegacionExpresion($expression.ast); }     
     | left=expression operator=IDENT right=expression { $ast = new ArithmeticExpresion($left.ast, $operator, $right.ast); }
     | left=expression operator=IDENT right=expression { $ast = new LogicExpression($left.ast, $operator, $right.ast); }
+    | left=expression operator=IDENT right=expression { $ast = new BoolExpression($left.ast, $operator, $right.ast); }
     | expression right=IDENT              { $ast = new AcederCap($expression.ast, $right); }     
     | nombre=IDENT argumentos+=expression* { $ast = new FuncionExpresion($nombre, $argumentos); } 
 	;

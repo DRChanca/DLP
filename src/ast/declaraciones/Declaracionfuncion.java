@@ -21,6 +21,9 @@ import visitor.Visitor;
 /*
 	declaracionfuncion: declaraciones -> nombre:string argumento:definicion* tipo:tipo? variablesLocales:definicion* sentencias:sentencia*
 	declaraciones -> 
+	
+	PHASE TypeChecking
+	declaracionfuncion -> tipofunc:tipo
 */
 public class Declaracionfuncion extends AbstractDeclaraciones  {
 
@@ -33,6 +36,9 @@ public class Declaracionfuncion extends AbstractDeclaraciones  {
 	private Optional<Tipo> tipo;
 	private List<Definicion> variablesLocales;
 	private List<Sentencia> sentencias;
+
+    // PHASE TypeChecking
+	private Tipo tipofunc;
 
     // ----------------------------------
     // Constructors
@@ -160,6 +166,24 @@ public class Declaracionfuncion extends AbstractDeclaraciones  {
 
     public Stream<Sentencia> sentencias() {
         return sentencias.stream();
+    }
+
+
+
+    // --------------------------------
+    // PHASE TypeChecking
+
+	// Attribute 'tipofunc:tipo' 
+
+	public void setTipofunc(Tipo tipofunc) {
+		if (tipofunc == null)
+			throw new IllegalArgumentException("Parameter 'tipofunc' can't be null. Pass a non-null value or use 'tipo?' in the abstract grammar");
+		this.tipofunc = tipofunc;
+
+	}
+
+    public Tipo getTipofunc() {
+        return tipofunc;
     }
 
 

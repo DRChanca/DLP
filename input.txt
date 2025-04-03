@@ -1,18 +1,35 @@
 f() {
+    // ERROR. No puede tener expresión en función void
+    return 1;
 }
 
-struct f {      // Puede haber una struct que se llame igual que una función
-    edad:int;
+f2() {
+    if (1) {
+        while(1) {
+            // ERROR. No puede tener expresión en función void
+            return 1;
+        }
+    }
+    else {
+        // ERROR. No puede tener expresión en función void
+        return 2;
+    }
 }
 
-var f:int;    // Puede haber una variable que se llame igual que una función y que una struct
+f3():int {
+    // ERROR. Debe tener una expresión de retorno
+    return;
+}
 
-main() {
-
-    var f:f;    // Puede haber una variable que se llame igual que un tipo
-
-    print f.edad;
-
-	f();
-
+f4():int {
+    if (1) {
+        while(1) {
+            // ERROR. Debe tener una expresión de retorno
+            return;
+        }
+    }
+    else {
+        // ERROR. Debe tener una expresión de retorno
+        return;
+    }
 }

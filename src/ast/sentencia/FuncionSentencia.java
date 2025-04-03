@@ -4,6 +4,7 @@ package ast.sentencia;
 
 import ast.expression.*;
 import ast.declaraciones.*;
+import ast.tipo.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -22,6 +23,10 @@ import visitor.Visitor;
 	
 	PHASE Identification
 	funcionSentencia -> declaracionfuncion:declaracionfuncion
+	sentencia -> declafuncion:declaracionfuncion
+	
+	PHASE TypeChecking
+	funcionSentencia -> tipofunc:tipo
 */
 public class FuncionSentencia extends AbstractSentencia  {
 
@@ -34,6 +39,9 @@ public class FuncionSentencia extends AbstractSentencia  {
 
     // PHASE Identification
 	private Declaracionfuncion declaracionfuncion;
+
+    // PHASE TypeChecking
+	private Tipo tipofunc;
 
     // ----------------------------------
     // Constructors
@@ -114,6 +122,24 @@ public class FuncionSentencia extends AbstractSentencia  {
 
     public Declaracionfuncion getDeclaracionfuncion() {
         return declaracionfuncion;
+    }
+
+
+
+    // --------------------------------
+    // PHASE TypeChecking
+
+	// Attribute 'tipofunc:tipo' 
+
+	public void setTipofunc(Tipo tipofunc) {
+		if (tipofunc == null)
+			throw new IllegalArgumentException("Parameter 'tipofunc' can't be null. Pass a non-null value or use 'tipo?' in the abstract grammar");
+		this.tipofunc = tipofunc;
+
+	}
+
+    public Tipo getTipofunc() {
+        return tipofunc;
     }
 
 

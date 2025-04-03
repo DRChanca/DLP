@@ -13,19 +13,19 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	arithmeticExpresion: expression -> left:expression operator:string right:expression
+	boolExpression: expression -> left:expression operator:string right:expression
 	expression -> 
 	
 	PHASE TypeChecking
 	expression -> tipoexpresion:tipo
 	expression -> lvalue:boolean
 */
-public class ArithmeticExpresion extends AbstractExpression  {
+public class BoolExpression extends AbstractExpression  {
 
     // ----------------------------------
     // Instance Variables
 
-	// arithmeticExpresion: expression -> left:expression operator:string right:expression
+	// boolExpression: expression -> left:expression operator:string right:expression
 	private Expression left;
 	private String operator;
 	private Expression right;
@@ -33,7 +33,7 @@ public class ArithmeticExpresion extends AbstractExpression  {
     // ----------------------------------
     // Constructors
 
-	public ArithmeticExpresion(Expression left, String operator, Expression right) {
+	public BoolExpression(Expression left, String operator, Expression right) {
 		super();
 
 		if (left == null)
@@ -51,7 +51,7 @@ public class ArithmeticExpresion extends AbstractExpression  {
 		updatePositions(left, operator, right);
 	}
 
-	public ArithmeticExpresion(Object left, Object operator, Object right) {
+	public BoolExpression(Object left, Object operator, Object right) {
 		super();
 
         if (left == null)
@@ -71,7 +71,7 @@ public class ArithmeticExpresion extends AbstractExpression  {
 
 
     // ----------------------------------
-    // arithmeticExpresion: expression -> left:expression operator:string right:expression
+    // boolExpression: expression -> left:expression operator:string right:expression
 
 	// Child 'left:expression' 
 
@@ -125,7 +125,7 @@ public class ArithmeticExpresion extends AbstractExpression  {
 
     @Override
     public String toString() {
-        return "ArithmeticExpresion{" + " left=" + this.getLeft() + " operator=" + this.getOperator() + " right=" + this.getRight() + "}";
+        return "BoolExpression{" + " left=" + this.getLeft() + " operator=" + this.getOperator() + " right=" + this.getRight() + "}";
     }
 
 

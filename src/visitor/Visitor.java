@@ -64,6 +64,8 @@ public interface Visitor {
 
 	public Object visit(LogicExpression logicExpression, Object param);
 
+	public Object visit(BoolExpression boolExpression, Object param);
+
 	public Object visit(AcederCap acederCap, Object param);
 
 	public Object visit(FuncionExpresion funcionExpresion, Object param);
@@ -77,6 +79,8 @@ public interface Visitor {
 	public Object visit(ArrayTipo arrayTipo, Object param);
 
 	public Object visit(StringTipo stringTipo, Object param);
+
+	public Object visit(VoidTipo voidTipo, Object param);
 
 
 }

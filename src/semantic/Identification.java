@@ -7,12 +7,14 @@ import java.util.Map;
 import javax.naming.Context;
 
 import ast.*;
+import ast.argumento.Argumento;
 import ast.declaraciones.Declaracionfuncion;
 import ast.declaraciones.Declaracionglobales;
 import ast.declaraciones.Declaracionstructs;
 import ast.expression.AccessoArrayExpresion;
 import ast.expression.AcederCap;
 import ast.expression.ArithmeticExpresion;
+import ast.expression.BoolExpression;
 import ast.expression.CastExpresion;
 import ast.expression.CharExpresion;
 import ast.expression.FuncionExpresion;
@@ -61,8 +63,10 @@ public class Identification extends DefaultVisitor {
 		var definition = funciones.getFromAny(funcionSentencia.getNombre());
 		if(definition == null)
 			this.notifyError("Invocando a una funcion sin inicializar "+funcionSentencia.getNombre());
-		else
+		else {
 			funcionSentencia.setDeclaracionfuncion(definition);
+		}
+		funcionSentencia.getArgumento().forEach(arg -> arg.accept(this, param));
 
 		return null;
 	}
@@ -129,6 +133,15 @@ public class Identification extends DefaultVisitor {
 	@Override
 	public Object visit(Declaracionfuncion declaracionfuncion, Object param) {
 		
+		
+		for (var sentencia : declaracionfuncion.getSentencias()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// sentencia.setDeclafuncion(?);
+			sentencia.setDeclafuncion(declaracionfuncion);
+
+		}
+		
+		
 		var definition = funciones.getFromAny(declaracionfuncion.getNombre()); 
 
 		if(definition != null)
@@ -169,6 +182,17 @@ public class Identification extends DefaultVisitor {
 		
 		variables.reset();
 		
+		return null;
+	}
+	
+	// class BoolExpression(Expression left, String operator, Expression right)
+	@Override
+	public Object visit(BoolExpression boolExpression, Object param) {
+
+		// boolExpression.getLeft().accept(this, param);
+		// boolExpression.getRight().accept(this, param);
+		super.visit(boolExpression, param);
+
 		return null;
 	}
 
@@ -241,7 +265,9 @@ public class Identification extends DefaultVisitor {
 	public Object visit(ReturnSentencia returnSentencia, Object param) {
 
 		// returnSentencia.getExpression().ifPresent(expression -> expression.accept(this, param));
+		
 		super.visit(returnSentencia, param);
+		
 
 		return null;
 	}
@@ -250,10 +276,12 @@ public class Identification extends DefaultVisitor {
 	@Override
 	public Object visit(IfSentencia ifSentencia, Object param) {
 
-		// ifSentencia.getCondicion().accept(this, param);
-		// ifSentencia.getEntonces().forEach(sentencia -> sentencia.accept(this, param));
-		// ifSentencia.getOtro().forEach(sentencia -> sentencia.accept(this, param));
-		super.visit(ifSentencia, param);
+		 System.out.println(ifSentencia.getDeclafuncion());
+		 ifSentencia.getCondicion().accept(this, param);
+		 ifSentencia.setDeclafuncion(ifSentencia.getDeclafuncion());
+		 ifSentencia.getEntonces().forEach(sentencia -> {sentencia.accept(this, param); sentencia.setDeclafuncion(ifSentencia.getDeclafuncion());});
+		 ifSentencia.getOtro().forEach(sentencia ->  {sentencia.accept(this, param); sentencia.setDeclafuncion(ifSentencia.getDeclafuncion());});
+		//super.visit(ifSentencia, param);
 
 		return null;
 	}
@@ -264,7 +292,9 @@ public class Identification extends DefaultVisitor {
 
 		// whileSentencia.getCondicion().accept(this, param);
 		// whileSentencia.getEntonces().forEach(sentencia -> sentencia.accept(this, param));
+		System.out.println(whileSentencia.getDeclafuncion());
 		super.visit(whileSentencia, param);
+
 
 		return null;
 	}
@@ -291,7 +321,7 @@ public class Identification extends DefaultVisitor {
 		if(aux == null) {
 			notifyError("Intentado acceder a un valor sin especificar "+ nombre);
 		}else {
-			identificadorExpresion.setDefinicion(aux); 
+			identificadorExpresion.setDefinicion(aux);
 		}
 		
 		return null;
@@ -434,6 +464,7 @@ public class Identification extends DefaultVisitor {
 		var objeto = estructuras.getFromAny(aux); 
 		if(objeto == null)
 			notifyError("Declaracion de campo no definido " + aux);
+		
 		return null;
 	}
     

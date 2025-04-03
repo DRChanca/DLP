@@ -105,6 +105,14 @@ public class ArrayTipo extends AbstractTipo  {
     // %% User Members -------------------------
 
         // Methods/attributes in this section will be preserved. Delete if not needed
-
+    @Override
+    public boolean mismoTipo(Tipo a) {
+    	if(a == null || a.getClass() != this.getClass())
+    		return false;
+    	ArrayTipo otro = (ArrayTipo) a; 
+    	return this.getTipo().getClass() == otro.getTipo().getClass();
+    	
+    	
+    }
     // %% --------------------------------------
 }
