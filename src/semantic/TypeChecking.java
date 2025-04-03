@@ -265,6 +265,15 @@ public class TypeChecking extends DefaultVisitor {
 
 		// returnSentencia.getExpression().ifPresent(expression -> expression.accept(this, param));
 		super.visit(returnSentencia, param);
+		System.out.println(returnSentencia);
+		if(returnSentencia.getDeclafuncion().getTipo().isEmpty()) {
+			 var cond = returnSentencia.getExpression().isEmpty();
+			 predicate(cond, "No puede tener expresion en función void", returnSentencia); 
+		}else if(returnSentencia.getDeclafuncion().getTipo().isPresent() && returnSentencia.getExpression().isPresent()) {
+			var cond = returnSentencia.getDeclafuncion().getTipo().get().mismoTipo(returnSentencia.getExpression().get().getTipoexpresion()); 
+			predicate(cond, "No coinciden los tipos de retorno", returnSentencia); 
+		}
+		
 
 		return null;
 	}
