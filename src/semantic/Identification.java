@@ -276,11 +276,16 @@ public class Identification extends DefaultVisitor {
 	@Override
 	public Object visit(IfSentencia ifSentencia, Object param) {
 
-		 System.out.println(ifSentencia.getDeclafuncion());
 		 ifSentencia.getCondicion().accept(this, param);
 		 ifSentencia.setDeclafuncion(ifSentencia.getDeclafuncion());
-		 ifSentencia.getEntonces().forEach(sentencia -> {sentencia.accept(this, param); sentencia.setDeclafuncion(ifSentencia.getDeclafuncion());});
-		 ifSentencia.getOtro().forEach(sentencia ->  {sentencia.accept(this, param); sentencia.setDeclafuncion(ifSentencia.getDeclafuncion());});
+		 ifSentencia.getEntonces().forEach(sentencia -> {
+			 sentencia.setDeclafuncion(ifSentencia.getDeclafuncion());
+			 sentencia.accept(this, param);
+			 });
+		 ifSentencia.getOtro().forEach(sentencia ->  {
+			 sentencia.setDeclafuncion(ifSentencia.getDeclafuncion());
+			 sentencia.accept(this, param); 
+			 });
 		//super.visit(ifSentencia, param);
 
 		return null;
@@ -290,9 +295,11 @@ public class Identification extends DefaultVisitor {
 	@Override
 	public Object visit(WhileSentencia whileSentencia, Object param) {
 
-		// whileSentencia.getCondicion().accept(this, param);
-		// whileSentencia.getEntonces().forEach(sentencia -> sentencia.accept(this, param));
-		System.out.println(whileSentencia.getDeclafuncion());
+		 whileSentencia.getCondicion().accept(this, param);
+		 whileSentencia.getEntonces().forEach(sentencia -> {
+			 sentencia.setDeclafuncion(whileSentencia.getDeclafuncion());
+			 sentencia.accept(this, param);
+			 });
 		super.visit(whileSentencia, param);
 
 
