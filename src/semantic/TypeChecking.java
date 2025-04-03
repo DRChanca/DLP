@@ -6,6 +6,8 @@
 package semantic;
 
 import java.lang.reflect.AccessibleObject;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.lang.model.type.NullType;
 
@@ -51,7 +53,7 @@ import visitor.DefaultVisitor;
 public class TypeChecking extends DefaultVisitor {
 
     private ErrorManager errorManager;
-    private ContextMap<String, Tipo> variables = new ContextMap<String, Tipo>();  
+    private ContextMap<String, List<Definicion>> variables = new ContextMap<String, List<Definicion>>();  
 
     public TypeChecking(ErrorManager errorManager) {
         this.errorManager = errorManager;
@@ -83,9 +85,14 @@ public class TypeChecking extends DefaultVisitor {
 	// class Declaracionstructs(String nombre, List<Definicion> definicions)
 	@Override
 	public Object visit(Declaracionstructs declaracionstructs, Object param) {
-
-		// declaracionstructs.getDefinicions().forEach(definicion -> definicion.accept(this, param));
-		super.visit(declaracionstructs, param);
+		 List<Definicion> defs = new ArrayList<Definicion>(); 
+		 declaracionstructs.getDefinicions().forEach(definicion -> {
+			 definicion.accept(this, param); 
+			 defs.add(definicion); 
+			 
+		 });
+		 variables.put(declaracionstructs.getNombre(), defs);
+		//super.visit(declaracionstructs, param);
 
 		return null;
 	}
@@ -120,8 +127,8 @@ public class TypeChecking extends DefaultVisitor {
 		 }; 
 		 
 		 
-		 declaracionfuncion.getVariablesLocales().forEach(definicion -> definicion.accept(this, param));
-		 declaracionfuncion.getSentencias().forEach(sentencia -> sentencia.accept(this, param));
+		 declaracionfuncion.getVariablesLocales().forEach(definicion -> {definicion.accept(this, param);});
+		 declaracionfuncion.getSentencias().forEach(sentencia -> {sentencia.accept(this, param);});
 		//super.visit(declaracionfuncion, param);
 
 		return null;
@@ -133,10 +140,7 @@ public class TypeChecking extends DefaultVisitor {
 
 		// definicion.getTipo().accept(this, param);
 		super.visit(definicion, param);
-		if(definicion.getTipo().getClass() == ArrayTipo.class) {
-			ArrayTipo aux = (ArrayTipo) definicion.getTipo(); 
-			variables.put(definicion.getIDENT(), aux.getTipo());
-		}
+
 		return null;
 	}
 
@@ -164,7 +168,13 @@ public class TypeChecking extends DefaultVisitor {
 	public Object visit(ReadSentencia readSentencia, Object param) {
 
 		// readSentencia.getExpressions().forEach(expression -> expression.accept(this, param));
-		super.visit(readSentencia, param);
+		readSentencia.getExpressions().forEach( expression -> {
+			expression.accept(this, param);
+			var cond = tipoSimple(expression.getTipoexpresion()); 
+			predicate(cond, "print debe tener como argumento tipos basicos", readSentencia);
+			predicate(expression.isLvalue(), "no es lvalue", readSentencia); 
+		});
+
 
 		return null;
 	}
@@ -174,12 +184,15 @@ public class TypeChecking extends DefaultVisitor {
 	@Override
 	public Object visit(PrintspSentencia printspSentencia, Object param) {
 
-		 printspSentencia.getExpressions().forEach(expression -> {
-			 var cond = expression.getTipoexpresion(); 
-		
-			 expression.accept(this, param);
-		 }); 
-		//super.visit(printspSentencia, param);
+		printspSentencia.getExpressions().forEach(expression -> {
+		expression.accept(this, param);
+		var cond = tipoSimple(expression.getTipoexpresion()); 
+		predicate(cond, "print debe tener como argumento tipos basicos", printspSentencia);
+		if(expression.getTipoexpresion() != null && expression.getTipoexpresion().getClass() == VoidTipo.class) {
+			predicate(false, "la funcion no devuelve nada", printspSentencia); 
+		}
+	 }); 
+		//super.visit(printSentencia, param);
 
 		return null;
 	}
@@ -189,8 +202,15 @@ public class TypeChecking extends DefaultVisitor {
 	@Override
 	public Object visit(PrintlnSentencia printlnSentencia, Object param) {
 
-		// printlnSentencia.getExpressions().forEach(expression -> expression.accept(this, param));
-		super.visit(printlnSentencia, param);
+		printlnSentencia.getExpressions().forEach(expression -> {
+		expression.accept(this, param);
+		var cond = tipoSimple(expression.getTipoexpresion()); 
+		predicate(cond, "print debe tener como argumento tipos basicos", printlnSentencia);
+		if(expression.getTipoexpresion() != null && expression.getTipoexpresion().getClass() == VoidTipo.class) {
+			predicate(false, "la funcion no devuelve nada", printlnSentencia); 
+		}
+	 }); 
+		//super.visit(printSentencia, param);
 
 		return null;
 	}
@@ -201,10 +221,17 @@ public class TypeChecking extends DefaultVisitor {
 	public Object visit(FuncionSentencia funcionSentencia, Object param) {
 
 		// funcionSentencia.getArgumento().forEach(expression -> expression.accept(this, param));
+		var tamArgumentos = funcionSentencia.getDeclaracionfuncion().getArgumento().size() == funcionSentencia.getArgumento().size();
+		predicate(tamArgumentos, "numero erroneo de argumentos", funcionSentencia); 
 		super.visit(funcionSentencia, param);
 		
-		System.out.println(funcionSentencia.getDeclaracionfuncion()); 
-		System.out.println("hoasflaskf");
+		if(tamArgumentos)
+			for(int i=0; i< funcionSentencia.getArgumento().size(); i++)
+				predicate(funcionSentencia.getArgumento().get(i).getTipoexpresion().mismoTipo(
+						funcionSentencia.getDeclaracionfuncion().getArgumento().get(i).getTipo()),
+							"tipo del argumento erroneo",
+							funcionSentencia); 
+		
 
 		return null;
 	}
@@ -217,6 +244,16 @@ public class TypeChecking extends DefaultVisitor {
 		// asignacionSentencia.getLeft().accept(this, param);
 		// asignacionSentencia.getExpression().accept(this, param);
 		super.visit(asignacionSentencia, param);
+		var tipoizq = asignacionSentencia.getLeft().getTipoexpresion();
+		var tipodrch = asignacionSentencia.getExpression().getTipoexpresion(); 
+		predicate(tipoSimple(tipoizq), "El tipo de la izquerida no es tipo simple", asignacionSentencia); 
+		predicate(asignacionSentencia.getLeft().isLvalue(), "No es l-value",asignacionSentencia);
+	
+		predicate(tipoizq.mismoTipo(tipodrch), "No son del mismo tipo ", asignacionSentencia); 
+		
+		
+		
+		
 
 		return null;
 	}
@@ -237,10 +274,15 @@ public class TypeChecking extends DefaultVisitor {
 	@Override
 	public Object visit(IfSentencia ifSentencia, Object param) {
 
-		// ifSentencia.getCondicion().accept(this, param);
-		// ifSentencia.getEntonces().forEach(sentencia -> sentencia.accept(this, param));
-		// ifSentencia.getOtro().forEach(sentencia -> sentencia.accept(this, param));
-		super.visit(ifSentencia, param);
+		 ifSentencia.getCondicion().accept(this, param);
+		 
+		 predicate(IntTipo.class == ifSentencia.getCondicion().getTipoexpresion().getClass(),
+				 	"La condicion de un if debe ser un int",
+				 	ifSentencia); 
+		 
+	     ifSentencia.getEntonces().forEach(sentencia -> sentencia.accept(this, param));
+		 ifSentencia.getOtro().forEach(sentencia -> sentencia.accept(this, param));
+		//super.visit(ifSentencia, param);
 
 		return null;
 	}
@@ -250,9 +292,12 @@ public class TypeChecking extends DefaultVisitor {
 	@Override
 	public Object visit(WhileSentencia whileSentencia, Object param) {
 
-		// whileSentencia.getCondicion().accept(this, param);
-		// whileSentencia.getEntonces().forEach(sentencia -> sentencia.accept(this, param));
-		super.visit(whileSentencia, param);
+		 whileSentencia.getCondicion().accept(this, param);
+		 predicate(IntTipo.class == whileSentencia.getCondicion().getTipoexpresion().getClass(),
+				 	"La condicion de un while debe ser un int",
+				 	whileSentencia); 
+		 whileSentencia.getEntonces().forEach(sentencia -> sentencia.accept(this, param));
+		//super.visit(whileSentencia, param);
 
 		return null;
 	}
@@ -290,8 +335,7 @@ public class TypeChecking extends DefaultVisitor {
 		// TODO: Remember to initialize SYNTHESIZED attributes <-----
 		// identificadorExpresion.setTipoexpresion(?);
 
-		
-		identificadorExpresion.setTipoexpresion(new StringTipo(identificadorExpresion.getName()));
+		identificadorExpresion.setTipoexpresion(identificadorExpresion.getDefinicion().getTipo());
 		// identificadorExpresion.setLvalue(?);
 		identificadorExpresion.setLvalue(true);
 		return null;
@@ -306,6 +350,7 @@ public class TypeChecking extends DefaultVisitor {
 		// charExpresion.setTipoexpresion(?);
 		charExpresion.setTipoexpresion(new CharTipo(charExpresion.toString()));
 		// charExpresion.setLvalue(?);
+		charExpresion.setLvalue(false);
 		return null;
 	}
 
@@ -316,10 +361,13 @@ public class TypeChecking extends DefaultVisitor {
 
 		// accessoArrayExpresion.getAcceso().accept(this, param);
 		// accessoArrayExpresion.getIndice().accept(this, param);
-		
+
 		super.visit(accessoArrayExpresion, param);
+
+		
 		var left = accessoArrayExpresion.getAcceso().getTipoexpresion(); 
 		var right = accessoArrayExpresion.getIndice().getTipoexpresion();
+		
 		var aux = predicate(left.getClass() == ArrayTipo.class, "Acesso a un NO-ARRAY", accessoArrayExpresion); 
 		var aux2 = predicate(right.getClass() == IntTipo.class, "Acesso a array con indice no entero", accessoArrayExpresion); 
 		
@@ -329,9 +377,9 @@ public class TypeChecking extends DefaultVisitor {
 		if( aux && aux2) {			
 			ArrayTipo tipoArray = (ArrayTipo) left; 
 			accessoArrayExpresion.setTipoexpresion(tipoArray.getTipo());
-			accessoArrayExpresion.setLvalue(true);
 		}
 		// accessoArrayExpresion.setLvalue(?);
+		accessoArrayExpresion.setLvalue(true);
 		return null;
 	}
 
@@ -366,10 +414,12 @@ public class TypeChecking extends DefaultVisitor {
 		
 		var a3=predicate(castExpresion.getExpression().getTipoexpresion().getClass() != ArrayTipo.class, "no se puede convertir un array", castExpresion); 
 		var a4=predicate(castExpresion.getExpression().getTipoexpresion().getClass() != StringTipo.class, "no se puede convertir un struct", castExpresion); 
-		if(a1 && a2 && a3 && a4)
-		predicate(Tipo.class == castExpresion.getExpression().getTipoexpresion().getClass(), 
-				"el tipo de la expresión y el tipo destino deben ser distintos", 
-				castExpresion); 
+		if(a1 && a2 && a3 && a4) {
+			predicate(castExpresion.getTipo().getClass() != castExpresion.getExpression().getTipoexpresion().getClass(), 
+					"el tipo de la expresión y el tipo destino deben ser distintos", 
+					castExpresion); 
+			
+		}
 
 		// TODO: Remember to initialize SYNTHESIZED attributes <-----
 		// castExpresion.setTipoexpresion(?);
@@ -410,6 +460,8 @@ public class TypeChecking extends DefaultVisitor {
 		
 		// TODO: Remember to initialize SYNTHESIZED attributes <-----
 		var valor = nullOVoid(arithmeticExpresion.getLeft().getTipoexpresion()) ||nullOVoid(arithmeticExpresion.getRight().getTipoexpresion());
+
+		
 		if(!valor) {
 			var cond = sameType(arithmeticExpresion.getLeft(), arithmeticExpresion.getRight());
 			var condEntero = arithmeticExpresion.getLeft().getTipoexpresion().getClass() == IntTipo.class || arithmeticExpresion.getRight().getTipoexpresion().getClass() == IntTipo.class; 
@@ -485,17 +537,24 @@ public class TypeChecking extends DefaultVisitor {
 		// acederCap.getLeft().accept(this, param);
 		super.visit(acederCap, param);
 		
-		System.out.println(acederCap.getLeft().getTipoexpresion());
+
 		var cond =predicate(acederCap.getLeft().getTipoexpresion().getClass() == StringTipo.class, "acesso a no-array", acederCap);
+		
 		if(cond) {
 			IdentificadorExpresion exp = (IdentificadorExpresion) acederCap.getLeft();
-			StringTipo est = (StringTipo) exp.getTipoexpresion(); 
+			StringTipo est = (StringTipo) exp.getTipoexpresion();
+			var listadef = variables.getFromAny(est.getName());
+			for(Definicion def : listadef) {
+				if(def.getIDENT().equals(acederCap.getRight())) {
+					acederCap.setTipoexpresion(def.getTipo());
+					acederCap.setLvalue(true);
+					return null; 
+				}
+			}
+			predicate(false, "El campo no existe", acederCap); 
 			
-
-
 		}
 			
-		
 		// TODO: Remember to initialize SYNTHESIZED attributes <-----
 		// acederCap.setTipoexpresion(?);
 		// acederCap.setLvalue(?);

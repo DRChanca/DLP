@@ -113,6 +113,12 @@ public class StringTipo extends AbstractTipo  {
     // %% User Members -------------------------
 
         // Methods/attributes in this section will be preserved. Delete if not needed
-
+	@Override
+	public boolean mismoTipo(Tipo a) {
+		if(a == null || a.getClass() != this.getClass())
+			return false;
+		StringTipo otro = (StringTipo) a; 
+		return this.getName().equalsIgnoreCase(otro.getName()); 
+	}
     // %% --------------------------------------
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.naming.Context;
 
 import ast.*;
+import ast.argumento.Argumento;
 import ast.declaraciones.Declaracionfuncion;
 import ast.declaraciones.Declaracionglobales;
 import ast.declaraciones.Declaracionstructs;
@@ -62,8 +63,10 @@ public class Identification extends DefaultVisitor {
 		var definition = funciones.getFromAny(funcionSentencia.getNombre());
 		if(definition == null)
 			this.notifyError("Invocando a una funcion sin inicializar "+funcionSentencia.getNombre());
-		else
+		else {
 			funcionSentencia.setDeclaracionfuncion(definition);
+		}
+		funcionSentencia.getArgumento().forEach(arg -> arg.accept(this, param));
 
 		return null;
 	}
@@ -273,10 +276,11 @@ public class Identification extends DefaultVisitor {
 	@Override
 	public Object visit(IfSentencia ifSentencia, Object param) {
 
-		// ifSentencia.getCondicion().accept(this, param);
-		// ifSentencia.getEntonces().forEach(sentencia -> sentencia.accept(this, param));
-		// ifSentencia.getOtro().forEach(sentencia -> sentencia.accept(this, param));
-		super.visit(ifSentencia, param);
+		 ifSentencia.getCondicion().accept(this, param);
+		 
+		 ifSentencia.getEntonces().forEach(sentencia -> sentencia.accept(this, param));
+		 ifSentencia.getOtro().forEach(sentencia -> sentencia.accept(this, param));
+		//super.visit(ifSentencia, param);
 
 		return null;
 	}

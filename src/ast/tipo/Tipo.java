@@ -21,6 +21,6 @@ public interface Tipo extends AST {
     // %% User Members -------------------------
 
         // Methods/attributes in this section will be preserved. Delete if not needed
-
+	boolean mismoTipo(Tipo a); 
     // %% --------------------------------------
 }

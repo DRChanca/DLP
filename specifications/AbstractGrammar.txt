@@ -63,4 +63,3 @@ expression -> tipoexpresion:tipo;
 expression -> lvalue:boolean; 
 declaracionfuncion -> tipofunc:tipo; 
 funcionSentencia -> tipofunc:tipo; 
-
