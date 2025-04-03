@@ -248,13 +248,8 @@ public class TypeChecking extends DefaultVisitor {
 		var tipodrch = asignacionSentencia.getExpression().getTipoexpresion(); 
 		predicate(tipoSimple(tipoizq), "El tipo de la izquerida no es tipo simple", asignacionSentencia); 
 		predicate(asignacionSentencia.getLeft().isLvalue(), "No es l-value",asignacionSentencia);
-	
 		predicate(tipoizq.mismoTipo(tipodrch), "No son del mismo tipo ", asignacionSentencia); 
 		
-		
-		
-		
-
 		return null;
 	}
 
@@ -265,13 +260,15 @@ public class TypeChecking extends DefaultVisitor {
 
 		// returnSentencia.getExpression().ifPresent(expression -> expression.accept(this, param));
 		super.visit(returnSentencia, param);
-		System.out.println(returnSentencia);
 		if(returnSentencia.getDeclafuncion().getTipo().isEmpty()) {
 			 var cond = returnSentencia.getExpression().isEmpty();
 			 predicate(cond, "No puede tener expresion en función void", returnSentencia); 
 		}else if(returnSentencia.getDeclafuncion().getTipo().isPresent() && returnSentencia.getExpression().isPresent()) {
 			var cond = returnSentencia.getDeclafuncion().getTipo().get().mismoTipo(returnSentencia.getExpression().get().getTipoexpresion()); 
 			predicate(cond, "No coinciden los tipos de retorno", returnSentencia); 
+		}else if(returnSentencia.getDeclafuncion().getTipo().isPresent()) {
+			var cond = returnSentencia.getExpression().isEmpty(); 
+			predicate(!cond, "Debe tener una expresión de retorno", returnSentencia);
 		}
 		
 
