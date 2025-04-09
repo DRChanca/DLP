@@ -174,7 +174,8 @@ public class AstPrinter implements Visitor {
         printNodeChild(indent + 1, "tipo", "Tipo", definicion.getTipo());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, definicion, "IDENT", "tipo");
+        printToString(indent + 1, "vgen-attribute-phase-2", "address", "int", definicion.getAddress());
+		printUnknownFields(indent + 1, definicion, "IDENT", "tipo", "address");
 		return null;
 	}
 

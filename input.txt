@@ -1,35 +1,24 @@
-f() {
-    // ERROR. No puede tener expresión en función void
-    return 1;
+var a:char;	// Dir 0
+
+struct Persona {
+	edad:int;	// Dir 0
+	meses:[12] int;	// Dir 2
+	a:float;	// Dir 26
 }
 
-f2() {
-    if (1) {
-        while(1) {
-            // ERROR. No puede tener expresión en función void
-            return 1;
-        }
-    }
-    else {
-        // ERROR. No puede tener expresión en función void
-        return 2;
-    }
+var b:float;	// Dir 1
+
+struct Prueba {
+	campo1: int; // Dir 0
+	campo2: int; // Dir 2
 }
 
-f3():int {
-    // ERROR. Debe tener una expresión de retorno
-    return;
-}
+var c:[2]Persona;	// Dir 5
+var d:int;		// Dir 65
 
-f4():int {
-    if (1) {
-        while(1) {
-            // ERROR. Debe tener una expresión de retorno
-            return;
-        }
-    }
-    else {
-        // ERROR. Debe tener una expresión de retorno
-        return;
-    }
+f(a:int, b:float, h:char) { // a = BP+9, b = BP+5, h = BP+4
+	var c:char;	// BP-1
+	var d:int;	// BP-3
+	var e:[2]Persona; // BP-63
+	var f:float; 	// BP-67
 }

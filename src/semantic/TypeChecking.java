@@ -631,7 +631,8 @@ public class TypeChecking extends DefaultVisitor {
 	// class StringTipo(String name)
 	@Override
 	public Object visit(StringTipo stringTipo, Object param) {
-		
+		var nombre = stringTipo.getName(); 
+		stringTipo.setDefinicions(variables.getFromTop(nombre));
 		return null;
 	}
 

@@ -14,6 +14,9 @@ import visitor.Visitor;
 
 /*
 	definicion -> IDENT:string tipo:tipo
+	
+	PHASE MemoryAllocation
+	definicion -> address:int
 */
 public class Definicion extends AbstractAST  {
 
@@ -23,6 +26,9 @@ public class Definicion extends AbstractAST  {
 	// definicion -> IDENT:string tipo
 	private String IDENT;
 	private Tipo tipo;
+
+    // PHASE MemoryAllocation
+	private int address;
 
     // ----------------------------------
     // Constructors
@@ -84,6 +90,22 @@ public class Definicion extends AbstractAST  {
 
     public Tipo getTipo() {
         return tipo;
+    }
+
+
+
+    // --------------------------------
+    // PHASE MemoryAllocation
+
+	// Attribute 'address:int' 
+
+	public void setAddress(int address) {
+		this.address = address;
+
+	}
+
+    public int getAddress() {
+        return address;
     }
 
 

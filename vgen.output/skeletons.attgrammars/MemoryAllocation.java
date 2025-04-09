@@ -1,10 +1,9 @@
 // Generated with VGen 2.0.0
 
-
 /*
 
-Este fichero es un esqueleto para facilitar la creación de una clase visitor. Para
-usarlo hay que realizar dos pasos:
+Este fichero es un esqueleto para facilitar la implementación de una gramática atribuida
+('ATTRIBUTE GRAMMAR' de VGen). Para usarlo hay que realizar dos pasos:
 1. Ubicar este código.
 2. Completar cada método visit.
 
@@ -19,7 +18,8 @@ Hay dos opciones:
    métodos visit de este esqueleto (y los import) ignorando el resto.
 
 2) Si no se tiene hecha aún la clase, este esqueleto vale como tal si se mueve a la
-   carpeta deseada del proyecto y se le pone el package correspondiente a dicha ubicación.
+   carpeta deseada del proyecto y se le pone el package correspondiente a dicha
+   ubicación.
 
 Una vez hecho esto, ya se tendría un visitor que compilaría sin errores y que, al
 ejecutarlo, recorrería todo el árbol (aunque sin hacer nada en cada nodo).
@@ -39,14 +39,21 @@ Por tanto, hay tres opciones a la hora de implementar cada visit:
    DefaultVisitor la misma implementación que se acaba de borrar. Es decir, en esta
    clase sólo será necesario dejar los visit que tengan alguna acción que realizar.
 
-2. Si se necesita hacer alguna tarea adicional ANTES o DESPUÉS de recorrer todos
-   los hijos, se debe añadir su código antes o después de la llamada a 'super.visit' (y
-   se pueden borrar los 'accept' comentados).
+2. Si se necesita hacer alguna tarea adicional ANTES o DESPUÉS de recorrer todos los
+   hijos, se debe añadir su código antes o después de la llamada a 'super.visit' (y se
+   pueden borrar los 'accept' comentados).
 
 3. Y, finalmente, si se necesita hacer alguna tarea INTERCALADA en el recorrido de los
    hijos (por ejemplo, comprobar su tipo), se debe borrar el 'super.visit' y descomentar
    los 'accept'. Así se tendría ya implementado el recorrido de los hijos, que es la
    estructura donde se intecalará el código de las acciones adicionales.
+
+NOTA 1. En los visit en los que haya que inicializar atributos heredados de los hijos
+antes de recorrerlos, se han añadido recordatorios en los puntos en los que es
+aconsejable hacerlo.
+
+NOTA 2. En los visit de los nodos que tengan atributos sintetizados, se han añadido
+recordatorios de que se deben inicializar dichos atributos.
 
 */
 
@@ -61,7 +68,7 @@ import ast.expression.*;
 import ast.tipo.*;
 
 
-public class SkeletonForNewVisitors extends DefaultVisitor {
+public class MemoryAllocation extends DefaultVisitor {
 
     public void process(AST ast) {
         ast.accept(this, null);
@@ -83,6 +90,11 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	@Override
 	public Object visit(Declaracionstructs declaracionstructs, Object param) {
 
+		for (var definicion : declaracionstructs.getDefinicions()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// definicion.setAddress(?);
+		}
+
 		// declaracionstructs.getDefinicions().forEach(definicion -> definicion.accept(this, param));
 		super.visit(declaracionstructs, param);
 
@@ -92,6 +104,9 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	// class Declaracionglobales(Definicion definicion)
 	@Override
 	public Object visit(Declaracionglobales declaracionglobales, Object param) {
+
+		// TODO: Remember to initialize INHERITED attributes <----
+		// declaracionglobales.getDefinicion().setAddress(?);
 
 		// declaracionglobales.getDefinicion().accept(this, param);
 		super.visit(declaracionglobales, param);
@@ -103,6 +118,16 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	// phase TypeChecking { Tipo tipofunc }
 	@Override
 	public Object visit(Declaracionfuncion declaracionfuncion, Object param) {
+
+		for (var definicion : declaracionfuncion.getArgumento()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// definicion.setAddress(?);
+		}
+
+		for (var definicion : declaracionfuncion.getVariablesLocales()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// definicion.setAddress(?);
+		}
 
 		// declaracionfuncion.getArgumento().forEach(definicion -> definicion.accept(this, param));
 		// declaracionfuncion.getTipo().ifPresent(tipo -> tipo.accept(this, param));

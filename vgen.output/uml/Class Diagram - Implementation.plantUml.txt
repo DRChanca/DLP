@@ -84,6 +84,8 @@ Declaracionfuncion -[#3366cc,thickness=3]-  Tipo #text:3366cc : tipofunc >
 
 class Definicion {
 	+String IDENT
+	..<color:#669900> MemoryAllocation </color>..
+	+<color:#669900>int address</color>
 }
 AbstractAST <|-[#808080]- Definicion
 Definicion o-[#404040,thickness=2]-  Tipo : tipo >

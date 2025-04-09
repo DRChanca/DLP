@@ -120,5 +120,12 @@ public class StringTipo extends AbstractTipo  {
 		StringTipo otro = (StringTipo) a; 
 		return this.getName().equalsIgnoreCase(otro.getName()); 
 	}
+	@Override 
+	public int getSize() {
+			
+		var map = this.getDefinicions().stream().mapToInt(p -> p.getTipo().getSize()).sum(); 
+	
+		return map; 
+	}
     // %% --------------------------------------
 }

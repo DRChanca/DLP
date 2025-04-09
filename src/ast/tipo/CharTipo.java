@@ -87,5 +87,9 @@ public class CharTipo extends AbstractTipo  {
 			return false;
 		return true; 
 	}
+	@Override 
+	public int getSize() {
+		return 1; 
+	}
     // %% --------------------------------------
 }

@@ -41,5 +41,9 @@ public class VoidTipo extends AbstractTipo  {
 			return false;
 		return true; 
 	}
+	@Override 
+	public int getSize() {
+		return 0; 
+	}
     // %% --------------------------------------
 }

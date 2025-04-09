@@ -467,6 +467,7 @@ public class Identification extends DefaultVisitor {
 	// class StringTipo(String name)
 	@Override
 	public Object visit(StringTipo stringTipo, Object param) {
+		
 		var aux = stringTipo.getName(); 
 		var objeto = estructuras.getFromAny(aux); 
 		if(objeto == null)
