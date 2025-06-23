@@ -58,7 +58,6 @@ public class MaplCodeSpecification {
     //$ Punto de entrada y lanzamiento de la primera función sobre el nodo raíz ---------
 
     public void process(AST ast) {
-   
         ast.accept(functions.get(CodeFunction.RUN), null);
     }
 

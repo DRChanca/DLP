@@ -1,24 +1,29 @@
-var a:char;	// Dir 0
+var a:int;
+var b:float;
 
-struct Persona {
-	edad:int;	// Dir 0
-	meses:[12] int;	// Dir 2
-	a:float;	// Dir 26
+struct Punto {
+	x:float;
+	y:float;
 }
 
-var b:float;	// Dir 1
+var v:[5]int;
+var p:Punto;
 
-struct Prueba {
-	campo1: int; // Dir 0
-	campo2: int; // Dir 2
-}
+main() {
+	a = 1111;
+	b = 2222.2;
+	v[3] = 3333;
+	p.y = 4444.4;
+		
+	printsp a;		    // 1111
+	printsp b + p.y;	// 6666.6
+	println v[3];		// 3333
 
-var c:[2]Persona;	// Dir 5
-var d:int;		// Dir 65
 
-f(a:int, b:float, h:char) { // a = BP+9, b = BP+5, h = BP+4
-	var c:char;	// BP-1
-	var d:int;	// BP-3
-	var e:[2]Persona; // BP-63
-	var f:float; 	// BP-67
+	print a > 0 && 222 < 333;	// 1
+	print <int>(b);			// 2222
+
+    // Al final debería salir:
+    // 1111 6666.6 3333
+    // 12222
 }

@@ -272,7 +272,7 @@ public class TypeChecking extends DefaultVisitor {
 		return null;
 	}
 
-	// class CharExpresion(char charValue)
+	// class CharExpresion(String name)
 	// phase TypeChecking { Tipo tipoexpresion, boolean lvalue }
 	@Override
 	public Object visit(CharExpresion charExpresion, Object param) {

@@ -337,7 +337,7 @@ public class Identification extends DefaultVisitor {
 	// class CharExpresion(char charValue)
 	@Override
 	public Object visit(CharExpresion charExpresion, Object param) {
-
+		charExpresion.setName(charExpresion.getName().subSequence(1, 2)+"");
 		return null;
 	}
 

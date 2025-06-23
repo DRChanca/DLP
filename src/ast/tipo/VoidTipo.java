@@ -45,5 +45,11 @@ public class VoidTipo extends AbstractTipo  {
 	public int getSize() {
 		return 0; 
 	}
+	@Override
+	public char sufijo() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
     // %% --------------------------------------
+
 }

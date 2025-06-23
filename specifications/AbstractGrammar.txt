@@ -30,7 +30,7 @@ whileSentencia:sentencia -> condicion:expression entonces:sentencia*;
 intExpresion:expression -> int; 
 realExpresion:expression -> double; 
 identificadorExpresion: expression -> string; 
-charExpresion:expression -> char; 
+charExpresion:expression -> string; 
 accessoArrayExpresion:expression -> acceso:expression indice:expression; 
 parentesisExpresion:expression -> expression; 
 castExpresion:expression -> tipo expression; 
@@ -65,4 +65,12 @@ declaracionfuncion -> tipofunc:tipo;
 funcionSentencia -> tipofunc:tipo;
  
 ATTRIBUTE GRAMMAR MemoryAllocation
-definicion -> [inherited] address:int; 
+definicion -> [inherited] address:int;
+ 
+CODE SPECIFICATION Mapl
+
+run[program]
+define[declaraciones]
+ejecuta[sentencia]
+valor[expression]
+direccion[expression]

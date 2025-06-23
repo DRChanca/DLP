@@ -1,0 +1,73 @@
+
+#SOURCE	"input.txt"
+
+
+#line 13
+pusha 0
+pushi 1111
+storei
+
+#line 14
+pusha 2
+pushf 2222.2
+storef
+
+#line 15
+pusha 6
+pushi 3
+pushi 2
+muli
+addi
+pushi 3333
+storei
+
+#line 16
+pusha 16
+pushf 4444.4
+storef
+
+#line 18
+pusha 0
+loadi
+outi
+pushb 32
+outb
+
+#line 19
+pusha 2
+loadf
+pusha 16
+loadf
+addf
+outf
+pushb 32
+outb
+
+#line 20
+pusha 6
+pushi 3
+pushi 2
+muli
+addi
+loadi
+outi
+pushb 10
+outb
+
+#line 23
+pusha 0
+loadi
+pushi 0
+gti
+pushi 222
+pushi 333
+lti
+and
+outi
+
+#line 24
+pusha 2
+loadf
+f2i
+outi
+halt

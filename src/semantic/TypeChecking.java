@@ -470,9 +470,11 @@ public class TypeChecking extends DefaultVisitor {
 		
 		if(!valor) {
 			var cond = sameType(arithmeticExpresion.getLeft(), arithmeticExpresion.getRight());
-			var condEntero = arithmeticExpresion.getLeft().getTipoexpresion().getClass() == IntTipo.class || arithmeticExpresion.getRight().getTipoexpresion().getClass() == IntTipo.class; 
+			var condEntero = arithmeticExpresion.getLeft().getTipoexpresion().getClass() == IntTipo.class || arithmeticExpresion.getRight().getTipoexpresion().getClass() == IntTipo.class;
+			var condFloat=  arithmeticExpresion.getLeft().getTipoexpresion().getClass() == FloatTipo.class || arithmeticExpresion.getRight().getTipoexpresion().getClass() == FloatTipo.class;
+			condEntero = condEntero || condFloat; 
 			predicate(cond, "ambos operandos tiene quer ser del mismo tipo", arithmeticExpresion); 
-			predicate(condEntero, "ambos operandos tienen que ser enteros",arithmeticExpresion); 		
+			predicate(condEntero, "ambos operandos tienen que ser enteros o float",arithmeticExpresion); 		
 			if(arithmeticExpresion.getOperator().contentEquals("%"))
 				predicate(true,"ambos operandos tienen que ser enteros", arithmeticExpresion);
 			arithmeticExpresion.setTipoexpresion(arithmeticExpresion.getLeft().getTipoexpresion());
@@ -522,7 +524,6 @@ public class TypeChecking extends DefaultVisitor {
 		// boolExpression.getLeft().accept(this, param);
 		// boolExpression.getRight().accept(this, param);
 		super.visit(boolExpression, param);
-		
 		predicate(boolExpression.getLeft().getTipoexpresion().getClass() == IntTipo.class, "El primer operando debe ser entero", boolExpression); 
 		predicate(boolExpression.getRight().getTipoexpresion().getClass() == IntTipo.class, "El segundo operando debe ser entero", boolExpression); 
 		
@@ -614,7 +615,7 @@ public class TypeChecking extends DefaultVisitor {
 	// class CharTipo(String name)
 	@Override
 	public Object visit(CharTipo charTipo, Object param) {
-
+		 
 		return null;
 	}
 

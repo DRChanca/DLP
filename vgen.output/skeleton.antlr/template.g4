@@ -49,7 +49,7 @@ expression returns[Expression ast]
     : INT_LITERAL                         { $ast = new IntExpresion($INT_LITERAL); }             
     | DOUBLE_LITERAL                      { $ast = new RealExpresion($DOUBLE_LITERAL); }         
     | name=IDENT                          { $ast = new IdentificadorExpresion($name); }          
-    | CHAR_LITERAL                        { $ast = new CharExpresion($CHAR_LITERAL); }           
+    | name=IDENT                          { $ast = new CharExpresion($name); }                   
     | acceso=expression indice=expression { $ast = new AccessoArrayExpresion($acceso.ast, $indice.ast); }
     | expression                          { $ast = new ParentesisExpresion($expression.ast); }   
     | tipo expression                     { $ast = new CastExpresion($tipo.ast, $expression.ast); }
@@ -68,4 +68,3 @@ expression returns[Expression ast]
 IDENT: [a-zA-Z_][a-zA-Z0-9_]*;
 DOUBLE_LITERAL: [0-9]+ '.' [0-9]+;
 INT_LITERAL: [0-9]+;
-CHAR_LITERAL: '\'' ~[\t\r\n] '\'' | '\'\\n\'';

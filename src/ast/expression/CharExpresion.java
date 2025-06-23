@@ -13,7 +13,7 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	charExpresion: expression -> charValue:char
+	charExpresion: expression -> name:string
 	expression -> 
 	
 	PHASE TypeChecking
@@ -25,48 +25,47 @@ public class CharExpresion extends AbstractExpression  {
     // ----------------------------------
     // Instance Variables
 
-	// charExpresion: expression -> char
-	private char charValue;
+	// charExpresion: expression -> string
+	private String name;
 
     // ----------------------------------
     // Constructors
 
-	public CharExpresion(char charValue) {
+	public CharExpresion(String name) {
 		super();
 
-		this.charValue = charValue;
+		if (name == null)
+			throw new IllegalArgumentException("Parameter 'name' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
+		this.name = name;
 
-		updatePositions(charValue);
+		updatePositions(name);
 	}
 
-	public CharExpresion(Object charValue) {
+	public CharExpresion(Object name) {
 		super();
 
-        if (charValue == null)
-            throw new IllegalArgumentException("Parameter 'charValue' can't be null. Pass a non-null value or use 'char?' in the abstract grammar");
-        var charValue_temp = charValue;
-        if (charValue_temp instanceof Token)
-            charValue_temp = ((Token) charValue_temp).getText();
-        if (charValue_temp instanceof String)
-            charValue_temp = ((String) charValue_temp).charAt(0);
-        this.charValue = (char) charValue_temp;
+        if (name == null)
+            throw new IllegalArgumentException("Parameter 'name' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
+		this.name = (name instanceof Token) ? ((Token) name).getText() : (String) name;
 
-		updatePositions(charValue);
+		updatePositions(name);
 	}
 
 
     // ----------------------------------
-    // charExpresion: expression -> char
+    // charExpresion: expression -> string
 
-	// Child 'char' 
+	// Child 'string' 
 
-	public void setCharValue(char charValue) {
-		this.charValue = charValue;
+	public void setName(String name) {
+		if (name == null)
+			throw new IllegalArgumentException("Parameter 'name' can't be null. Pass a non-null value or use 'string?' in the abstract grammar");
+		this.name = name;
 
 	}
 
-    public char getCharValue() {
-        return charValue;
+    public String getName() {
+        return name;
     }
 
 
@@ -80,7 +79,7 @@ public class CharExpresion extends AbstractExpression  {
 
     @Override
     public String toString() {
-        return "CharExpresion{" + " charValue=" + this.getCharValue() + "}";
+        return "CharExpresion{" + " name=" + this.getName() + "}";
     }
 
 

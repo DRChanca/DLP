@@ -127,5 +127,11 @@ public class StringTipo extends AbstractTipo  {
 	
 		return map; 
 	}
+	@Override
+	public char sufijo() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
     // %% --------------------------------------
+
 }

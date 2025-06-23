@@ -91,5 +91,11 @@ public class IntTipo extends AbstractTipo  {
 	public int getSize() {
 		return 2; 
 	}
+	@Override
+	public char sufijo() {
+		// TODO Auto-generated method stub
+		return 'i';
+	}
     // %% --------------------------------------
+
 }

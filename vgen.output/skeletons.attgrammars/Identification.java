@@ -278,7 +278,7 @@ public class Identification extends DefaultVisitor {
 		return null;
 	}
 
-	// class CharExpresion(char charValue)
+	// class CharExpresion(String name)
 	@Override
 	public Object visit(CharExpresion charExpresion, Object param) {
 

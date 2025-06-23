@@ -118,5 +118,11 @@ public class ArrayTipo extends AbstractTipo  {
 	public int getSize() {
 		return this.tamArray*this.getTipo().getSize(); 
 	}
+	@Override
+	public char sufijo() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
     // %% --------------------------------------
+
 }

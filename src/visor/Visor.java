@@ -227,7 +227,7 @@ public class Visor extends DefaultVisitor {
 	// class CharExpresion(char charValue)
 	@Override
 	public Object visit(CharExpresion charExpresion, Object param) {
-		System.out.print(charExpresion.getCharValue());
+		System.out.print(charExpresion.getName());
 		return null;
 	}
 

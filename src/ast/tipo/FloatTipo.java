@@ -91,5 +91,11 @@ public class FloatTipo extends AbstractTipo  {
 	public int getSize() {
 		return 4; 
 	}
+	@Override
+	public char sufijo() {
+		// TODO Auto-generated method stub
+		return 'f';
+	}
     // %% --------------------------------------
+
 }

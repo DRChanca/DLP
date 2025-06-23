@@ -145,7 +145,7 @@ Expression <|-[#808080]- IdentificadorExpresion
 IdentificadorExpresion -[#ff6600,thickness=3]-  Definicion #text:ff6600 : definicion >
 
 class CharExpresion {
-	+char charValue
+	+String name
 }
 Expression <|-[#808080]- CharExpresion
 
