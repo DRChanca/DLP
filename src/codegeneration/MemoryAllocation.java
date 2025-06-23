@@ -21,6 +21,7 @@ public class MemoryAllocation extends DefaultVisitor {
     
 	@Override
 	public Object visit(Declaracionglobales declaracionglobales, Object param) {
+		declaracionglobales.getDefinicion().scope = 0; 
 		declaracionglobales.getDefinicion().setAddress(currentAdressGlobales);
 		currentAdressGlobales += declaracionglobales.getDefinicion().getTipo().getSize(); 
 		declaracionglobales.getDefinicion().accept(this, param);
@@ -40,8 +41,9 @@ public class MemoryAllocation extends DefaultVisitor {
 	public Object visit(Declaracionfuncion declaracionfuncion, Object param) {
 		int BP = 4;
 		int tamArgu = declaracionfuncion.getArgumento().size(); 
-		for(int i = tamArgu - 1; i >= 0; i --) {
+		for(int i = tamArgu - 1; i >= 0; i --) { 
 			declaracionfuncion.getArgumento().get(i).setAddress(BP);
+			declaracionfuncion.getArgumento().get(i).scope = 1; 
 			BP += declaracionfuncion.getArgumento().get(i).getTipo().getSize(); 
 			declaracionfuncion.getArgumento().get(i).accept(this, param); 
 		}
@@ -49,6 +51,7 @@ public class MemoryAllocation extends DefaultVisitor {
 		declaracionfuncion.getTipo().ifPresent(tipo -> tipo.accept(this, param));
 		AtomicInteger acumulador = new AtomicInteger(0); 
 		declaracionfuncion.getVariablesLocales().forEach(definicion -> {
+			definicion.scope = 2; 
 			definicion.setAddress(-acumulador.addAndGet(definicion.getAddress()+ definicion.getTipo().getSize())); 
 			definicion.accept(this, param);
 		});

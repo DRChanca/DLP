@@ -96,6 +96,10 @@ public class FloatTipo extends AbstractTipo  {
 		// TODO Auto-generated method stub
 		return 'f';
 	}
+	@Override
+	public String tipoMapl() {
+		return "real";
+	}
     // %% --------------------------------------
 
 }

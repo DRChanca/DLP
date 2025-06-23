@@ -2,6 +2,8 @@
 
 package codegeneration.mapl.codefunctions;
 
+import java.util.Random;
+
 import ast.sentencia.*;
 import ast.tipo.VoidTipo;
 import codegeneration.mapl.*;
@@ -9,6 +11,7 @@ import codegeneration.mapl.*;
 
 public class Ejecuta extends AbstractCodeFunction {
 
+	public static Random r = new Random(); 
     public Ejecuta(MaplCodeSpecification specification) {
         super(specification);
     }
@@ -36,8 +39,10 @@ public class Ejecuta extends AbstractCodeFunction {
 
 		// valor(readSentencia.expressions());
 		// direccion(readSentencia.expressions());
-
-		out("<instruction>");
+		var valor = readSentencia.getExpressions().getFirst(); 
+		direccion(valor); 
+		out("in"+valor.getTipoexpresion().sufijo()); 
+		out("store"+valor.getTipoexpresion().sufijo()); 
 
 		return null;
 	}
@@ -51,9 +56,14 @@ public class Ejecuta extends AbstractCodeFunction {
 		printspSentencia.getExpressions().forEach( expr -> {
 			valor(expr);
 			out("out"+expr.getTipoexpresion().sufijo()); 
+			out("pushb 32"); 
+			out("outb"); 
 		});
-		out("pushb 32"); 
-		out("outb"); 
+		
+		if(printspSentencia.getExpressions().size() == 0) {
+			out("pushb 32"); 
+			out("outb"); 
+		}
 
 		return null;
 	}
@@ -70,9 +80,14 @@ public class Ejecuta extends AbstractCodeFunction {
 		printlnSentencia.getExpressions().forEach( expr -> {
 			valor(expr);
 			out("out"+expr.getTipoexpresion().sufijo()); 
+			out("pushb 10"); 
+			out("outb"); 
 		});
-		out("pushb 10"); 
-		out("outb"); 
+		
+		if(printlnSentencia.getExpressions().size() == 0) {
+			out("pushb 10"); 
+			out("outb"); 
+		}
 
 		return null;
 	}
@@ -82,15 +97,15 @@ public class Ejecuta extends AbstractCodeFunction {
 	// phase TypeChecking { Tipo tipofunc }
 	@Override
 	public Object visit(FuncionSentencia funcionSentencia, Object param) {
-		coment(funcionSentencia); 
+		
 		funcionSentencia.getArgumento().forEach(arg -> {
 			valor(arg); 
 		});
 		
 		out("call "+funcionSentencia.getNombre());
-		
-		if(funcionSentencia.getTipofunc().getClass() != VoidTipo.class) {
-			out("pop"); 
+
+		if(funcionSentencia.getDeclaracionfuncion().getTipo().isPresent() && funcionSentencia.getDeclaracionfuncion().getTipo().get().getClass() != VoidTipo.class) {
+			out("pop"+funcionSentencia.getDeclaracionfuncion().getTipo().get().sufijo()); 
 		}
 		
 
@@ -108,6 +123,7 @@ public class Ejecuta extends AbstractCodeFunction {
 		coment(asignacionSentencia);
 		
 		direccion(asignacionSentencia.getLeft()); 
+
 		valor(asignacionSentencia.getExpression()); 
 		out("store"+asignacionSentencia.getLeft().getTipoexpresion().sufijo()); 
 
@@ -120,10 +136,22 @@ public class Ejecuta extends AbstractCodeFunction {
 	@Override
 	public Object visit(ReturnSentencia returnSentencia, Object param) {
 
-		// valor(returnSentencia.getExpression());
 		// direccion(returnSentencia.getExpression());
-
-		out("<instruction>");
+		 if(returnSentencia.getExpression().isPresent()) {
+			 valor(returnSentencia.getExpression().get());
+		 
+		 int returnSize = returnSentencia.getExpression().get().getTipoexpresion().getSize(); 
+		 int variablesLocalesSize = returnSentencia.getDeclafuncion().getVariablesLocales()
+				 .stream()
+				 .mapToInt(p-> p.getTipo().getSize())
+				 .sum(); 
+		 int parametrosSize = returnSentencia.getDeclafuncion().getArgumento()
+				 .stream()
+				 .mapToInt(p -> p.getTipo().getSize())
+				 .sum(); 
+		
+		 out("ret "+returnSize+", "+variablesLocalesSize+", "+parametrosSize); 
+		 }
 
 		return null;
 	}
@@ -132,15 +160,35 @@ public class Ejecuta extends AbstractCodeFunction {
 	// phase Identification { Declaracionfuncion declafuncion }
 	@Override
 	public Object visit(IfSentencia ifSentencia, Object param) {
-
-		// valor(ifSentencia.getCondicion());
+		coment(ifSentencia);
+		
+		valor(ifSentencia.getCondicion());
+		
+		var valorAleatorio = r.nextInt(0, 500);
+		var etiquetaElse = "else_"+valorAleatorio; 
+		var etiquetaFinal = "end_if_else_"+valorAleatorio;
+		
+		if(ifSentencia.otro().count() != 0) {
+			out("jz "+etiquetaElse); 
+			ifSentencia.getEntonces().forEach( p -> p.accept(this, param));
+			out("jmp "+etiquetaFinal);
+			out(etiquetaElse+":"); 
+			ifSentencia.getOtro().forEach(p -> p.accept(this, param));
+		}else {
+			out("jz "+etiquetaFinal); 
+			ifSentencia.getEntonces().forEach( p -> p.accept(this, param));
+		}
+		out(etiquetaFinal+":"); 
+		
+	
+		
 		// direccion(ifSentencia.getCondicion());
 
 		// ejecuta(ifSentencia.entonces());
 
 		// ejecuta(ifSentencia.otro());
 
-		out("<instruction>");
+		
 
 		return null;
 	}
@@ -152,19 +200,30 @@ public class Ejecuta extends AbstractCodeFunction {
 
 		// valor(whileSentencia.getCondicion());
 		// direccion(whileSentencia.getCondicion());
-
 		// ejecuta(whileSentencia.entonces());
+		int numero = r.nextInt(0,500); 
+		String inicio_condicion = "inicio_condicion"+numero; 
+		String final_condicion = "final_condicion"+numero; 
+		out(inicio_condicion+":"); 
+		valor(whileSentencia.getCondicion()); 
+		out("jz "+final_condicion);
+		whileSentencia.getEntonces().forEach(p -> ejecuta(p));
+		out("jmp "+inicio_condicion); 
+		out(final_condicion+":"); 
 
-		out("<instruction>");
 
 		return null;
 	}
 	
 	private void coment(AbstractSentencia sentencia) {
-		if(sentencia != null) {
-			out("\n#line "+sentencia.end().getLine()); 
+		try {
+			if(sentencia != null) {
+				out("\n#line "+sentencia.end().getLine()); 
+		}} catch(Exception e) {
 			
 		}
+			
+		
 		
 	}
 

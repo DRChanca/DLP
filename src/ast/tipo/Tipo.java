@@ -24,5 +24,6 @@ public interface Tipo extends AST {
 	boolean mismoTipo(Tipo a); 
 	public int getSize(); 
 	public char sufijo(); 
+	public String tipoMapl(); 
     // %% --------------------------------------
 }

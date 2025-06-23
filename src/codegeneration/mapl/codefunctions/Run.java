@@ -17,8 +17,9 @@ public class Run extends AbstractCodeFunction {
 	@Override
 	public Object visit(Program program, Object param) {
 		out("\n#SOURCE\t" + "\"" + getSpecification().getSourceFile() + "\"\n");
-		define(program.declaracioneses());
+		out("call main"); 
 		out("halt"); 
+		define(program.declaracioneses());
 		
 		//out("<instruction>");
 		

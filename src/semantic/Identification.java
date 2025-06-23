@@ -337,7 +337,17 @@ public class Identification extends DefaultVisitor {
 	// class CharExpresion(char charValue)
 	@Override
 	public Object visit(CharExpresion charExpresion, Object param) {
-		charExpresion.setName(charExpresion.getName().subSequence(1, 2)+"");
+		
+		if(charExpresion.getName().length() != 1 ) {
+			char value = primerCaracterEspecial(charExpresion.getName());
+			if(value == '\0') {
+				charExpresion.setName(charExpresion.getName().subSequence(1, 2)+"");							
+			}else {
+				charExpresion.setName(value+"");
+			}
+		}else {
+			
+		}
 		return null;
 	}
 
@@ -488,5 +498,18 @@ public class Identification extends DefaultVisitor {
     private void notifyError(String msg, AST node) {
         notifyError(msg, node.start());
     }
+    private  char primerCaracterEspecial(String texto) {
+        String[] especiales = { "\n", "\t", "\r", "\b", "\f" };
+        if (texto.contains("\\n")) return '\n';
+        if (texto.contains("\\t")) return '\t';
+        if (texto.contains("\\r")) return '\r';
+        if (texto.contains("\\b")) return '\b';
+        if (texto.contains("\\f")) return '\f';
+        
+
+
+        return '\0'; 
+    }
+
 
 }

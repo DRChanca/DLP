@@ -77,10 +77,10 @@ public class Valor extends AbstractCodeFunction {
 	@Override
 	public Object visit(ParentesisExpresion parentesisExpresion, Object param) {
 
-		// valor(parentesisExpresion.getExpression());
+		 valor(parentesisExpresion.getExpression());
 		// direccion(parentesisExpresion.getExpression());
 
-		out("<instruction>");
+		
 
 		return null;
 	}
@@ -95,8 +95,17 @@ public class Valor extends AbstractCodeFunction {
 
 		var desde = castExpresion.getExpression().getTipoexpresion().sufijo(); 
 		var hacia =  castExpresion.getTipoexpresion().sufijo();
+		if(desde == 'f' && hacia == 'b') {
+			out(desde+"2i"); 
+			out("i2"+hacia); 
+		}else if(desde == 'b' && hacia == 'f') {
+			out(desde+"2i"); 
+			out("i2"+hacia); 
+		}else {
+			
+			out(desde+"2"+hacia); 
+		}
 		
-		out(desde+"2"+hacia); 
 
 		return null;
 	}
@@ -182,7 +191,7 @@ public class Valor extends AbstractCodeFunction {
 			inst = "ne"; break; 
 		}
 	}
-		out(inst+logicExpression.getTipoexpresion().sufijo()); 
+		out(inst+logicExpression.getLeft().getTipoexpresion().sufijo()); 
 
 		return null;
 	}
@@ -238,6 +247,7 @@ public class Valor extends AbstractCodeFunction {
 		funcionExpresion.getArgumentos().forEach(p -> {
 			valor(p); 
 		});
+		out("call "+funcionExpresion.getNombre());
 
 		return null;
 	}

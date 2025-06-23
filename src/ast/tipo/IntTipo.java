@@ -96,6 +96,10 @@ public class IntTipo extends AbstractTipo  {
 		// TODO Auto-generated method stub
 		return 'i';
 	}
+	@Override
+	public String tipoMapl() {
+		return "int";
+	}
     // %% --------------------------------------
 
 }

@@ -96,6 +96,11 @@ public class CharTipo extends AbstractTipo  {
 		// TODO Auto-generated method stub
 		return 'b';
 	}
+	@Override
+	public String tipoMapl() {
+		return "byte";
+	}
     // %% --------------------------------------
+
 
 }

@@ -123,12 +123,14 @@ public class TypeChecking extends DefaultVisitor {
 			declaracionfuncion.setTipofunc(tipo); 
 		 });
 		 if(declaracionfuncion.getTipo().isEmpty()) {
-			 declaracionfuncion.setTipofunc(new VoidTipo()); 
+			 declaracionfuncion.setTipofunc(new VoidTipo());
+
 		 }; 
 		 
 		 
 		 declaracionfuncion.getVariablesLocales().forEach(definicion -> {definicion.accept(this, param);});
 		 declaracionfuncion.getSentencias().forEach(sentencia -> {sentencia.accept(this, param);});
+
 		//super.visit(declaracionfuncion, param);
 
 		return null;
@@ -263,6 +265,7 @@ public class TypeChecking extends DefaultVisitor {
 		if(returnSentencia.getDeclafuncion().getTipo().isEmpty()) {
 			 var cond = returnSentencia.getExpression().isEmpty();
 			 predicate(cond, "No puede tener expresion en función void", returnSentencia); 
+
 		}else if(returnSentencia.getDeclafuncion().getTipo().isPresent() && returnSentencia.getExpression().isPresent()) {
 			var cond = returnSentencia.getDeclafuncion().getTipo().get().mismoTipo(returnSentencia.getExpression().get().getTipoexpresion()); 
 			predicate(cond, "No coinciden los tipos de retorno", returnSentencia); 
@@ -270,7 +273,6 @@ public class TypeChecking extends DefaultVisitor {
 			var cond = returnSentencia.getExpression().isEmpty(); 
 			predicate(!cond, "Debe tener una expresión de retorno", returnSentencia);
 		}
-		
 
 		return null;
 	}
@@ -282,6 +284,8 @@ public class TypeChecking extends DefaultVisitor {
 
 		 ifSentencia.getCondicion().accept(this, param);
 		 
+		 
+
 		 predicate(IntTipo.class == ifSentencia.getCondicion().getTipoexpresion().getClass(),
 				 	"La condicion de un if debe ser un int",
 				 	ifSentencia); 
@@ -502,7 +506,10 @@ public class TypeChecking extends DefaultVisitor {
 		var tipo2 = logicExpression.getRight().getTipoexpresion();
 		
 		var cond = (tipo1.getClass() == IntTipo.class) || (tipo2.getClass() == IntTipo.class);
+		if(!cond)
+			cond = (tipo1.getClass() == FloatTipo.class) || (tipo2.getClass() == FloatTipo.class);
 		predicate(cond, "ambos operandos tienen que ser enteros", logicExpression); 
+		
 		var cond2 = (tipo1.getClass() == tipo2.getClass()); 
 		predicate(cond2, "ambos operandos deben ser del mismo tipo", logicExpression); 
 		
@@ -510,7 +517,7 @@ public class TypeChecking extends DefaultVisitor {
 		
 		// TODO: Remember to initialize SYNTHESIZED attributes <-----
 		// logicExpression.setTipoexpresion(?);
-		logicExpression.setTipoexpresion(logicExpression.getLeft().getTipoexpresion());
+		logicExpression.setTipoexpresion(new IntTipo("0"));
 		// logicExpression.setLvalue(?);
 		logicExpression.setLvalue(false);
 		return null;
@@ -530,7 +537,7 @@ public class TypeChecking extends DefaultVisitor {
 		
 		// TODO: Remember to initialize SYNTHESIZED attributes <-----
 		// boolExpression.setTipoexpresion(?);
-		boolExpression.setTipoexpresion(boolExpression.getLeft().getTipoexpresion());
+		boolExpression.setTipoexpresion(new IntTipo("0"));
 		// boolExpression.setLvalue(?);
 		boolExpression.setLvalue(false);
 		return null;
@@ -548,8 +555,17 @@ public class TypeChecking extends DefaultVisitor {
 		var cond =predicate(acederCap.getLeft().getTipoexpresion().getClass() == StringTipo.class, "acesso a no-array", acederCap);
 		
 		if(cond) {
-			IdentificadorExpresion exp = (IdentificadorExpresion) acederCap.getLeft();
-			StringTipo est = (StringTipo) exp.getTipoexpresion();
+		
+			var aux = acederCap.getLeft(); 
+			StringTipo est = null; 
+			if(aux.getClass() == IdentificadorExpresion.class) {
+				IdentificadorExpresion exp = (IdentificadorExpresion) acederCap.getLeft();				
+				est = (StringTipo) exp.getTipoexpresion();
+			}else {
+				AccessoArrayExpresion exp = (AccessoArrayExpresion) acederCap.getLeft(); 
+				est = (StringTipo) exp.getTipoexpresion(); 
+			}
+			
 			var listadef = variables.getFromAny(est.getName());
 			for(Definicion def : listadef) {
 				if(def.getIDENT().equals(acederCap.getRight())) {

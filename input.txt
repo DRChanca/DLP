@@ -1,29 +1,31 @@
-var a:int;
-var b:float;
-
-struct Punto {
-	x:float;
-	y:float;
-}
-
-var v:[5]int;
-var p:Punto;
-
 main() {
-	a = 1111;
-	b = 2222.2;
-	v[3] = 3333;
-	p.y = 4444.4;
-		
-	printsp a;		    // 1111
-	printsp b + p.y;	// 6666.6
-	println v[3];		// 3333
+    var a:int;
+    var f:float;
+    var c:char;
+
+    read c;
+    read f;
+    read a;
 
 
-	print a > 0 && 222 < 333;	// 1
-	print <int>(b);			// 2222
+    println c;
+    c = <char>(f);
+    println c;
+    c = <char>(a);
+    println c;
+    println;
 
-    // Al final debería salir:
-    // 1111 6666.6 3333
-    // 12222
+    println f;
+    f = <float>(a);
+    println f;
+    f = <float>(c);
+    println f;
+    println;
+
+    println a;
+    a = <int>(f);
+    println a;
+    a = <int>(c);
+    println a;
+
 }

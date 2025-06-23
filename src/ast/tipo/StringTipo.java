@@ -132,6 +132,10 @@ public class StringTipo extends AbstractTipo  {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	@Override
+	public String tipoMapl() {
+		return this.getName();
+	}
     // %% --------------------------------------
 
 }

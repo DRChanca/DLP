@@ -123,6 +123,13 @@ public class ArrayTipo extends AbstractTipo  {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public String tipoMapl() {
+		var aux= this.tamArray + " * "+this.getTipo().tipoMapl(); 
+		return aux;
+	}
+
     // %% --------------------------------------
 
 }

@@ -1,73 +1,181 @@
 
 #SOURCE	"input.txt"
 
+call main
+halt
+#func main
+main:
+#local a:int
+#local f:real
+#local c:byte
+#ret void
+enter 7
+pusha BP 
+pusha 7
+subi
+inb
+storeb
+pusha BP 
+pusha 6
+subi
+inf
+storef
+pusha BP 
+pusha 2
+subi
+ini
+storei
+
+#line 11
+pusha BP 
+pusha 7
+subi
+loadb
+outb
+pushb 10
+outb
+
+#line 12
+pusha BP 
+pusha 7
+subi
+pusha BP 
+pusha 6
+subi
+loadf
+f2i
+i2b
+storeb
 
 #line 13
-pusha 0
-pushi 1111
-storei
+pusha BP 
+pusha 7
+subi
+loadb
+outb
+pushb 10
+outb
 
 #line 14
+pusha BP 
+pusha 7
+subi
+pusha BP 
 pusha 2
-pushf 2222.2
-storef
+subi
+loadi
+i2b
+storeb
 
 #line 15
-pusha 6
-pushi 3
-pushi 2
-muli
-addi
-pushi 3333
-storei
-
-#line 16
-pusha 16
-pushf 4444.4
-storef
+pusha BP 
+pusha 7
+subi
+loadb
+outb
+pushb 10
+outb
+pushb 10
+outb
 
 #line 18
-pusha 0
-loadi
-outi
-pushb 32
+pusha BP 
+pusha 6
+subi
+loadf
+outf
+pushb 10
 outb
 
 #line 19
+pusha BP 
+pusha 6
+subi
+pusha BP 
 pusha 2
-loadf
-pusha 16
-loadf
-addf
-outf
-pushb 32
-outb
+subi
+loadi
+i2f
+storef
 
 #line 20
+pusha BP 
 pusha 6
-pushi 3
-pushi 2
-muli
-addi
+subi
+loadf
+outf
+pushb 10
+outb
+
+#line 21
+pusha BP 
+pusha 6
+subi
+pusha BP 
+pusha 7
+subi
+loadb
+b2i
+i2f
+storef
+
+#line 22
+pusha BP 
+pusha 6
+subi
+loadf
+outf
+pushb 10
+outb
+pushb 10
+outb
+
+#line 25
+pusha BP 
+pusha 2
+subi
 loadi
 outi
 pushb 10
 outb
 
-#line 23
-pusha 0
-loadi
-pushi 0
-gti
-pushi 222
-pushi 333
-lti
-and
-outi
-
-#line 24
+#line 26
+pusha BP 
 pusha 2
+subi
+pusha BP 
+pusha 6
+subi
 loadf
 f2i
+storei
+
+#line 27
+pusha BP 
+pusha 2
+subi
+loadi
 outi
-halt
+pushb 10
+outb
+
+#line 28
+pusha BP 
+pusha 2
+subi
+pusha BP 
+pusha 7
+subi
+loadb
+b2i
+storei
+
+#line 29
+pusha BP 
+pusha 2
+subi
+loadi
+outi
+pushb 10
+outb
+ret 0, 7, 0
