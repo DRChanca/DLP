@@ -3,179 +3,209 @@
 
 call main
 halt
-#func main
-main:
-#local a:int
-#local f:real
-#local c:byte
-#ret void
-enter 7
-pusha BP 
-pusha 7
-subi
-inb
-storeb
-pusha BP 
-pusha 6
-subi
-inf
-storef
-pusha BP 
-pusha 2
-subi
-ini
-storei
+#func potencia
+potencia:
+#param base:real
+#param exponente:int
+#local total:real
+#ret real
+enter 4
 
-#line 11
-pusha BP 
-pusha 7
-subi
-loadb
-outb
-pushb 10
-outb
-
-#line 12
-pusha BP 
-pusha 7
-subi
-pusha BP 
-pusha 6
-subi
-loadf
-f2i
-i2b
-storeb
-
-#line 13
-pusha BP 
-pusha 7
-subi
-loadb
-outb
-pushb 10
-outb
-
-#line 14
-pusha BP 
-pusha 7
-subi
-pusha BP 
-pusha 2
-subi
+#line 29
+pusha BP
+pusha 4
+add
 loadi
-i2b
-storeb
-
-#line 15
-pusha BP 
-pusha 7
-subi
-loadb
-outb
-pushb 10
-outb
-pushb 10
-outb
-
-#line 18
-pusha BP 
-pusha 6
-subi
-loadf
-outf
-pushb 10
-outb
-
-#line 19
-pusha BP 
-pusha 6
-subi
-pusha BP 
-pusha 2
-subi
-loadi
-i2f
-storef
-
-#line 20
-pusha BP 
-pusha 6
-subi
-loadf
-outf
-pushb 10
-outb
+pushi 0
+eqi
+jz else_211
 
 #line 21
 pusha BP 
-pusha 6
+pusha 4
 subi
-pusha BP 
-pusha 7
-subi
-loadb
-b2i
-i2f
+pushf 1.0
 storef
+jmp end_if_else_211
+else_211:
 
-#line 22
-pusha BP 
-pusha 6
-subi
-loadf
-outf
-pushb 10
-outb
-pushb 10
-outb
-
-#line 25
-pusha BP 
-pusha 2
-subi
+#line 29
+pusha BP
+pusha 4
+add
 loadi
-outi
-pushb 10
-outb
+pushi 0
+lti
+jz else_183
+
+#line 24
+pusha BP 
+pusha 4
+subi
+pushf 1.0
+pusha BP
+pusha 6
+add
+loadf
+pushi 0
+pusha BP
+pusha 4
+add
+loadi
+subi
+call potencia
+divf
+storef
+jmp end_if_else_183
+else_183:
 
 #line 26
 pusha BP 
-pusha 2
+pusha 4
 subi
-pusha BP 
+pusha BP
 pusha 6
-subi
+add
 loadf
-f2i
-storei
-
-#line 27
-pusha BP 
-pusha 2
-subi
+storef
+inicio_condicion457:
+pusha BP
+pusha 4
+add
 loadi
-outi
-pushb 10
-outb
+pushi 1
+gti
+jz final_condicion457
 
 #line 28
 pusha BP 
-pusha 2
+pusha 4
 subi
 pusha BP 
-pusha 7
+pusha 4
 subi
-loadb
-b2i
-storei
+loadf
+pusha BP
+pusha 6
+add
+loadf
+mulf
+storef
 
 #line 29
+pusha BP
+pusha 4
+add
+pusha BP
+pusha 4
+add
+loadi
+pushi 1
+subi
+storei
+jmp inicio_condicion457
+final_condicion457:
+end_if_else_183:
+end_if_else_211:
 pusha BP 
-pusha 2
+pusha 4
+subi
+loadf
+ret 4, 4, 6
+#func letraHipoteca
+letraHipoteca:
+#param capital:real
+#param meses:int
+#param interes:real
+#local mensual:real
+#ret real
+enter 4
+
+#line 40
+pusha BP 
+pusha 4
+subi
+pusha BP
+pusha 4
+add
+loadf
+pushf 12.0
+divf
+storef
+pusha BP
+pusha 10
+add
+loadf
+pusha BP 
+pusha 4
+subi
+loadf
+mulf
+pushf 100.0
+pushf 1.0
+pushf 1.0
+pusha BP 
+pusha 4
+subi
+loadf
+pushf 100.0
+divf
+addf
+pushi 0
+pusha BP
+pusha 8
+add
+loadi
+subi
+call potencia
+subf
+mulf
+divf
+ret 4, 4, 10
+#func main
+main:
+#local precioVivienda:real
+#local mesesHipoteca:int
+#local interes:real
+#ret void
+enter 10
+
+#line 55
+pusha BP 
+pusha 4
+subi
+pushf 200000.0
+storef
+
+#line 56
+pusha BP 
+pusha 6
+subi
+pushi 30
+pushi 12
+muli
+storei
+
+#line 57
+pusha BP 
+pusha 10
+subi
+pushf 2.04
+storef
+
+#line 59
+pusha BP 
+pusha 4
+subi
+loadf
+pusha BP 
+pusha 6
 subi
 loadi
-outi
-pushb 10
-outb
-ret 0, 7, 0
+pusha BP 
+pusha 10
+subi
+loadf
+call letraHipoteca
+outf
+ret 0, 10, 0
