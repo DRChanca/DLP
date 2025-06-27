@@ -64,6 +64,8 @@ public class Define extends AbstractCodeFunction {
 		ejecuta(declaracionfuncion.sentencias());
 		if(declaracionfuncion.getTipo().isEmpty())
 			out("ret 0, "+acumuladorVar+", "+acumuladorParam); 
+		else
+			out("ret "+declaracionfuncion.getTipo().get().getSize()+", "+acumuladorVar+", "+acumuladorParam); 
 
 
 		return null;

@@ -32,6 +32,7 @@ public class Main {
     public static final String OUTPUT_FILE = "output.txt";
 
     public static void main(String[] args) throws Exception {
+
         ErrorManager errorManager = new ErrorManager();
 
         var inputFile = TEST_FILE; // TODO: Replace `TEST_FILE` with `args[0]` in the final version

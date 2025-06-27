@@ -85,22 +85,6 @@ public class Direccion extends AbstractCodeFunction {
 		return null;
 	}
 
-	// class NegacionExpresion(Expression expression)
-	// phase TypeChecking { Tipo tipoexpresion, boolean lvalue }
-	@Override
-	public Object visit(NegacionExpresion negacionExpresion, Object param) {
-
-		// valor(negacionExpresion.getExpression());
-		// direccion(negacionExpresion.getExpression());
-
-		out("<instruction>");
-
-		return null;
-	}
-
-
-
-
 	// class AcederCap(Expression left, String right)
 	// phase TypeChecking { Tipo tipoexpresion, boolean lvalue }
 	@Override

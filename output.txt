@@ -11,34 +11,34 @@ potencia:
 #ret real
 enter 4
 
-#line 29
+#line 21
 pusha BP
 pusha 4
 add
 loadi
 pushi 0
 eqi
-jz else_211
+jz else_157
 
-#line 21
+#line 13
 pusha BP 
 pusha 4
 subi
 pushf 1.0
 storef
-jmp end_if_else_211
-else_211:
+jmp end_if_else_157
+else_157:
 
-#line 29
+#line 21
 pusha BP
 pusha 4
 add
 loadi
 pushi 0
 lti
-jz else_183
+jz else_161
 
-#line 24
+#line 16
 pusha BP 
 pusha 4
 subi
@@ -56,10 +56,10 @@ subi
 call potencia
 divf
 storef
-jmp end_if_else_183
-else_183:
+jmp end_if_else_161
+else_161:
 
-#line 26
+#line 18
 pusha BP 
 pusha 4
 subi
@@ -68,16 +68,16 @@ pusha 6
 add
 loadf
 storef
-inicio_condicion457:
+inicio_condicion214:
 pusha BP
 pusha 4
 add
 loadi
 pushi 1
 gti
-jz final_condicion457
+jz final_condicion214
 
-#line 28
+#line 20
 pusha BP 
 pusha 4
 subi
@@ -92,7 +92,7 @@ loadf
 mulf
 storef
 
-#line 29
+#line 21
 pusha BP
 pusha 4
 add
@@ -103,10 +103,10 @@ loadi
 pushi 1
 subi
 storei
-jmp inicio_condicion457
-final_condicion457:
-end_if_else_183:
-end_if_else_211:
+jmp inicio_condicion214
+final_condicion214:
+end_if_else_161:
+end_if_else_157:
 pusha BP 
 pusha 4
 subi
@@ -121,7 +121,7 @@ letraHipoteca:
 #ret real
 enter 4
 
-#line 40
+#line 32
 pusha BP 
 pusha 4
 subi
@@ -170,14 +170,14 @@ main:
 #ret void
 enter 10
 
-#line 55
+#line 47
 pusha BP 
 pusha 4
 subi
 pushf 200000.0
 storef
 
-#line 56
+#line 48
 pusha BP 
 pusha 6
 subi
@@ -186,14 +186,14 @@ pushi 12
 muli
 storei
 
-#line 57
+#line 49
 pusha BP 
 pusha 10
 subi
 pushf 2.04
 storef
 
-#line 59
+#line 51
 pusha BP 
 pusha 4
 subi
@@ -208,4 +208,6 @@ subi
 loadf
 call letraHipoteca
 outf
+pushb 10
+outb
 ret 0, 10, 0

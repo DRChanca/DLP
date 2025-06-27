@@ -1,17 +1,9 @@
 /*
-Test para probar la Fase de Generación de Código
+ Hipoteca.txt v1.3
 
-COMPROBACION. Al ejecutar el programa deberá salir:
-743,2314
+- Programa de ejemplo que muestra las características del lenguaje
+- La sintaxis tiene que ser obligatoriamente la que se muestra en este ejemplo
 
-CONSEJO: No limitarse a comprobar el resultado de la ejecución. Se recomienda además abrir el fichero generado usando el depurador GVM y comprobar sus instrucciones.
-
-Para facilitar esta tarea es de gran utilidad que el alumno haya generado directivas '#line' en el fichero de salida.
-Para información sobre la función de dicha directiva se debe abrir con GVM el siguiente tutorial: 
-Tutorial\3 Uso básico del depurador\4 Fusión Alto Nivel.txt
-
-NOTA: Es posible que el alumno deba adaptar ligeramente la sintaxis de este ejemplo si no coincide
-con la del lenguaje que le corresponde.
 */
 
 potencia(base:float, exponente:int):float {
@@ -56,7 +48,7 @@ main() {
 	mesesHipoteca = 30 * 12;
 	interes = 2.04;	
 
-	print letraHipoteca(precioVivienda, mesesHipoteca, interes);
+	println letraHipoteca(precioVivienda, mesesHipoteca, interes);
 
 //	Con los datos anteriores deberían salir (redondeando) 743 euros de letra al mes
 

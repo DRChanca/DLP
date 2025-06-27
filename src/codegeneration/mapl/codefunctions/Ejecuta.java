@@ -140,17 +140,7 @@ public class Ejecuta extends AbstractCodeFunction {
 		 if(returnSentencia.getExpression().isPresent()) {
 			 valor(returnSentencia.getExpression().get());
 		 
-		 int returnSize = returnSentencia.getExpression().get().getTipoexpresion().getSize(); 
-		 int variablesLocalesSize = returnSentencia.getDeclafuncion().getVariablesLocales()
-				 .stream()
-				 .mapToInt(p-> p.getTipo().getSize())
-				 .sum(); 
-		 int parametrosSize = returnSentencia.getDeclafuncion().getArgumento()
-				 .stream()
-				 .mapToInt(p -> p.getTipo().getSize())
-				 .sum(); 
-		
-		 out("ret "+returnSize+", "+variablesLocalesSize+", "+parametrosSize); 
+		 //out("ret "+returnSize+", "+variablesLocalesSize+", "+parametrosSize); 
 		 }
 
 		return null;
