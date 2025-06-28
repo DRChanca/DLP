@@ -93,7 +93,7 @@ public class Direccion extends AbstractCodeFunction {
 		direccion(acederCap.getLeft()); 
 		var struct = (StringTipo)acederCap.getLeft().getTipoexpresion();
 		struct.getDefinicions().forEach(p -> {
-			if(p.getIDENT().equalsIgnoreCase(acederCap.getRight())) {	
+			if(p.getIDENT().equals(acederCap.getRight())) {	
 				out("pushi "+p.getAddress()); 
 			}
 		}); 

@@ -404,7 +404,7 @@ public class TypeChecking extends DefaultVisitor {
 		// TODO: Remember to initialize SYNTHESIZED attributes <-----
 		// parentesisExpresion.setTipoexpresion(?);
 		parentesisExpresion.setTipoexpresion(parentesisExpresion.getExpression().getTipoexpresion());
-		// parentesisExpresion.setLvalue(?);
+		parentesisExpresion.setLvalue(false);
 		return null;
 	}
 

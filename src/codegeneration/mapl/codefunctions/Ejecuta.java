@@ -154,16 +154,16 @@ public class Ejecuta extends AbstractCodeFunction {
 		
 		valor(ifSentencia.getCondicion());
 		
-		var valorAleatorio = r.nextInt(0, 500);
+		var valorAleatorio = r.nextInt(0, 50000);
 		var etiquetaElse = "else_"+valorAleatorio; 
 		var etiquetaFinal = "end_if_else_"+valorAleatorio;
 		
 		if(ifSentencia.otro().count() != 0) {
 			out("jz "+etiquetaElse); 
-			ifSentencia.getEntonces().forEach( p -> p.accept(this, param));
+			ifSentencia.getEntonces().forEach( p -> ejecuta(p));
 			out("jmp "+etiquetaFinal);
 			out(etiquetaElse+":"); 
-			ifSentencia.getOtro().forEach(p -> p.accept(this, param));
+			ifSentencia.getOtro().forEach(p -> ejecuta(p));
 		}else {
 			out("jz "+etiquetaFinal); 
 			ifSentencia.getEntonces().forEach( p -> p.accept(this, param));
@@ -191,7 +191,7 @@ public class Ejecuta extends AbstractCodeFunction {
 		// valor(whileSentencia.getCondicion());
 		// direccion(whileSentencia.getCondicion());
 		// ejecuta(whileSentencia.entonces());
-		int numero = r.nextInt(0,500); 
+		int numero = r.nextInt(0,50000); 
 		String inicio_condicion = "inicio_condicion"+numero; 
 		String final_condicion = "final_condicion"+numero; 
 		out(inicio_condicion+":"); 
