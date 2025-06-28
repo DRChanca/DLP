@@ -137,10 +137,21 @@ public class Ejecuta extends AbstractCodeFunction {
 	public Object visit(ReturnSentencia returnSentencia, Object param) {
 
 		// direccion(returnSentencia.getExpression());
-		 if(returnSentencia.getExpression().isPresent()) {
-			 valor(returnSentencia.getExpression().get());
+		if(returnSentencia.getExpression().isPresent()) {
+			valor(returnSentencia.getExpression().get());
+			
+			
+		 int returnSize = returnSentencia.getExpression().get().getTipoexpresion().getSize(); 
+		 int variablesLocalesSize = returnSentencia.getDeclafuncion().getVariablesLocales()
+				 .stream()
+				 .mapToInt(p-> p.getTipo().getSize())
+				 .sum(); 
+		 int parametrosSize = returnSentencia.getDeclafuncion().getArgumento()
+				 .stream()
+				 .mapToInt(p -> p.getTipo().getSize())
+				 .sum();
 		 
-		 //out("ret "+returnSize+", "+variablesLocalesSize+", "+parametrosSize); 
+		 out("ret "+returnSize+", "+variablesLocalesSize+", "+parametrosSize); 
 		 }
 
 		return null;
