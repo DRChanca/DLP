@@ -101,5 +101,4 @@ public class IntTipo extends AbstractTipo  {
 		return "int";
 	}
     // %% --------------------------------------
-
 }

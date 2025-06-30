@@ -101,6 +101,4 @@ public class CharTipo extends AbstractTipo  {
 		return "byte";
 	}
     // %% --------------------------------------
-
-
 }

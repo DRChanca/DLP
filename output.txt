@@ -18,7 +18,7 @@ add
 loadi
 pushi 0
 eqi
-jz else_47438
+jz else_47026
 
 #line 21
 pusha BP 
@@ -26,8 +26,8 @@ pusha 4
 subi
 pushf 1.0
 storef
-jmp end_if_else_47438
-else_47438:
+jmp end_if_else_47026
+else_47026:
 
 #line 29
 pusha BP
@@ -36,7 +36,7 @@ add
 loadi
 pushi 0
 lti
-jz else_46008
+jz else_31412
 
 #line 24
 pusha BP 
@@ -56,8 +56,8 @@ subi
 call potencia
 divf
 storef
-jmp end_if_else_46008
-else_46008:
+jmp end_if_else_31412
+else_31412:
 
 #line 26
 pusha BP 
@@ -68,14 +68,14 @@ pusha 6
 add
 loadf
 storef
-inicio_condicion4750:
+inicio_condicion40537:
 pusha BP
 pusha 4
 add
 loadi
 pushi 1
 gti
-jz final_condicion4750
+jz final_condicion40537
 
 #line 28
 pusha BP 
@@ -103,10 +103,10 @@ loadi
 pushi 1
 subi
 storei
-jmp inicio_condicion4750
-final_condicion4750:
-end_if_else_46008:
-end_if_else_47438:
+jmp inicio_condicion40537
+final_condicion40537:
+end_if_else_31412:
+end_if_else_47026:
 pusha BP 
 pusha 4
 subi

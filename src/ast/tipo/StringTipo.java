@@ -137,5 +137,4 @@ public class StringTipo extends AbstractTipo  {
 		return this.getName();
 	}
     // %% --------------------------------------
-
 }

@@ -101,5 +101,4 @@ public class FloatTipo extends AbstractTipo  {
 		return "real";
 	}
     // %% --------------------------------------
-
 }

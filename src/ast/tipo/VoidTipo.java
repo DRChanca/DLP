@@ -55,5 +55,4 @@ public class VoidTipo extends AbstractTipo  {
 		return "void";
 	}
     // %% --------------------------------------
-
 }
