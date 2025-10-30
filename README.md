@@ -1,3 +1,1 @@
-Proyecto de DLP, se ire desarrolando....
-
-Ya se realizo la practica de las semana del 20/02
+Compilador.
